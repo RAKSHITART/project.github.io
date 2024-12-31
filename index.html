@@ -1,224 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our GitHub Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>GitHub Portfolio - Our Project</title>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-color: #f4f4f4;
+            color: #333;
         }
-
         header {
-            background-color: #333;
+            background-color: #6200ea;
             color: white;
             padding: 1.5rem;
             text-align: center;
         }
-
-        .container {
-            width: 90%;
-            margin: auto;
-            max-width: 1200px;
-        }
-
-        h1, h2 {
+        header h1 {
+            margin: 0;
             font-size: 2.5rem;
         }
-
-        .intro {
-            text-align: center;
-            margin: 3rem 0;
-        }
-
-        .team-section {
+        nav {
+            background-color: #3700b3;
+            padding: 0.5rem;
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 3rem;
+            justify-content: center;
         }
-
-        .team-member {
-            background-color: #fff;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 30%;
-            text-align: center;
-        }
-
-        .team-member img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1rem;
-        }
-
-        .team-member h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .section {
-            margin: 3rem 0;
-        }
-
-        .project-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-
-        .project-card {
-            background-color: #fff;
-            padding: 1.5rem;
-            border-radius: 8px;
-            width: 45%;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        footer {
-            background-color: #333;
+        nav a {
             color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 2rem;
+        }
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .team {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .team .member {
+            text-align: center;
+            margin: 1rem;
+            padding: 1rem;
+            background: #e8f5e9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        footer {
             text-align: center;
             padding: 1rem;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+            background-color: #6200ea;
+            color: white;
+            margin-top: 2rem;
+        }
+        .projects ul {
+            list-style: none;
+            padding: 0;
+        }
+        .projects ul li {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: #ede7f6;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-
 <body>
-
     <header>
-        <div class="container">
-            <h1>Welcome to Our GitHub Portfolio</h1>
-            <p>We are a team of passionate developers working together to create innovative projects!</p>
-        </div>
+        <h1>Welcome to Our GitHub Project Portfolio</h1>
+        <p>A showcase of our work and achievements</p>
     </header>
-
-    <section class="intro">
-        <div class="container">
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#team">Team</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <main>
+        <section id="home" class="section">
+            <h2>About the Project</h2>
+            <p>This portfolio demonstrates the work of our team in building innovative solutions and collaborative projects. Explore our journey, meet our team, and check out our projects below.</p>
+        </section>
+        <section id="team" class="section">
             <h2>Meet the Team</h2>
-            <p>Each of us brings a unique skill set to the table, and together we make amazing things happen!</p>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <h2>Design and Analysis of Algorithms</h2>
-            <p>This course offers an in-depth exploration of the core principles behind algorithms and data structures, focusing on their development, optimization, and real-world applications.</p>
-            <h3>Course Highlights</h3>
-            <ul>
-                <li><strong>Core Principles:</strong> Investigate time and space complexities, master recursive strategies, and understand backtracking methods.</li>
-                <li><strong>Advanced Data Structures:</strong> Gain expertise in hashing techniques, Union-Find operations, AVL Trees, Segment Trees, and Red-Black Trees.</li>
-                <li><strong>Optimized Algorithms:</strong> Learn efficient sorting and searching approaches such as Quick Sort, KMP, and Rabin-Karp algorithms.</li>
-                <li><strong>Graph-Based Solutions:</strong> Study algorithms for shortest paths like Dijkstra’s, spanning trees such as Prim’s, and complex challenges like the Travelling Salesperson Problem.</li>
-                <li><strong>Theoretical Foundations:</strong> Explore NP-completeness and the inherent limitations of computational approaches.</li>
-            </ul>
-            <p>By completing this course, students will build a solid base in solving computational problems and be equipped with the tools to design efficient solutions for challenging scenarios.</p>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <h2>Our Journey Through Algorithms</h2>
-            <p><strong>Math Foundations:</strong> We began our exploration of algorithms by establishing a solid foundation in mathematics. These principles are crucial to understanding the fundamentals of algorithm design and analysis.</p>
-            <p><strong>Orders of Growth:</strong> We explored the mathematical principles behind orders of growth, assessing and comparing the efficiency of different solutions.</p>
-            <p><strong>Structured Data Management:</strong> We delved into data structures like binary trees, AVL trees, Red-Black trees, Skip Lists, and more, learning how to manage and organize data effectively.</p>
-            <p><strong>Key Takeaways:</strong> This foundational knowledge has equipped us with the tools to explore the world of algorithms and tackle more intricate challenges ahead.</p>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <h2>Data Structures Overview</h2>
-            <h3>Linear Data Structures</h3>
-            <ul>
-                <li><strong>Arrays:</strong> A collection of elements stored in contiguous memory locations.</li>
-                <li><strong>Stacks:</strong> A Last-In-First-Out (LIFO) data structure.</li>
-                <li><strong>Queues:</strong> A First-In-First-Out (FIFO) data structure.</li>
-            </ul>
-
-            <h3>Trees</h3>
-            <ul>
-                <li><strong>Binary Search Trees (BST):</strong> A tree where each node has at most two children.</li>
-                <li><strong>AVL Trees:</strong> A self-balancing binary search tree.</li>
-                <li><strong>Red-Black Trees:</strong> A self-balancing BST with rules to maintain balance.</li>
-                <li><strong>2-3 Trees:</strong> A balanced search tree.</li>
-                <li><strong>Tries:</strong> A tree for storing strings.</li>
-            </ul>
-
-            <h3>Graph Structures</h3>
-            <ul>
-                <li><strong>Adjacency Matrix and List:</strong> Ways to represent graphs.</li>
-                <li><strong>Directed and Undirected Graphs:</strong> Graphs with and without edge direction.</li>
-            </ul>
-
-            <h3>Specialized Structures</h3>
-            <ul>
-                <li><strong>Heaps:</strong> A tree-based structure where the parent node is always larger (max-heap) or smaller (min-heap) than its children.</li>
-                <li><strong>Segment Trees:</strong> A tree used for range queries and updates on an array.</li>
-                <li><strong>Skip Lists:</strong> A linked list with layers for faster operations.</li>
-            </ul>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <h2>Project Overview</h2>
-            <p>In this project, we applied algorithms and concepts from the course to real-world scenarios like mall management. Here’s how we approached it:</p>
- 
-            <h3>Concepts Applied</h3>
-            <ul>
-                <li><strong>Finding Shortest Routes:</strong> We used Dijkstra’s Algorithm for optimal routes.</li>
-                <li><strong>Planning Emergency Evacuation:</strong> BFS and DFS to design safe evacuation routes.</li>
-                <li><strong>Tracking Mall Revenue:</strong> Binary Search Tree for revenue tracking.</li>
-                <li><strong>Ranking Store Popularity:</strong> Merge Sort for accurate data sorting.</li>
-                <li><strong>Optimizing ATM Placement:</strong> Floyd’s Algorithm to find optimal locations.</li>
-                <li><strong>Mapping Wi-Fi Coverage Zones:</strong> Kruskal’s Algorithm for Wi-Fi placement.</li>
-            </ul>
-            <p>Through this project, we demonstrated how algorithms and data structures can address real-world challenges effectively.</p>
-        </div>
-    </section>
-
-    <!-- Team Members Section at the end -->
-    <section class="team-section">
-        <div class="team-member">
-            <img src="https://via.placeholder.com/150" alt="Rakshita">
-            <h3>Rakshita</h3>
-            <p>Front-End Developer</p>
-            <a href="https://github.com/rakshita" target="_blank">GitHub Profile</a>
-        </div>
-
-        <div class="team-member">
-            <img src="https://via.placeholder.com/150" alt="Michelle">
-            <h3>Michelle</h3>
-            <p>Back-End Developer</p>
-            <a href="https://github.com/michelle" target="_blank">GitHub Profile</a>
-        </div>
-
-        <div class="team-member">
-            <img src="https://via.placeholder.com/150" alt="Tanuja">
-            <h3>Tanuja</h3>
-            <p>Full Stack Developer</p>
-            <a href="https://github.com/tanuja" target="_blank">GitHub Profile</a>
-        </div>
-    </section>
-
+            <div class="team">
+                <div class="member">
+                    <h3>Rakshita</h3>
+                    <p>Role: Developer</p>
+                </div>
+                <div class="member">
+                    <h3>Michelle</h3>
+                    <p>Role: Designer</p>
+                </div>
+                <div class="member">
+                    <h3>Tanuja</h3>
+                    <p>Role: Project Manager</p>
+                </div>
+            </div>
+        </section>
+        <section id="projects" class="section">
+            <h2>Our Projects</h2>
+            <div class="projects">
+                <ul>
+                    <li>
+                        <h3>Project 1: Algorithm Visualizer</h3>
+                        <p>A tool to visualize and understand complex algorithms in real-time.</p>
+                    </li>
+                    <li>
+                        <h3>Project 2: Data Analysis Dashboard</h3>
+                        <p>An interactive platform for exploring and analyzing datasets effectively.</p>
+                    </li>
+                    <li>
+                        <h3>Project 3: Collaborative Task Manager</h3>
+                        <p>A web application to manage team tasks and enhance productivity.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section id="contact" class="section">
+            <h2>Contact Us</h2>
+            <p>Email: <a href="mailto:team@example.com">team@example.com</a></p>
+        </section>
+    </main>
     <footer>
-        <p>&copy; 2024 Your Team. All rights reserved.</p>
+        <p>&copy; 2024 GitHub Portfolio Team. All rights reserved.</p>
     </footer>
-
 </body>
-
 </html>
