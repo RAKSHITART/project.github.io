@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our GitHub Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style> 
+    <style>
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -66,9 +66,8 @@
             margin-bottom: 0.5rem;
         }
 
-        .projects {
-            text-align: center;
-            margin-bottom: 3rem;
+        .section {
+            margin: 3rem 0;
         }
 
         .project-list {
@@ -84,16 +83,6 @@
             width: 45%;
             margin-bottom: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-card h4 {
-            margin-bottom: 1rem;
-        }
-
-        .project-card a {
-            text-decoration: none;
-            color: #007bff;
-            font-weight: 600;
         }
 
         footer {
@@ -124,6 +113,85 @@
         </div>
     </section>
 
+    <section class="section">
+        <div class="container">
+            <h2>Design and Analysis of Algorithms</h2>
+            <p>This course offers an in-depth exploration of the core principles behind algorithms and data structures, focusing on their development, optimization, and real-world applications.</p>
+            <h3>Course Highlights</h3>
+            <ul>
+                <li><strong>Core Principles:</strong> Investigate time and space complexities, master recursive strategies, and understand backtracking methods.</li>
+                <li><strong>Advanced Data Structures:</strong> Gain expertise in hashing techniques, Union-Find operations, AVL Trees, Segment Trees, and Red-Black Trees.</li>
+                <li><strong>Optimized Algorithms:</strong> Learn efficient sorting and searching approaches such as Quick Sort, KMP, and Rabin-Karp algorithms.</li>
+                <li><strong>Graph-Based Solutions:</strong> Study algorithms for shortest paths like Dijkstra’s, spanning trees such as Prim’s, and complex challenges like the Travelling Salesperson Problem.</li>
+                <li><strong>Theoretical Foundations:</strong> Explore NP-completeness and the inherent limitations of computational approaches.</li>
+            </ul>
+            <p>By completing this course, students will build a solid base in solving computational problems and be equipped with the tools to design efficient solutions for challenging scenarios.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>Our Journey Through Algorithms</h2>
+            <p><strong>Math Foundations:</strong> We began our exploration of algorithms by establishing a solid foundation in mathematics. These principles are crucial to understanding the fundamentals of algorithm design and analysis.</p>
+            <p><strong>Orders of Growth:</strong> We explored the mathematical principles behind orders of growth, assessing and comparing the efficiency of different solutions.</p>
+            <p><strong>Structured Data Management:</strong> We delved into data structures like binary trees, AVL trees, Red-Black trees, Skip Lists, and more, learning how to manage and organize data effectively.</p>
+            <p><strong>Key Takeaways:</strong> This foundational knowledge has equipped us with the tools to explore the world of algorithms and tackle more intricate challenges ahead.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>Data Structures Overview</h2>
+            <h3>Linear Data Structures</h3>
+            <ul>
+                <li><strong>Arrays:</strong> A collection of elements stored in contiguous memory locations.</li>
+                <li><strong>Stacks:</strong> A Last-In-First-Out (LIFO) data structure.</li>
+                <li><strong>Queues:</strong> A First-In-First-Out (FIFO) data structure.</li>
+            </ul>
+
+            <h3>Trees</h3>
+            <ul>
+                <li><strong>Binary Search Trees (BST):</strong> A tree where each node has at most two children.</li>
+                <li><strong>AVL Trees:</strong> A self-balancing binary search tree.</li>
+                <li><strong>Red-Black Trees:</strong> A self-balancing BST with rules to maintain balance.</li>
+                <li><strong>2-3 Trees:</strong> A balanced search tree.</li>
+                <li><strong>Tries:</strong> A tree for storing strings.</li>
+            </ul>
+
+            <h3>Graph Structures</h3>
+            <ul>
+                <li><strong>Adjacency Matrix and List:</strong> Ways to represent graphs.</li>
+                <li><strong>Directed and Undirected Graphs:</strong> Graphs with and without edge direction.</li>
+            </ul>
+
+            <h3>Specialized Structures</h3>
+            <ul>
+                <li><strong>Heaps:</strong> A tree-based structure where the parent node is always larger (max-heap) or smaller (min-heap) than its children.</li>
+                <li><strong>Segment Trees:</strong> A tree used for range queries and updates on an array.</li>
+                <li><strong>Skip Lists:</strong> A linked list with layers for faster operations.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>Project Overview</h2>
+            <p>In this project, we applied algorithms and concepts from the course to real-world scenarios like mall management. Here’s how we approached it:</p>
+
+            <h3>Concepts Applied</h3>
+            <ul>
+                <li><strong>Finding Shortest Routes:</strong> We used Dijkstra’s Algorithm for optimal routes.</li>
+                <li><strong>Planning Emergency Evacuation:</strong> BFS and DFS to design safe evacuation routes.</li>
+                <li><strong>Tracking Mall Revenue:</strong> Binary Search Tree for revenue tracking.</li>
+                <li><strong>Ranking Store Popularity:</strong> Merge Sort for accurate data sorting.</li>
+                <li><strong>Optimizing ATM Placement:</strong> Floyd’s Algorithm to find optimal locations.</li>
+                <li><strong>Mapping Wi-Fi Coverage Zones:</strong> Kruskal’s Algorithm for Wi-Fi placement.</li>
+            </ul>
+            <p>Through this project, we demonstrated how algorithms and data structures can address real-world challenges effectively.</p>
+        </div>
+    </section>
+
+    <!-- Team Members Section at the end -->
     <section class="team-section">
         <div class="team-member">
             <img src="https://via.placeholder.com/150" alt="Rakshita">
@@ -144,25 +212,6 @@
             <h3>Tanuja</h3>
             <p>Full Stack Developer</p>
             <a href="https://github.com/tanuja" target="_blank">GitHub Profile</a>
-        </div>
-    </section>
-
-    <section class="projects">
-        <div class="container">
-            <h2>Our Projects</h2>
-            <div class="project-list">
-                <div class="project-card">
-                    <h4>Project 1</h4>
-                    <p>This is a brief description of Project 1. It was built using HTML, CSS, and JavaScript.</p>
-                    <a href="https://github.com/your-team/project1" target="_blank">View Project</a>
-                </div>
-
-                <div class="project-card">
-                    <h4>Project 2</h4>
-                    <p>This is a brief description of Project 2. It utilizes React and Node.js for full-stack functionality.</p>
-                    <a href="https://github.com/your-team/project2" target="_blank">View Project</a>
-                </div>
-            </div>
         </div>
     </section>
 
