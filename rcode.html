@@ -61,6 +61,13 @@
         #rankingSection, #shortestPathsSection {
             display: none;
         }
+
+        .store-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #e2e2e2;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -84,7 +91,7 @@
                 <label for="positiveReviews">Positive Reviews:</label>
                 <input type="number" id="positiveReviews" required><br><br>
 
-                <button type="button" onclick="submitStoreDetails()">Submit Store Details</button>
+                <button type="button" onclick="submitStoreDetails()">Add Store</button>
             </form>
         </section>
 
@@ -111,12 +118,14 @@
     <script>
         let stores = [];
 
+        // Function to handle adding store details
         function submitStoreDetails() {
             let storeName = document.getElementById("storeName").value;
             let storeRevenue = document.getElementById("storeRevenue").value;
             let storeReviews = document.getElementById("storeReviews").value;
             let positiveReviews = document.getElementById("positiveReviews").value;
 
+            // Push the store data into the stores array
             stores.push({
                 name: storeName,
                 revenue: parseFloat(storeRevenue),
@@ -124,12 +133,39 @@
                 positiveReviews: parseInt(positiveReviews)
             });
 
+            // Clear input fields for next store
             document.getElementById("storeForm").reset();
+
+            // Optionally, show feedback that store was added
+            alert("Store added successfully!");
+
+            // Display the list of stores for reference
+            displayStores();
+        }
+
+        // Function to display the list of stores entered
+        function displayStores() {
+            let storeListHTML = "<h3>Store List:</h3>";
+            stores.forEach((store, index) => {
+                storeListHTML += `
+                    <div class="store-item">
+                        <strong>Store ${index + 1}:</strong> ${store.name}<br>
+                        Revenue: $${store.revenue}<br>
+                        Reviews: ${store.reviews}<br>
+                        Positive Reviews: ${store.positiveReviews}<br>
+                    </div>
+                `;
+            });
+
+            document.getElementById("storeDetailsSection").innerHTML += storeListHTML;
             document.getElementById("rankingSection").style.display = 'block';
         }
 
+        // Function to show ranked stores based on selected ranking method
         function showRankedStores() {
             let rankingMethod = document.getElementById("rankingMethod").value;
+
+            // Sort stores based on selected ranking method
             let rankedStores = stores.sort((a, b) => {
                 if (rankingMethod === "reviews") {
                     return b.reviews - a.reviews;
@@ -138,23 +174,22 @@
                 }
             });
 
+            // Display top stores
             let outputHTML = '<h3>Top Ranked Stores:</h3>';
-            rankedStores.forEach((store, index) => {
-                if (index < 3) {
-                    outputHTML += `
-                        <div>
-                            <h4>${store.name}</h4>
-                            <p>Reviews: ${store.reviews}</p>
-                            <p>Positive Reviews: ${store.positiveReviews}</p>
-                        </div>
-                    `;
-                }
+            rankedStores.slice(0, 3).forEach((store, index) => {
+                outputHTML += `
+                    <div>
+                        <h4>Rank ${index + 1}: ${store.name}</h4>
+                        <p>Reviews: ${store.reviews}</p>
+                        <p>Positive Reviews: ${store.positiveReviews}</p>
+                    </div>
+                `;
             });
 
             document.getElementById("rankedStores").innerHTML = outputHTML;
         }
 
-        // Placeholder for shortest path functionality (example without actual graph)
+        // Placeholder for shortest path functionality (can be expanded further with real path logic)
         function showShortestPaths() {
             let shortestPathsHTML = '<h3>Shortest Paths:</h3>';
             for (let i = 1; i <= stores.length; i++) {
