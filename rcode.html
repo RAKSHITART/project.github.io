@@ -73,7 +73,7 @@
     <script>
         let storeDetails = [];
         let connections = [];
-        
+
         // Step 1: Collect store details
         function addStoreInputs() {
             const numStores = document.getElementById('numStores').value;
@@ -193,12 +193,44 @@
             calculateShortestPaths();
         }
 
-        // Step 5: Calculate shortest paths (simplified)
+        // Step 5: Calculate shortest paths (Dijkstra's algorithm in JS)
         function calculateShortestPaths() {
+            const numStores = storeDetails.length;
+            let graph = Array.from({ length: numStores }, () => []);
+
+            // Build the graph with connections
+            connections.forEach(connection => {
+                graph[connection.store1].push({ node: connection.store2, weight: parseInt(connection.weight) });
+                graph[connection.store2].push({ node: connection.store1, weight: parseInt(connection.weight) });
+            });
+
+            // Dijkstra's Algorithm
+            let dist = Array(numStores).fill(Infinity);
+            let prev = Array(numStores).fill(-1);
+            dist[0] = 0;  // Start from store 1 (entrance)
+            let pq = [{ node: 0, dist: 0 }];
+            let visited = new Set();
+
+            while (pq.length > 0) {
+                let { node, dist: d } = pq.shift();
+                if (visited.has(node)) continue;
+                visited.add(node);
+
+                graph[node].forEach(neighbor => {
+                    let newDist = d + neighbor.weight;
+                    if (newDist < dist[neighbor.node]) {
+                        dist[neighbor.node] = newDist;
+                        prev[neighbor.node] = node;
+                        pq.push({ node: neighbor.node, dist: newDist });
+                    }
+                });
+            }
+
+            // Display shortest paths
             let shortestPathsHTML = '<ul>';
-            for (let i = 0; i < storeDetails.length; i++) {
+            for (let i = 1; i < numStores; i++) {
                 shortestPathsHTML += `
-                    <li>Store ${i + 1}: Distance = 20 meters (mock data)</li>
+                    <li>Store ${i + 1}: Distance = ${dist[i]} meters</li>
                 `;
             }
             shortestPathsHTML += '</ul>';
