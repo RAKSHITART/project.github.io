@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michelle Hoolgeri's City Design Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .heading {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .subheading {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <p class="name">Hello, This is Michelle Hoolgeri.</p>
+    <p>I’m someone who loves gaining knowledge, adapting to new things, and exploring how the world works. Whether it be through algorithms, patterns, or innovative ideas. I’m always curious about uncovering connections and understanding the deeper mechanisms that shape our reality.</p>
+
+    <p>In the City design project, our group decided to take up the mall management system and have taken different business cases. I’m working on:</p>
+
+    <p class="heading">1. Parking Lot Management System</p>
+    <p class="subheading">Purpose: This system assigns parking slots to customers based on their proximity to mall entrances to optimize convenience.</p>
+    <p class="subheading">Implementation Details:</p>
+    <ul class="subheading">
+        <li>The parking slots are sorted using selection sort, which prepares a ranked list of parking lots by distance.</li>
+        <li>Breadth-First Search (BFS) is used to dynamically assign the nearest available slot to a visitor.</li>
+    </ul>
+
+    <p class="heading">2. Customer Navigation System</p>
+    <p class="subheading">Purpose: This system helps guide customers along the shortest path between two points in the mall.</p>
+    <p class="subheading">Implementation Details:</p>
+    <ul class="subheading">
+        <li>The mall is represented as a graph, where nodes represent locations (e.g., shops) and edges represent paths between them.</li>
+        <li>Dijkstra's algorithm calculates the shortest path between the starting and destination points.</li>
+        <li>A binary search tree stores the shop locations, enabling fast and efficient lookups for customer destinations.</li>
+    </ul>
+</body>
+</html>
