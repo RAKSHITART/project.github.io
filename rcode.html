@@ -3,201 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Code - Mall Store Ranking and Optimization</title>
+    <title>Store Ranking and Optimization</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        pre {
             background-color: #f4f4f4;
+            margin: 0;
             padding: 20px;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        main {
+            margin-top: 20px;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
             border-radius: 5px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            overflow-x: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        code {
-            color: #d63384;
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+        }
+
+        #rankingSection, #shortestPathsSection {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <h1>Full Code - Mall Store Ranking and Optimization</h1>
-    
-    <section>
-        <h2>HTML, CSS, and JavaScript Code:</h2>
-        <pre><code>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mall Store Ranking and Optimization</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        label, input, select {
-            display: block;
-            margin: 10px 0;
-        }
-        .section {
-            margin-top: 20px;
-        }
-        .store-list {
-            margin-top: 20px;
-        }
-        .store-item {
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Mall Store Ranking and Optimization</h1>
-    
-    <div id="storeDetails">
-        <h2>Step 1: Enter Store Details</h2>
-        <label for="numStores">Number of Stores:</label>
-        <input type="number" id="numStores" min="1" required>
+    <header>
+        <h1>Store Ranking and Optimization</h1>
+    </header>
 
-        <div id="storeInputs"></div>
+    <main>
+        <section id="storeDetailsSection">
+            <h2>Enter Store Details</h2>
+            <form id="storeForm">
+                <label for="storeName">Store Name:</label>
+                <input type="text" id="storeName" required><br><br>
 
-        <button onclick="addStoreInputs()">Submit Store Details</button>
-    </div>
+                <label for="storeRevenue">Revenue:</label>
+                <input type="number" id="storeRevenue" required><br><br>
 
-    <div id="rankingSection" class="section" style="display:none;">
-        <h2>Step 2: Choose Ranking Method</h2>
-        <label for="rankingMethod">Select Ranking Method:</label>
-        <select id="rankingMethod">
-            <option value="reviews">Rank by Highest Reviews</option>
-            <option value="positiveReviews">Rank by Positive Reviews</option>
-        </select>
+                <label for="storeReviews">Number of Reviews:</label>
+                <input type="number" id="storeReviews" required><br><br>
 
-        <button onclick="showTopStores()">Show Top 3 Stores</button>
+                <label for="positiveReviews">Positive Reviews:</label>
+                <input type="number" id="positiveReviews" required><br><br>
 
-        <div id="storeRanking" class="store-list"></div>
-    </div>
+                <button type="button" onclick="submitStoreDetails()">Submit Store Details</button>
+            </form>
+        </section>
 
-    <div id="graphSection" class="section" style="display:none;">
-        <h2>Step 3: Enter Connections Between Stores</h2>
-        <label for="numConnections">Number of Connections:</label>
-        <input type="number" id="numConnections" min="1" required>
+        <section id="rankingSection">
+            <h2>Choose Ranking Method</h2>
+            <select id="rankingMethod">
+                <option value="reviews">Rank by Reviews</option>
+                <option value="positiveReviews">Rank by Positive Reviews</option>
+            </select>
+            <button onclick="showRankedStores()">Show Ranked Stores</button>
+            <div id="rankedStores"></div>
+        </section>
 
-        <div id="connectionInputs"></div>
+        <section id="shortestPathsSection">
+            <h2>Shortest Paths from Entrance</h2>
+            <div id="shortestPaths"></div>
+        </section>
+    </main>
 
-        <button onclick="addConnections()">Submit Connections</button>
-    </div>
-
-    <div id="shortestPathsSection" class="section" style="display:none;">
-        <h2>Step 4: Shortest Paths from Entrance</h2>
-        <div id="shortestPathsOutput"></div>
-    </div>
+    <footer>
+        <p>Linked with Rakshita's Page</p>
+    </footer>
 
     <script>
-        let numStores = 0;
         let stores = [];
-        let connections = [];
 
-        // Add store input fields dynamically
-        function addStoreInputs() {
-            numStores = document.getElementById("numStores").value;
-            let storeInputsHTML = '';
-            for (let i = 0; i < numStores; i++) {
-                storeInputsHTML += `
-                    <h3>Store ${i + 1}</h3>
-                    <label for="storeName${i}">Name:</label>
-                    <input type="text" id="storeName${i}" required>
+        function submitStoreDetails() {
+            let storeName = document.getElementById("storeName").value;
+            let storeRevenue = document.getElementById("storeRevenue").value;
+            let storeReviews = document.getElementById("storeReviews").value;
+            let positiveReviews = document.getElementById("positiveReviews").value;
 
-                    <label for="storeRevenue${i}">Revenue:</label>
-                    <input type="number" id="storeRevenue${i}" required>
+            stores.push({
+                name: storeName,
+                revenue: parseFloat(storeRevenue),
+                reviews: parseInt(storeReviews),
+                positiveReviews: parseInt(positiveReviews)
+            });
 
-                    <label for="storeReviews${i}">Number of Reviews:</label>
-                    <input type="number" id="storeReviews${i}" required>
-
-                    <label for="storePositiveReviews${i}">Positive Reviews:</label>
-                    <input type="number" id="storePositiveReviews${i}" required>
-                `;
-            }
-            document.getElementById("storeInputs").innerHTML = storeInputsHTML;
+            document.getElementById("storeForm").reset();
             document.getElementById("rankingSection").style.display = 'block';
         }
 
-        // Show top stores based on ranking method
-        function showTopStores() {
-            stores = [];
-            for (let i = 0; i < numStores; i++) {
-                let name = document.getElementById(`storeName${i}`).value;
-                let revenue = parseFloat(document.getElementById(`storeRevenue${i}`).value);
-                let reviews = parseInt(document.getElementById(`storeReviews${i}`).value);
-                let positiveReviews = parseInt(document.getElementById(`storePositiveReviews${i}`).value);
-
-                stores.push({ name, revenue, reviews, positiveReviews });
-            }
-
+        function showRankedStores() {
             let rankingMethod = document.getElementById("rankingMethod").value;
-            stores.sort((a, b) => {
-                if (rankingMethod === 'reviews') {
+            let rankedStores = stores.sort((a, b) => {
+                if (rankingMethod === "reviews") {
                     return b.reviews - a.reviews;
                 } else {
                     return b.positiveReviews - a.positiveReviews;
                 }
             });
 
-            let topStoresHTML = '<h3>Top 3 Stores:</h3>';
-            for (let i = 0; i < 3 && i < stores.length; i++) {
-                topStoresHTML += `
-                    <div class="store-item">
-                        <strong>Name:</strong> ${stores[i].name}<br>
-                        <strong>Reviews:</strong> ${stores[i].reviews}<br>
-                        <strong>Positive Reviews:</strong> ${stores[i].positiveReviews}
-                    </div>
-                `;
-            }
-
-            document.getElementById("storeRanking").innerHTML = topStoresHTML;
-            document.getElementById("graphSection").style.display = 'block';
-        }
-
-        // Add connection input fields
-        function addConnections() {
-            let numConnections = document.getElementById("numConnections").value;
-            let connectionInputsHTML = '';
-            for (let i = 0; i < numConnections; i++) {
-                connectionInputsHTML += `
-                    <h3>Connection ${i + 1}</h3>
-                    <label for="connection${i}">Store 1 (Index):</label>
-                    <input type="number" id="store1${i}" required>
-                    <label for="connection${i}">Store 2 (Index):</label>
-                    <input type="number" id="store2${i}" required>
-                    <label for="connection${i}">Traffic Weight:</label>
-                    <input type="number" id="trafficWeight${i}" required>
-                `;
-            }
-            document.getElementById("connectionInputs").innerHTML = connectionInputsHTML;
-        }
-
-        // Example: A simple approach for shortest paths (Dijkstra-like placeholder)
-        function findShortestPaths() {
-            // Assuming stores are connected randomly for simplicity
-            let shortestPaths = [];
-            for (let i = 1; i <= numStores; i++) {
-                shortestPaths.push(`Store ${i} - Distance: ${Math.floor(Math.random() * 100)}`);
-            }
-
-            let shortestPathsHTML = '<h3>Shortest Paths from Entrance:</h3>';
-            shortestPaths.forEach(path => {
-                shortestPathsHTML += `<div>${path}</div>`;
+            let outputHTML = '<h3>Top Ranked Stores:</h3>';
+            rankedStores.forEach((store, index) => {
+                if (index < 3) {
+                    outputHTML += `
+                        <div>
+                            <h4>${store.name}</h4>
+                            <p>Reviews: ${store.reviews}</p>
+                            <p>Positive Reviews: ${store.positiveReviews}</p>
+                        </div>
+                    `;
+                }
             });
 
-            document.getElementById("shortestPathsOutput").innerHTML = shortestPathsHTML;
-            document.getElementById("shortestPathsSection").style.display = 'block';
+            document.getElementById("rankedStores").innerHTML = outputHTML;
+        }
+
+        // Placeholder for shortest path functionality (example without actual graph)
+        function showShortestPaths() {
+            let shortestPathsHTML = '<h3>Shortest Paths:</h3>';
+            for (let i = 1; i <= stores.length; i++) {
+                shortestPathsHTML += `<p>Store ${i} - Distance: ${Math.floor(Math.random() * 100)}</p>`;
+            }
+            document.getElementById("shortestPaths").innerHTML = shortestPathsHTML;
         }
     </script>
-</body>
-</html>
-        </code></pre>
-    </section>
 </body>
 </html>
