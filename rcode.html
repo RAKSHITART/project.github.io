@@ -3,312 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store Ranking and Optimization</title>
+    <title>Mall Store Ranking and Optimization</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
+            margin: 20px;
         }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            text-align: center;
+        label, input, select {
+            display: block;
+            margin: 10px 0;
         }
-
-        main {
+        .section {
             margin-top: 20px;
         }
-
-        section {
-            background-color: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        form input, form select, form button {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        form button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        form button:hover {
-            background-color: #0056b3;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #555;
-        }
-
-        #storeList {
+        .store-list {
             margin-top: 20px;
         }
-
         .store-item {
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #e2e2e2;
-            border-radius: 5px;
-        }
-
-        #rankingSection, #shortestPathsSection {
-            display: none;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Store Ranking and Optimization</h1>
-    </header>
+    <h1>Mall Store Ranking and Optimization</h1>
+    
+    <!-- Step 1: Enter store details -->
+    <div id="storeDetails">
+        <h2>Step 1: Enter Store Details</h2>
+        <label for="numStores">Number of Stores:</label>
+        <input type="number" id="numStores" min="1" required>
+        <button onclick="addStoreInputs()">Submit Store Details</button>
 
-    <main>
-        <!-- Step 1: Get number of stores -->
-        <section id="numberOfStoresSection">
-            <h2>Enter the Number of Stores</h2>
-            <form id="numberOfStoresForm">
-                <input type="number" id="numStores" placeholder="Enter the number of stores" required min="1">
-                <button type="button" onclick="setNumberOfStores()">Set Number of Stores</button>
-            </form>
-        </section>
+        <div id="storeInputs"></div>
+    </div>
 
-        <!-- Step 2: Get store details -->
-        <section id="storeDetailsSection" style="display:none;">
-            <h2>Enter Store Details</h2>
-            <form id="storeForm">
-                <label for="storeName">Store Name:</label>
-                <input type="text" id="storeName" required><br><br>
+    <!-- Step 2: Choose ranking method -->
+    <div id="rankingSection" class="section" style="display:none;">
+        <h2>Step 2: Choose Ranking Method</h2>
+        <label for="rankingMethod">Select Ranking Method:</label>
+        <select id="rankingMethod">
+            <option value="reviews">Rank by Highest Reviews</option>
+            <option value="positiveReviews">Rank by Positive Reviews</option>
+        </select>
+        <button onclick="showTopStores()">Show Top 3 Stores</button>
 
-                <label for="storeRevenue">Revenue:</label>
-                <input type="number" id="storeRevenue" required><br><br>
+        <div id="storeRanking" class="store-list"></div>
+    </div>
 
-                <label for="storeReviews">Number of Reviews:</label>
-                <input type="number" id="storeReviews" required><br><br>
+    <!-- Step 3: Enter connections between stores -->
+    <div id="connectionSection" class="section" style="display:none;">
+        <h2>Step 3: Enter Connections Between Stores</h2>
+        <label for="numConnections">Number of Connections:</label>
+        <input type="number" id="numConnections" min="1" required>
+        <button onclick="addConnectionInputs()">Submit Connections</button>
 
-                <label for="positiveReviews">Positive Reviews:</label>
-                <input type="number" id="positiveReviews" required><br><br>
+        <div id="connectionInputs"></div>
+    </div>
 
-                <button type="button" onclick="submitStoreDetails()">Add Store</button>
-            </form>
-        </section>
-
-        <!-- Step 3: Get number of connections -->
-        <section id="numberOfConnectionsSection" style="display:none;">
-            <h2>Enter the Number of Traffic Connections</h2>
-            <form id="numberOfConnectionsForm">
-                <input type="number" id="numConnections" placeholder="Enter number of connections" required min="1">
-                <button type="button" onclick="setNumberOfConnections()">Set Number of Connections</button>
-            </form>
-        </section>
-
-        <!-- Step 4: Traffic Connections Section -->
-        <section id="trafficConnectionsSection" style="display:none;">
-            <h2>Enter Traffic Connections Between Stores</h2>
-            <p>Enter each connection in the format: Store1 Store2 TrafficWeight (e.g., 1 2 20)</p>
-            <form id="trafficForm">
-                <input type="text" id="connectionInput" placeholder="Enter connection (e.g., 1 2 20)">
-                <button type="button" onclick="addTrafficConnection()">Add Connection</button>
-            </form>
-            <div id="trafficConnectionsList"></div>
-        </section>
-
-        <!-- Ranking Section -->
-        <section id="rankingSection" style="display:none;">
-            <h2>Choose Ranking Method</h2>
-            <select id="rankingMethod">
-                <option value="reviews">Rank by Reviews</option>
-                <option value="positiveReviews">Rank by Positive Reviews</option>
-            </select>
-            <button onclick="showRankedStores()">Show Ranked Stores</button>
-            <div id="rankedStores"></div>
-        </section>
-
-        <!-- Store List Section -->
-        <section id="storeList"></section>
-
-        <!-- Dijkstra Section -->
-        <section id="shortestPathsSection" style="display:none;">
-            <h2>Optimal Store Placement (Dijkstra’s Algorithm)</h2>
-            <div id="dijkstraResult"></div>
-        </section>
-
-        <footer>
-            <p>Linked with Rakshita's Page</p>
-        </footer>
-    </main>
+    <!-- Step 4: Display Dijkstra's algorithm results -->
+    <div id="dijkstraResult" class="section" style="display:none;">
+        <h2>Step 4: Optimal Store Placement (Dijkstra’s Algorithm)</h2>
+        <div id="shortestPathsOutput"></div>
+    </div>
 
     <script>
+        let numStores = 0;
         let stores = [];
         let trafficConnections = [];
-        let numberOfStores = 0;
-        let numberOfConnections = 0;
-        let storeCount = 0;
-        let connectionCount = 0;
 
-        // Step 1: Set number of stores
-        function setNumberOfStores() {
-            numberOfStores = parseInt(document.getElementById("numStores").value);
-            if (isNaN(numberOfStores) || numberOfStores <= 0) {
-                alert("Please enter a valid number of stores.");
-                return;
-            }
+        // Step 1: Store input functionality
+        function addStoreInputs() {
+            numStores = document.getElementById("numStores").value;
+            let storeInputsHTML = '';
+            for (let i = 0; i < numStores; i++) {
+                storeInputsHTML += `
+                    <h3>Store ${i + 1}</h3>
+                    <label for="storeName${i}">Name:</label>
+                    <input type="text" id="storeName${i}" required>
 
-            document.getElementById("numberOfStoresSection").style.display = "none";
-            document.getElementById("storeDetailsSection").style.display = "block";
-            storeCount = 0;
-        }
+                    <label for="storeRevenue${i}">Revenue:</label>
+                    <input type="number" id="storeRevenue${i}" required>
 
-        // Step 2: Submit store details
-        function submitStoreDetails() {
-            let storeName = document.getElementById("storeName").value;
-            let storeRevenue = document.getElementById("storeRevenue").value;
-            let storeReviews = document.getElementById("storeReviews").value;
-            let positiveReviews = document.getElementById("positiveReviews").value;
+                    <label for="storeReviews${i}">Number of Reviews:</label>
+                    <input type="number" id="storeReviews${i}" required>
 
-            stores.push({
-                name: storeName,
-                revenue: parseFloat(storeRevenue),
-                reviews: parseInt(storeReviews),
-                positiveReviews: parseInt(positiveReviews)
-            });
-
-            storeCount++;
-
-            // Clear input fields for next store
-            document.getElementById("storeForm").reset();
-
-            // Display the updated list of stores
-            displayStores();
-
-            // If all stores have been entered, hide form and show connection input
-            if (storeCount >= numberOfStores) {
-                document.getElementById("storeDetailsSection").style.display = "none";
-                document.getElementById("numberOfConnectionsSection").style.display = "block";
-            }
-        }
-
-        // Step 3: Set number of connections
-        function setNumberOfConnections() {
-            numberOfConnections = parseInt(document.getElementById("numConnections").value);
-            if (isNaN(numberOfConnections) || numberOfConnections <= 0) {
-                alert("Please enter a valid number of connections.");
-                return;
-            }
-
-            document.getElementById("numberOfConnectionsSection").style.display = "none";
-            document.getElementById("trafficConnectionsSection").style.display = "block";
-            connectionCount = 0;
-        }
-
-        // Step 4: Add Traffic Connection
-        function addTrafficConnection() {
-            let connection = document.getElementById("connectionInput").value.split(" ");
-            let store1 = parseInt(connection[0]) - 1; // 0-based index
-            let store2 = parseInt(connection[1]) - 1; // 0-based index
-            let trafficWeight = parseInt(connection[2]);
-
-            if (store1 < 0 || store2 < 0 || store1 >= numberOfStores || store2 >= numberOfStores || isNaN(trafficWeight)) {
-                alert("Please enter a valid connection.");
-                return;
-            }
-
-            // Add connection to trafficConnections array
-            trafficConnections.push([store1, store2, trafficWeight]);
-
-            // Display traffic connections
-            let trafficConnectionsHTML = "<h3>Traffic Connections:</h3>";
-            trafficConnections.forEach(conn => {
-                trafficConnectionsHTML += `Store ${conn[0] + 1} to Store ${conn[1] + 1} - Traffic Weight: ${conn[2]}<br>`;
-            });
-            document.getElementById("trafficConnectionsList").innerHTML = trafficConnectionsHTML;
-
-            // Clear the input field
-            document.getElementById("connectionInput").value = "";
-
-            connectionCount++;
-
-            // If all connections have been entered, show ranking options
-            if (connectionCount >= numberOfConnections) {
-                document.getElementById("trafficConnectionsSection").style.display = "none";
-                document.getElementById("rankingSection").style.display = "block";
-            }
-        }
-
-        // Step 5: Display stores
-        function displayStores() {
-            let storeListHTML = "<h3>Stores Entered:</h3>";
-            stores.forEach((store, index) => {
-                storeListHTML += `
-                    <div class="store-item">
-                        <strong>Store ${index + 1}:</strong> ${store.name}<br>
-                        Revenue: $${store.revenue}<br>
-                        Reviews: ${store.reviews}<br>
-                        Positive Reviews: ${store.positiveReviews}<br>
-                    </div>
+                    <label for="storePositiveReviews${i}">Positive Reviews:</label>
+                    <input type="number" id="storePositiveReviews${i}" required>
                 `;
-            });
-
-            document.getElementById("storeList").innerHTML = storeListHTML;
+            }
+            document.getElementById("storeInputs").innerHTML = storeInputsHTML;
+            document.getElementById("rankingSection").style.display = 'block';
         }
 
-        // Step 6: Show ranked stores
-        function showRankedStores() {
-            let rankingMethod = document.getElementById("rankingMethod").value;
+        // Step 2: Display rankings based on reviews or positive reviews
+        function showTopStores() {
+            stores = [];
+            for (let i = 0; i < numStores; i++) {
+                let name = document.getElementById(`storeName${i}`).value;
+                let revenue = parseFloat(document.getElementById(`storeRevenue${i}`).value);
+                let reviews = parseInt(document.getElementById(`storeReviews${i}`).value);
+                let positiveReviews = parseInt(document.getElementById(`storePositiveReviews${i}`).value);
 
-            // Sort stores based on the selected method
-            let rankedStores = stores.sort((a, b) => {
-                if (rankingMethod === "reviews") {
+                stores.push({ name, revenue, reviews, positiveReviews });
+            }
+
+            let rankingMethod = document.getElementById("rankingMethod").value;
+            stores.sort((a, b) => {
+                if (rankingMethod === 'reviews') {
                     return b.reviews - a.reviews;
                 } else {
                     return b.positiveReviews - a.positiveReviews;
                 }
             });
 
-            // Display top stores
-            let outputHTML = '<h3>Top Ranked Stores:</h3>';
-            rankedStores.slice(0, 3).forEach((store, index) => {
-                outputHTML += `
-                    <div>
-                        <h4>Rank ${index + 1}: ${store.name}</h4>
-                        <p>Reviews: ${store.reviews}</p>
-                        <p>Positive Reviews: ${store.positiveReviews}</p>
+            let topStoresHTML = '<h3>Top 3 Stores:</h3>';
+            for (let i = 0; i < 3 && i < stores.length; i++) {
+                topStoresHTML += `
+                    <div class="store-item">
+                        <strong>Name:</strong> ${stores[i].name}<br>
+                        <strong>Reviews:</strong> ${stores[i].reviews}<br>
+                        <strong>Positive Reviews:</strong> ${stores[i].positiveReviews}
                     </div>
                 `;
-            });
+            }
 
-            document.getElementById("rankedStores").innerHTML = outputHTML;
-
-            // After showing the ranking, ask for traffic connections and compute shortest paths
-            document.getElementById("shortestPathsSection").style.display = "block";
-            runDijkstra();
+            document.getElementById("storeRanking").innerHTML = topStoresHTML;
+            document.getElementById("connectionSection").style.display = 'block';
         }
 
-        // Dijkstra's Algorithm for Store Placement
-        function runDijkstra() {
-            // Placeholder for Dijkstra algorithm logic
-            let outputHTML = "<h3>Shortest Path Results (for optimal store placement):</h3>";
+        // Step 3: Input connections between stores
+        function addConnectionInputs() {
+            let numConnections = document.getElementById("numConnections").value;
+            let connectionInputsHTML = '';
+            for (let i = 0; i < numConnections; i++) {
+                connectionInputsHTML += `
+                    <h3>Connection ${i + 1}</h3>
+                    <label for="connection${i}">Store 1 (Index):</label>
+                    <input type="number" id="store1${i}" required>
+                    <label for="connection${i}">Store 2 (Index):</label>
+                    <input type="number" id="store2${i}" required>
+                    <label for="connection${i}">Traffic Weight:</label>
+                    <input type="number" id="trafficWeight${i}" required>
+                `;
+            }
+            document.getElementById("connectionInputs").innerHTML = connectionInputsHTML;
+            document.getElementById("dijkstraResult").style.display = 'block';
+        }
 
-            // Example for showing distances from entrance (store 1)
-            stores.forEach((store, index) => {
-                outputHTML += `Store ${index + 1} - Distance from entrance: 20 meters<br>`;
+        // Step 4: Dijkstra’s algorithm to calculate shortest paths
+        function runDijkstra() {
+            let graph = new Map();
+            for (let i = 0; i < numStores; i++) {
+                graph.set(i, []);
+            }
+
+            trafficConnections.forEach(connection => {
+                let [store1, store2, weight] = connection;
+                graph.get(store1).push({ node: store2, weight: weight });
+                graph.get(store2).push({ node: store1, weight: weight });
             });
 
-            document.getElementById("dijkstraResult").innerHTML = outputHTML;
+            let dist = new Array(numStores).fill(Infinity);
+            let prev = new Array(numStores).fill(null);
+            let pq = new MinPriorityQueue({ priority: (node) => node.dist });
+
+            dist[0] = 0;
+            pq.enqueue({ node: 0, dist: 0 });
+
+            while (!pq.isEmpty()) {
+                let u = pq.dequeue().node;
+
+                graph.get(u).forEach(neighbor => {
+                    let v = neighbor.node;
+                    let weight = neighbor.weight;
+
+                    if (dist[u] + weight < dist[v]) {
+                        dist[v] = dist[u] + weight;
+                        prev[v] = u;
+                        pq.enqueue({ node: v, dist: dist[v] });
+                    }
+                });
+            }
+
+            let outputHTML = "<h3>Shortest Path Results (for optimal store placement):</h3>";
+            for (let i = 0; i < numStores; i++) {
+                if (dist[i] !== Infinity) {
+                    outputHTML += `Store ${i + 1} - Distance from entrance: ${dist[i]} meters<br>`;
+                } else {
+                    outputHTML += `Store ${i + 1} is not reachable from entrance.<br>`;
+                }
+            }
+
+            document.getElementById("shortestPathsOutput").innerHTML = outputHTML;
+        }
+
+        // Collect traffic connections from the form
+        function collectConnections() {
+            trafficConnections = [];
+            let numConnections = document.getElementById("numConnections").value;
+            for (let i = 0; i < numConnections; i++) {
+                let store1 = parseInt(document.getElementById(`store1${i}`).value) - 1;
+                let store2 = parseInt(document.getElementById(`store2${i}`).value) - 1;
+                let weight = parseInt(document.getElementById(`trafficWeight${i}`).value);
+                trafficConnections.push([store1, store2, weight]);
+            }
+            runDijkstra();
         }
     </script>
 </body>
