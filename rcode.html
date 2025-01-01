@@ -68,6 +68,10 @@
             background-color: #e2e2e2;
             border-radius: 5px;
         }
+
+        #storeList {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -109,6 +113,8 @@
             <h2>Shortest Paths from Entrance</h2>
             <div id="shortestPaths"></div>
         </section>
+
+        <section id="storeList"></section>
     </main>
 
     <footer>
@@ -157,7 +163,7 @@
                 `;
             });
 
-            document.getElementById("storeDetailsSection").innerHTML += storeListHTML;
+            document.getElementById("storeList").innerHTML = storeListHTML;
             document.getElementById("rankingSection").style.display = 'block';
         }
 
