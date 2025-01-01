@@ -31,7 +31,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        form input {
+        form input, form select, form button {
             width: 100%;
             padding: 10px;
             margin: 5px 0;
@@ -40,11 +40,9 @@
         }
 
         form button {
-            padding: 10px 20px;
             background-color: #007BFF;
             color: white;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
         }
 
@@ -58,8 +56,8 @@
             color: #555;
         }
 
-        #rankingSection, #shortestPathsSection {
-            display: none;
+        #storeList {
+            margin-top: 20px;
         }
 
         .store-item {
@@ -69,8 +67,8 @@
             border-radius: 5px;
         }
 
-        #storeList {
-            margin-top: 20px;
+        #rankingSection, #shortestPathsSection {
+            display: none;
         }
     </style>
 </head>
@@ -80,7 +78,17 @@
     </header>
 
     <main>
-        <section id="storeDetailsSection">
+        <!-- Step 1: Get number of stores -->
+        <section id="numberOfStoresSection">
+            <h2>Enter the Number of Stores</h2>
+            <form id="numberOfStoresForm">
+                <input type="number" id="numStores" placeholder="Enter the number of stores" required min="1">
+                <button type="button" onclick="setNumberOfStores()">Set Number of Stores</button>
+            </form>
+        </section>
+
+        <!-- Step 2: Get store details -->
+        <section id="storeDetailsSection" style="display:none;">
             <h2>Enter Store Details</h2>
             <form id="storeForm">
                 <label for="storeName">Store Name:</label>
@@ -99,6 +107,7 @@
             </form>
         </section>
 
+        <!-- Ranking Section -->
         <section id="rankingSection">
             <h2>Choose Ranking Method</h2>
             <select id="rankingMethod">
@@ -109,29 +118,39 @@
             <div id="rankedStores"></div>
         </section>
 
-        <section id="shortestPathsSection">
-            <h2>Shortest Paths from Entrance</h2>
-            <div id="shortestPaths"></div>
-        </section>
-
+        <!-- Store List Section -->
         <section id="storeList"></section>
-    </main>
 
-    <footer>
-        <p>Linked with Rakshita's Page</p>
-    </footer>
+        <footer>
+            <p>Linked with Rakshita's Page</p>
+        </footer>
+    </main>
 
     <script>
         let stores = [];
+        let numberOfStores = 0;
+        let storeCount = 0;
 
-        // Function to handle adding store details
+        // Step 1: Set number of stores
+        function setNumberOfStores() {
+            numberOfStores = parseInt(document.getElementById("numStores").value);
+            if (isNaN(numberOfStores) || numberOfStores <= 0) {
+                alert("Please enter a valid number of stores.");
+                return;
+            }
+
+            document.getElementById("numberOfStoresSection").style.display = "none";
+            document.getElementById("storeDetailsSection").style.display = "block";
+            storeCount = 0;
+        }
+
+        // Step 2: Submit store details
         function submitStoreDetails() {
             let storeName = document.getElementById("storeName").value;
             let storeRevenue = document.getElementById("storeRevenue").value;
             let storeReviews = document.getElementById("storeReviews").value;
             let positiveReviews = document.getElementById("positiveReviews").value;
 
-            // Push the store data into the stores array
             stores.push({
                 name: storeName,
                 revenue: parseFloat(storeRevenue),
@@ -139,19 +158,24 @@
                 positiveReviews: parseInt(positiveReviews)
             });
 
+            storeCount++;
+
             // Clear input fields for next store
             document.getElementById("storeForm").reset();
 
-            // Optionally, show feedback that store was added
-            alert("Store added successfully!");
-
-            // Display the list of stores for reference
+            // Display the updated list of stores
             displayStores();
+
+            // If all stores have been entered, hide form and show ranking options
+            if (storeCount >= numberOfStores) {
+                document.getElementById("storeDetailsSection").style.display = "none";
+                document.getElementById("rankingSection").style.display = "block";
+            }
         }
 
-        // Function to display the list of stores entered
+        // Step 3: Display stores
         function displayStores() {
-            let storeListHTML = "<h3>Store List:</h3>";
+            let storeListHTML = "<h3>Stores Entered:</h3>";
             stores.forEach((store, index) => {
                 storeListHTML += `
                     <div class="store-item">
@@ -164,14 +188,13 @@
             });
 
             document.getElementById("storeList").innerHTML = storeListHTML;
-            document.getElementById("rankingSection").style.display = 'block';
         }
 
-        // Function to show ranked stores based on selected ranking method
+        // Step 4: Show ranked stores based on user choice
         function showRankedStores() {
             let rankingMethod = document.getElementById("rankingMethod").value;
 
-            // Sort stores based on selected ranking method
+            // Sort stores based on the selected method
             let rankedStores = stores.sort((a, b) => {
                 if (rankingMethod === "reviews") {
                     return b.reviews - a.reviews;
@@ -193,15 +216,6 @@
             });
 
             document.getElementById("rankedStores").innerHTML = outputHTML;
-        }
-
-        // Placeholder for shortest path functionality (can be expanded further with real path logic)
-        function showShortestPaths() {
-            let shortestPathsHTML = '<h3>Shortest Paths:</h3>';
-            for (let i = 1; i <= stores.length; i++) {
-                shortestPathsHTML += `<p>Store ${i} - Distance: ${Math.floor(Math.random() * 100)}</p>`;
-            }
-            document.getElementById("shortestPaths").innerHTML = shortestPathsHTML;
         }
     </script>
 </body>
