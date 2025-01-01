@@ -3,239 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mall Store Ranking and Optimization</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        label, input, select, button {
-            display: block;
-            margin: 10px 0;
-        }
-        .section {
-            margin-top: 20px;
-        }
-        .store-list {
-            margin-top: 20px;
-        }
-        .store-item {
-            margin-bottom: 10px;
-        }
-    </style>
+    <title>Store Ranking and Mall Layout</title>
 </head>
 <body>
-    <h1>Mall Store Ranking and Optimization</h1>
-    
-    <!-- Step 1: Enter store details -->
-    <div id="storeDetails">
-        <h2>Step 1: Enter Store Details</h2>
-        <label for="numStores">Number of Stores:</label>
-        <input type="number" id="numStores" min="1" required>
-        <button onclick="addStoreInputs()">Submit Store Details</button>
+<pre>
+<code>
+&lt;code&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;climits&gt;
+#include &lt;algorithm&gt;
+#include &lt;map&gt;
 
-        <div id="storeInputs"></div>
-    </div>
+using namespace std;
 
-    <!-- Step 2: Choose ranking method -->
-    <div id="rankingSection" class="section" style="display:none;">
-        <h2>Step 2: Choose Ranking</h2>
-        <label for="rankingMethod">Choose the ranking method:</label>
-        <select id="rankingMethod">
-            <option value="1">Rank by Highest Reviews</option>
-            <option value="2">Rank by Positive Reviews</option>
-        </select>
-        <button onclick="rankStores()">Rank Stores</button>
-    </div>
+// Store structure to store information about a store
+struct Store {
+    int storeId;
+    string name;
+    double revenue;
+    int reviews;
+    int positiveReviews; // Additional field to store the number of positive reviews
 
-    <!-- Step 3: Show ranked stores -->
-    <div id="rankedStoresSection" class="section" style="display:none;">
-        <h2>Top 3 Ranked Stores</h2>
-        <div id="rankedStores"></div>
-    </div>
+    // For ranking, we will use reviews alone
+    bool operator&lt;(const Store&amp; other) const {
+        return reviews &lt; other.reviews; // max-heap (higher reviews will have higher priority)
+    }
+};
 
-    <!-- Step 4: Add traffic connections -->
-    <div id="connectionSection" class="section" style="display:none;">
-        <h2>Step 4: Add Traffic Connections</h2>
-        <label for="numConnections">Number of Connections:</label>
-        <input type="number" id="numConnections" min="1" required>
-        <button onclick="addConnectionInputs()">Add Connections</button>
+// Graph to represent the mall layout (stores as nodes and paths as edges)
+class Graph {
+public:
+    Graph(int V) {
+        this-&gt;V = V;
+        adjList.resize(V);
+    }
 
-        <div id="connectionInputs"></div>
-    </div>
+    // Add an edge between two stores with traffic weight
+    void addEdge(int u, int v, int weight) {
+        adjList[u].push_back({v, weight});
+        adjList[v].push_back({u, weight});
+    }
 
-    <!-- Step 5: Show shortest path results -->
-    <div id="shortestPathsSection" class="section" style="display:none;">
-        <h2>Shortest Path Results (for optimal store placement)</h2>
-        <div id="shortestPaths"></div>
-    </div>
+    // Dijkstra's algorithm to find the shortest paths from a source store (entrance)
+    vector&lt;int&gt; dijkstra(int src) {
+        vector&lt;int&gt; dist(V, INT_MAX); // Distance from src to all stores
+        priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, greater&lt;pair&lt;int, int&gt;&gt;&gt; pq;
 
-    <script>
-        let storeDetails = [];
-        let connections = [];
+        dist[src] = 0;
+        pq.push({0, src});
 
-        // Step 1: Collect store details
-        function addStoreInputs() {
-            const numStores = document.getElementById('numStores').value;
-            if (numStores < 1) {
-                alert("Please enter a valid number of stores.");
-                return;
+        while (!pq.empty()) {
+            int u = pq.top().second;
+            pq.pop();
+
+            for (auto&amp; neighbor : adjList[u]) {
+                int v = neighbor.first;
+                int weight = neighbor.second;
+
+                if (dist[u] + weight &lt; dist[v]) {
+                    dist[v] = dist[u] + weight;
+                    pq.push({dist[v], v});
+                }
             }
-            
-            let storeInputsHTML = '';
-            for (let i = 0; i < numStores; i++) {
-                storeInputsHTML += `
-                    <div class="store-item">
-                        <label for="storeName${i}">Store ${i + 1} Name:</label>
-                        <input type="text" id="storeName${i}" required>
-
-                        <label for="storeRevenue${i}">Revenue:</label>
-                        <input type="number" id="storeRevenue${i}" required>
-
-                        <label for="storeReviews${i}">Number of Reviews:</label>
-                        <input type="number" id="storeReviews${i}" required>
-
-                        <label for="storePositiveReviews${i}">Number of Positive Reviews:</label>
-                        <input type="number" id="storePositiveReviews${i}" required>
-                    </div>
-                `;
-            }
-
-            storeInputsHTML += '<button onclick="storeDetailsSubmission()">Submit Store Details</button>';
-            document.getElementById('storeInputs').innerHTML = storeInputsHTML;
         }
 
-        // Step 1: Collect store details submission
-        function storeDetailsSubmission() {
-            const numStores = document.getElementById('numStores').value;
-            storeDetails = [];
-            for (let i = 0; i < numStores; i++) {
-                const store = {
-                    name: document.getElementById(`storeName${i}`).value,
-                    revenue: document.getElementById(`storeRevenue${i}`).value,
-                    reviews: document.getElementById(`storeReviews${i}`).value,
-                    positiveReviews: document.getElementById(`storePositiveReviews${i}`).value
-                };
-                storeDetails.push(store);
-            }
-            document.getElementById('rankingSection').style.display = 'block';
-        }
+        return dist;
+    }
 
-        // Step 2: Rank stores based on reviews
-        function rankStores() {
-            const rankingMethod = document.getElementById('rankingMethod').value;
-            if (rankingMethod == '1') {
-                storeDetails.sort((a, b) => b.reviews - a.reviews);
-            } else if (rankingMethod == '2') {
-                storeDetails.sort((a, b) => b.positiveReviews - a.positiveReviews);
-            }
-            displayRankedStores();
-        }
+private:
+    int V;
+    vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; adjList;
+};
 
-        // Display the ranked stores
-        function displayRankedStores() {
-            let rankedStoresHTML = '<ul>';
-            const topStores = storeDetails.slice(0, 3);
-            topStores.forEach((store, index) => {
-                rankedStoresHTML += `
-                    <li>
-                        ${index + 1}. ${store.name} - Reviews: ${store.reviews}, Positive Reviews: ${store.positiveReviews}
-                    </li>
-                `;
-            });
-            rankedStoresHTML += '</ul>';
-            document.getElementById('rankedStores').innerHTML = rankedStoresHTML;
-            document.getElementById('rankedStoresSection').style.display = 'block';
-            document.getElementById('connectionSection').style.display = 'block';
-        }
+int main() {
+    int numStores, numConnections;
+    int choice;
 
-        // Step 4: Add traffic connections
-        function addConnectionInputs() {
-            const numConnections = document.getElementById('numConnections').value;
-            if (numConnections < 1) {
-                alert("Please enter a valid number of connections.");
-                return;
-            }
-            
-            let connectionInputsHTML = '';
-            for (let i = 0; i < numConnections; i++) {
-                connectionInputsHTML += `
-                    <div class="connection-item">
-                        <label for="store1${i}">Store 1 (ID):</label>
-                        <input type="number" id="store1${i}" required>
+    // Step 1: Get number of stores and their details
+    cout &lt;&lt; "Enter the number of stores: ";
+    cin &lt;&lt; numStores;
 
-                        <label for="store2${i}">Store 2 (ID):</label>
-                        <input type="number" id="store2${i}" required>
+    vector&lt;Store&gt; stores(numStores);
+    priority_queue&lt;Store&gt; maxHeap; // Default max-heap based on reviews
 
-                        <label for="weight${i}">Traffic Weight (in meters):</label>
-                        <input type="number" id="weight${i}" required>
-                    </div>
-                `;
-            }
+    // Input store details
+    for (int i = 0; i &lt; numStores; ++i) {
+        stores[i].storeId = i;
+        cout &lt;&lt; "Enter name of Store " &lt;&lt; i + 1 &lt;&lt; ": ";
+        cin &lt;&lt; stores[i].name;
+        cout &lt;&lt; "Enter revenue of Store " &lt;&lt; i + 1 &lt;&lt; ": ";
+        cin &lt;&lt; stores[i].revenue;
+        cout &lt;&lt; "Enter number of reviews for Store " &lt;&lt; i + 1 &lt;&lt; ": ";
+        cin &lt;&lt; stores[i].reviews;
+        cout &lt;&lt; "Enter number of positive reviews for Store " &lt;&lt; i + 1 &lt;&lt; ": ";
+        cin &lt;&lt; stores[i].positiveReviews;
 
-            connectionInputsHTML += '<button onclick="addConnections()">Submit Connections</button>';
-            document.getElementById('connectionInputs').innerHTML = connectionInputsHTML;
-        }
+        maxHeap.push(stores[i]);
+    }
 
-        // Step 4: Submit the traffic connections
-        function addConnections() {
-            const numConnections = document.getElementById('numConnections').value;
-            connections = [];
-            for (let i = 0; i < numConnections; i++) {
-                const connection = {
-                    store1: document.getElementById(`store1${i}`).value - 1,  // Convert to zero-index
-                    store2: document.getElementById(`store2${i}`).value - 1,  // Convert to zero-index
-                    weight: document.getElementById(`weight${i}`).value
-                };
-                connections.push(connection);
-            }
-            document.getElementById('shortestPathsSection').style.display = 'block';
-            calculateShortestPaths();
-        }
+    // Step 2: Ask the user how to prioritize stores
+    cout &lt;&lt; "\nChoose the ranking method:\n";
+    cout &lt;&lt; "1. Rank by Highest Reviews\n";
+    cout &lt;&lt; "2. Rank by Positive Reviews\n";
+    cout &lt;&lt; "Enter your choice (1 or 2): ";
+    cin &lt;&lt; choice;
 
-        // Step 5: Calculate shortest paths (Dijkstra's algorithm in JS)
-        function calculateShortestPaths() {
-            const numStores = storeDetails.length;
-            let graph = Array.from({ length: numStores }, () => []);
+    if (choice == 1) {
+        // Step 3: Rank stores based on highest reviews
+        cout &lt;&lt; "\nTop 3 Ranked Stores (based on highest reviews):\n";
+        sort(stores.begin(), stores.end(), [](const Store&amp; a, const Store&amp; b) {
+            return a.reviews &gt; b.reviews;
+        });
+    } else if (choice == 2) {
+        // Step 3: Rank stores based on positive reviews
+        cout &lt;&lt; "\nTop 3 Ranked Stores (based on positive reviews):\n";
+        sort(stores.begin(), stores.end(), [](const Store&amp; a, const Store&amp; b) {
+            return a.positiveReviews &gt; b.positiveReviews;
+        });
+    } else {
+        cout &lt;&lt; "Invalid choice. Exiting program.";
+        return 0;
+    }
 
-            // Build the graph with connections
-            connections.forEach(connection => {
-                graph[connection.store1].push({ node: connection.store2, weight: parseInt(connection.weight) });
-                graph[connection.store2].push({ node: connection.store1, weight: parseInt(connection.weight) });
-            });
+    for (int i = 0; i &lt; 3 &amp;&amp; i &lt; stores.size(); ++i) {
+        cout &lt;&lt; "Store Name: " &lt;&lt; stores[i].name &lt;&lt; ", Reviews: " &lt;&lt; stores[i].reviews
+             &lt;&lt; ", Positive Reviews: " &lt;&lt; stores[i].positiveReviews &lt;&lt; endl;
+    }
 
-            // Dijkstra's Algorithm
-            let dist = Array(numStores).fill(Infinity);
-            let prev = Array(numStores).fill(-1);
-            dist[0] = 0;  // Start from store 1 (entrance)
-            let pq = [{ node: 0, dist: 0 }];
-            let visited = new Set();
+    // Step 4: Get number of connections (edges) and create graph
+    cout &lt;&lt; "\nEnter number of connections between stores: ";
+    cin &lt;&lt; numConnections;
 
-            while (pq.length > 0) {
-                let { node, dist: d } = pq.shift();
-                if (visited.has(node)) continue;
-                visited.add(node);
+    Graph mallGraph(numStores);
 
-                graph[node].forEach(neighbor => {
-                    let newDist = d + neighbor.weight;
-                    if (newDist < dist[neighbor.node]) {
-                        dist[neighbor.node] = newDist;
-                        prev[neighbor.node] = node;
-                        pq.push({ node: neighbor.node, dist: newDist });
-                    }
-                });
-            }
+    // Input connections between stores
+    for (int i = 0; i &lt; numConnections; ++i) {
+        int u, v, weight;
+        cout &lt;&lt; "Enter connection " &lt;&lt; i + 1 &lt;&lt; " (store1 store2 traffic_weight): ";
+        cin &lt;&lt; u &lt;&lt; v &lt;&lt; weight;
+        mallGraph.addEdge(u - 1, v - 1, weight);  // Convert to 0-based index
+    }
 
-            // Display shortest paths
-            let shortestPathsHTML = '<ul>';
-            for (let i = 1; i < numStores; i++) {
-                shortestPathsHTML += `
-                    <li>Store ${i + 1}: Distance = ${dist[i]} meters</li>
-                `;
-            }
-            shortestPathsHTML += '</ul>';
-            document.getElementById('shortestPaths').innerHTML = shortestPathsHTML;
-        }
-    </script>
+    // Step 5: Use Dijkstra's algorithm to find shortest paths from the entrance (store 1)
+    vector&lt;int&gt; shortestPaths = mallGraph.dijkstra(0); // 0 is the entrance
+
+    cout &lt;&lt; "\nShortest Paths from Entrance (Store 1):\n";
+    for (int i = 1; i &lt; numStores; ++i) {
+        cout &lt;&lt; "Store " &lt;&lt; i + 1 &lt;&lt; " - Distance: " &lt;&lt; shortestPaths[i] &lt;&lt; endl;
+    }
+
+    // Step 6: Optimize store placement (you can prioritize placement based on shortest paths)
+    cout &lt;&lt; "\nOptimal Store Placement (based on shortest path distance):\n";
+    for (int i = 1; i &lt; numStores; ++i) {
+        cout &lt;&lt; "Store " &lt;&lt; i + 1 &lt;&lt; " placed at distance " &lt;&lt; shortestPaths[i] &lt;&lt; " from entrance\n";
+    }
+
+    return 0;
+}
+&lt;/code&gt;
+</code>
+</pre>
 </body>
 </html>
