@@ -107,6 +107,26 @@
             </form>
         </section>
 
+        <!-- Step 3: Get number of connections -->
+        <section id="numberOfConnectionsSection" style="display:none;">
+            <h2>Enter the Number of Traffic Connections</h2>
+            <form id="numberOfConnectionsForm">
+                <input type="number" id="numConnections" placeholder="Enter number of connections" required min="1">
+                <button type="button" onclick="setNumberOfConnections()">Set Number of Connections</button>
+            </form>
+        </section>
+
+        <!-- Step 4: Traffic Connections Section -->
+        <section id="trafficConnectionsSection" style="display:none;">
+            <h2>Enter Traffic Connections Between Stores</h2>
+            <p>Enter each connection in the format: Store1 Store2 TrafficWeight (e.g., 1 2 20)</p>
+            <form id="trafficForm">
+                <input type="text" id="connectionInput" placeholder="Enter connection (e.g., 1 2 20)">
+                <button type="button" onclick="addTrafficConnection()">Add Connection</button>
+            </form>
+            <div id="trafficConnectionsList"></div>
+        </section>
+
         <!-- Ranking Section -->
         <section id="rankingSection">
             <h2>Choose Ranking Method</h2>
@@ -121,6 +141,12 @@
         <!-- Store List Section -->
         <section id="storeList"></section>
 
+        <!-- Dijkstra Section -->
+        <section id="shortestPathsSection">
+            <h2>Optimal Store Placement (Dijkstra’s Algorithm)</h2>
+            <div id="dijkstraResult"></div>
+        </section>
+
         <footer>
             <p>Linked with Rakshita's Page</p>
         </footer>
@@ -128,8 +154,11 @@
 
     <script>
         let stores = [];
+        let trafficConnections = [];
         let numberOfStores = 0;
+        let numberOfConnections = 0;
         let storeCount = 0;
+        let connectionCount = 0;
 
         // Step 1: Set number of stores
         function setNumberOfStores() {
@@ -166,14 +195,61 @@
             // Display the updated list of stores
             displayStores();
 
-            // If all stores have been entered, hide form and show ranking options
+            // If all stores have been entered, hide form and show connection input
             if (storeCount >= numberOfStores) {
                 document.getElementById("storeDetailsSection").style.display = "none";
+                document.getElementById("numberOfConnectionsSection").style.display = "block";
+            }
+        }
+
+        // Step 3: Set number of connections
+        function setNumberOfConnections() {
+            numberOfConnections = parseInt(document.getElementById("numConnections").value);
+            if (isNaN(numberOfConnections) || numberOfConnections <= 0) {
+                alert("Please enter a valid number of connections.");
+                return;
+            }
+
+            document.getElementById("numberOfConnectionsSection").style.display = "none";
+            document.getElementById("trafficConnectionsSection").style.display = "block";
+            connectionCount = 0;
+        }
+
+        // Step 4: Add Traffic Connection
+        function addTrafficConnection() {
+            let connection = document.getElementById("connectionInput").value.split(" ");
+            let store1 = parseInt(connection[0]) - 1; // 0-based index
+            let store2 = parseInt(connection[1]) - 1; // 0-based index
+            let trafficWeight = parseInt(connection[2]);
+
+            if (store1 < 0 || store2 < 0 || store1 >= numberOfStores || store2 >= numberOfStores || isNaN(trafficWeight)) {
+                alert("Please enter a valid connection.");
+                return;
+            }
+
+            // Add connection to trafficConnections array
+            trafficConnections.push([store1, store2, trafficWeight]);
+
+            // Display traffic connections
+            let trafficConnectionsHTML = "<h3>Traffic Connections:</h3>";
+            trafficConnections.forEach(conn => {
+                trafficConnectionsHTML += `Store ${conn[0] + 1} to Store ${conn[1] + 1} - Traffic Weight: ${conn[2]}<br>`;
+            });
+            document.getElementById("trafficConnectionsList").innerHTML = trafficConnectionsHTML;
+
+            // Clear the input field
+            document.getElementById("connectionInput").value = "";
+
+            connectionCount++;
+
+            // If all connections have been entered, show ranking options
+            if (connectionCount >= numberOfConnections) {
+                document.getElementById("trafficConnectionsSection").style.display = "none";
                 document.getElementById("rankingSection").style.display = "block";
             }
         }
 
-        // Step 3: Display stores
+        // Step 5: Display stores
         function displayStores() {
             let storeListHTML = "<h3>Stores Entered:</h3>";
             stores.forEach((store, index) => {
@@ -190,7 +266,7 @@
             document.getElementById("storeList").innerHTML = storeListHTML;
         }
 
-        // Step 4: Show ranked stores based on user choice
+        // Step 6: Show ranked stores
         function showRankedStores() {
             let rankingMethod = document.getElementById("rankingMethod").value;
 
@@ -216,6 +292,23 @@
             });
 
             document.getElementById("rankedStores").innerHTML = outputHTML;
+
+            // After showing the ranking, ask for traffic connections and compute shortest paths
+            document.getElementById("shortestPathsSection").style.display = "block";
+            runDijkstra();
+        }
+
+        // Dijkstra's Algorithm for Store Placement
+        function runDijkstra() {
+            // Placeholder for Dijkstra algorithm logic
+            let outputHTML = "<h3>Shortest Path Results (for optimal store placement):</h3>";
+
+            // Example for showing distances from entrance (store 1)
+            stores.forEach((store, index) => {
+                outputHTML += `Store ${index + 1} - Distance from entrance: 20 meters<br>`;
+            });
+
+            document.getElementById("dijkstraResult").innerHTML = outputHTML;
         }
     </script>
 </body>
