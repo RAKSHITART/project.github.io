@@ -165,13 +165,13 @@
 
             let dist = new Array(numStores).fill(Infinity);
             let prev = new Array(numStores).fill(null);
-            let pq = new MinPriorityQueue({ priority: (node) => node.dist });
+            let pq = new PriorityQueue();
 
             dist[0] = 0;
-            pq.enqueue({ node: 0, dist: 0 });
+            pq.enqueue(0, dist[0]);
 
             while (!pq.isEmpty()) {
-                let u = pq.dequeue().node;
+                let u = pq.dequeue();
 
                 graph.get(u).forEach(neighbor => {
                     let v = neighbor.node;
@@ -180,7 +180,7 @@
                     if (dist[u] + weight < dist[v]) {
                         dist[v] = dist[u] + weight;
                         prev[v] = u;
-                        pq.enqueue({ node: v, dist: dist[v] });
+                        pq.enqueue(v, dist[v]);
                     }
                 });
             }
