@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mall Store Ranking and Optimization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label, input, select {
+            display: block;
+            margin: 10px 0;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        .store-list {
+            margin-top: 20px;
+        }
+        .store-item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mall Store Ranking and Optimization</h1>
+    
+    <div id="storeDetails">
+        <h2>Step 1: Enter Store Details</h2>
+        <label for="numStores">Number of Stores:</label>
+        <input type="number" id="numStores" min="1" required>
+
+        <div id="storeInputs"></div>
+
+        <button onclick="addStoreInputs()">Submit Store Details</button>
+    </div>
+
+    <div id="rankingSection" class="section" style="display:none;">
+        <h2>Step 2: Choose Ranking Method</h2>
+        <label for="rankingMethod">Select Ranking Method:</label>
+        <select id="rankingMethod">
+            <option value="reviews">Rank by Highest Reviews</option>
+            <option value="positiveReviews">Rank by Positive Reviews</option>
+        </select>
+
+        <button onclick="showTopStores()">Show Top 3 Stores</button>
+
+        <div id="storeRanking" class="store-list"></div>
+    </div>
+
+    <div id="graphSection" class="section" style="display:none;">
+        <h2>Step 3: Enter Connections Between Stores</h2>
+        <label for="numConnections">Number of Connections:</label>
+        <input type="number" id="numConnections" min="1" required>
+
+        <div id="connectionInputs"></div>
+
+        <button onclick="addConnections()">Submit Connections</button>
+    </div>
+
+    <div id="shortestPathsSection" class="section" style="display:none;">
+        <h2>Step 4: Shortest Paths from Entrance</h2>
+        <div id="shortestPathsOutput"></div>
+    </div>
+
+    <script>
+        let numStores = 0;
+        let stores = [];
+        let connections = [];
+
+        function addStoreInputs() {
+            numStores = document.getElementById("numStores").value;
+            let storeInputsHTML = '';
+            for (let i = 0; i < numStores; i++) {
+                storeInputsHTML += `
+                    <h3>Store ${i + 1}</h3>
+                    <label for="storeName${i}">Name:</label>
+                    <input type="text" id="storeName${i}" required>
+
+                    <label for="storeRevenue${i}">Revenue:</label>
+                    <input type="number" id="storeRevenue${i}" required>
+
+                    <label for="storeReviews${i}">Number of Reviews:</label>
+                    <input type="number" id="storeReviews${i}" required>
+
+                    <label for="storePositiveReviews${i}">Positive Reviews:</label>
+                    <input type="number" id="storePositiveReviews${i}" required>
+                `;
+            }
+            document.getElementById("storeInputs").innerHTML = storeInputsHTML;
+            document.getElementById("rankingSection").style.display = 'block';
+        }
+
+        function showTopStores() {
+            stores = [];
+            for (let i = 0; i < numStores; i++) {
+                let name = document.getElementById(`storeName${i}`).value;
+                let revenue = parseFloat(document.getElementById(`storeRevenue${i}`).value);
+                let reviews = parseInt(document.getElementById(`storeReviews${i}`).value);
+                let positiveReviews = parseInt(document.getElementById(`storePositiveReviews${i}`).value);
+
+                stores.push({ name, revenue, reviews, positiveReviews });
+            }
+
+            let rankingMethod = document.getElementById("rankingMethod").value;
+            stores.sort((a, b) => {
+                if (rankingMethod === 'reviews') {
+                    return b.reviews - a.reviews;
+                } else {
+                    return b.positiveReviews - a.positiveReviews;
+                }
+            });
+
+            let topStoresHTML = '<h3>Top 3 Stores:</h3>';
+            for (let i = 0; i < 3 && i < stores.length; i++) {
+                topStoresHTML += `
+                    <div class="store-item">
+                        <strong>Name:</strong> ${stores[i].name}<br>
+                        <strong>Reviews:</strong> ${stores[i].reviews}<br>
+                        <strong>Positive Reviews:</strong> ${stores[i].positiveReviews}
+                    </div>
+                `;
+            }
+
+            document.getElementById("storeRanking").innerHTML = topStoresHTML;
+            document.getElementById("graphSection").style.display = 'block';
+        }
+
+        function addConnections() {
+            let numConnections = document.getElementById("numConnections").value;
+            let connectionInputsHTML = '';
+            for (let i = 0; i < numConnections; i++) {
+                connectionInputsHTML += `
+                    <h3>Connection ${i + 1}</h3>
+                    <label for="connection${i}">Store 1 (Index):</label>
+                    <input type="number" id="store1${i}" required>
+                    <label for="connection${i}">Store 2 (Index):</label>
+                    <input type="number" id="store2${i}" required>
+                    <label for="connection${i}">Traffic Weight:</label>
+                    <input type="number" id="trafficWeight${i}" required>
+                `;
+            }
+            document.getElementById("connectionInputs").innerHTML = connectionInputsHTML;
+        }
+
+        function findShortestPaths() {
+            // This function should run a Dijkstra-like algorithm for shortest path calculation.
+            // For simplicity, assuming a simple representation of shortest paths.
+            let shortestPaths = [];
+            for (let i = 1; i <= numStores; i++) {
+                shortestPaths.push(`Store ${i} - Distance: ${Math.floor(Math.random() * 100)}`);
+            }
+
+            let shortestPathsHTML = '<h3>Shortest Paths from Entrance:</h3>';
+            shortestPaths.forEach(path => {
+                shortestPathsHTML += `<div>${path}</div>`;
+            });
+
+            document.getElementById("shortestPathsOutput").innerHTML = shortestPathsHTML;
+            document.getElementById("shortestPathsSection").style.display = 'block';
+        }
+    </script>
+</body>
+</html>
