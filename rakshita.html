@@ -3,59 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rakshita's Profile</title>
+    <title>Mall Management System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f9;
             color: #333;
         }
-        header {
-            background-color: #6200ea;
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
+        h1, h2 {
+            color: #0056b3;
         }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
+        section {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        main {
-            padding: 2rem;
-        }
-        .section {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: #6200ea;
-            color: white;
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Rakshita's Profile</h1>
-    </header>
-    <main>
-        <section class="section">
-            <h2>About Rakshita</h2>
-            <p>Rakshita is a skilled developer with expertise in building and implementing efficient algorithms. She is dedicated to creating innovative solutions for complex problems.</p>
-        </section>
-        <section class="section">
-            <h2>Contact Rakshita</h2>
-            <p>Email: <a href="mailto:rakshita@example.com">rakshita@example.com</a></p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Rakshita's Profile. All rights reserved.</p>
-    </footer>
+    <h1>Mall Management System</h1>
+
+    <section>
+        <h2>1. Introduction</h2>
+        <p>
+            The purpose of this project is to design a <strong>Mall Management System</strong> that efficiently ranks stores based on customer reviews and revenue, and then determines the optimal placement of stores in high-traffic areas using <strong>Dijkstra’s Algorithm</strong>. This system aims to maximize customer satisfaction by placing the most popular stores in areas with the highest foot traffic, thus improving overall mall performance.
+        </p>
+    </section>
+
+    <section>
+        <h2>2. System Overview</h2>
+        <ul>
+            <li><strong>Store Ranking:</strong> Stores are ranked based on a rank score calculated from their revenue and customer reviews. A Max-Heap is used to manage and extract the top-ranked stores.</li>
+            <li><strong>Optimal Store Placement:</strong> The Dijkstra’s algorithm is applied to calculate the shortest paths from high-traffic areas (e.g., the mall entrance) to other stores, ensuring the most popular stores are placed in the most accessible locations.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>3. Key Concepts and Algorithms</h2>
+        <h3>3.1 Store Ranking with Max-Heap</h3>
+        <p>The ranking of stores is based on a simple rank score formula:</p>
+        <p><strong>Rank Score</strong> = Revenue + (Reviews × 10)</p>
+        <p>
+            A Max-Heap is used to maintain a priority queue where stores with higher rank scores are prioritized. This ensures that the most popular stores are selected first.
+        </p>
+
+        <h3>3.2 Dijkstra’s Algorithm for Optimal Placement</h3>
+        <p>
+            Dijkstra’s Algorithm is used to determine the shortest path from a high-traffic area (store 1, the entrance) to all other stores in the mall. The algorithm calculates the minimum traffic path, which helps in selecting the most efficient locations for the top-ranked stores. The graph representing the mall layout includes stores connected by edges with traffic weights (representing foot traffic or distance).
+        </p>
+    </section>
+
+    <section>
+        <h2>4. Implementation</h2>
+        <ul>
+            <li><strong>Ranking Stores using the Max-Heap:</strong>
+                <ul>
+                    <li>A list of stores is created, each with a unique <code>storeId</code>, name, revenue, and reviews.</li>
+                    <li>Stores are inserted into the Max-Heap, which automatically orders them by their rank score.</li>
+                    <li>The top 3 stores with the highest rank scores are selected.</li>
+                </ul>
+            </li>
+            <li><strong>Optimizing Store Placement using Dijkstra's Algorithm:</strong>
+                <ul>
+                    <li>A graph representing the mall layout is created, where stores are nodes and edges represent paths between them with weights corresponding to traffic flow.</li>
+                    <li>Dijkstra’s algorithm is used to compute the shortest paths from the entrance (store 1) to all other stores.</li>
+                    <li>The top-ranked stores are placed in areas with the shortest traffic distances, optimizing customer access.</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>5. System Performance and Efficiency</h2>
+        <ul>
+            <li><strong>Store Ranking Efficiency:</strong> The use of a Max-Heap ensures efficient ranking of stores with a time complexity of <code>O(log n)</code> for each insertion and extraction. The overall time complexity for ranking all stores is <code>O(n log n)</code>.</li>
+            <li><strong>Optimal Placement Efficiency:</strong> Dijkstra’s algorithm runs with a time complexity of <code>O(E log V)</code>, where <code>E</code> is the number of edges (connections between stores) and <code>V</code> is the number of stores (vertices). This makes the algorithm efficient for computing shortest paths in a typical mall layout.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>6. System Benefits</h2>
+        <ul>
+            <li><strong>Customer Satisfaction:</strong> By placing top-ranked stores in high-traffic areas, the system increases customer accessibility, leading to higher sales and customer satisfaction.</li>
+            <li><strong>Efficient Use of Space:</strong> The system optimally uses available mall space by ensuring that popular stores are in the most visited locations.</li>
+            <li><strong>Dynamic Ranking:</strong> The ranking of stores can be updated dynamically based on changing customer reviews and sales data, ensuring that the most popular stores are always prioritized.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>7. Limitations and Future Work</h2>
+        <ul>
+            <li><strong>Simplified Ranking:</strong> The current rank score calculation only considers revenue and reviews. Future versions could incorporate other factors such as foot traffic, store size, and seasonal trends.</li>
+            <li><strong>Mall Layout:</strong> The current graph representation assumes a simple mall layout. Future work could extend the system to more complex mall layouts with multiple entrances, escalators, and additional paths.</li>
+            <li><strong>Real-Time Updates:</strong> Integrating real-time data (such as foot traffic or sales) could further optimize store placement.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>8. Conclusion</h2>
+        <p>
+            The Mall Management System successfully ranks stores based on popularity (revenue and reviews) and optimizes store placement using <strong>Dijkstra’s algorithm</strong> to ensure that the most popular stores are placed in high-traffic areas. This approach maximizes customer accessibility and enhances the overall mall experience.
+        </p>
+        <p>
+            By utilizing heap-based ranking and shortest path algorithms, the system can be adapted to various mall sizes and configurations, providing a scalable solution for effective mall management.
+        </p>
+    </section>
 </body>
 </html>
