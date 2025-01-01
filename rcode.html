@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-        label, input, select {
+        label, input, select, button {
             display: block;
             margin: 10px 0;
         }
@@ -39,175 +39,170 @@
 
     <!-- Step 2: Choose ranking method -->
     <div id="rankingSection" class="section" style="display:none;">
-        <h2>Step 2: Choose Ranking Method</h2>
-        <label for="rankingMethod">Select Ranking Method:</label>
+        <h2>Step 2: Choose Ranking</h2>
+        <label for="rankingMethod">Choose the ranking method:</label>
         <select id="rankingMethod">
-            <option value="reviews">Rank by Highest Reviews</option>
-            <option value="positiveReviews">Rank by Positive Reviews</option>
+            <option value="1">Rank by Highest Reviews</option>
+            <option value="2">Rank by Positive Reviews</option>
         </select>
-        <button onclick="showTopStores()">Show Top 3 Stores</button>
-
-        <div id="storeRanking" class="store-list"></div>
+        <button onclick="rankStores()">Rank Stores</button>
     </div>
 
-    <!-- Step 3: Enter connections between stores -->
+    <!-- Step 3: Show ranked stores -->
+    <div id="rankedStoresSection" class="section" style="display:none;">
+        <h2>Top 3 Ranked Stores</h2>
+        <div id="rankedStores"></div>
+    </div>
+
+    <!-- Step 4: Add traffic connections -->
     <div id="connectionSection" class="section" style="display:none;">
-        <h2>Step 3: Enter Connections Between Stores</h2>
+        <h2>Step 4: Add Traffic Connections</h2>
         <label for="numConnections">Number of Connections:</label>
         <input type="number" id="numConnections" min="1" required>
-        <button onclick="addConnectionInputs()">Submit Connections</button>
+        <button onclick="addConnectionInputs()">Add Connections</button>
 
         <div id="connectionInputs"></div>
     </div>
 
-    <!-- Step 4: Display Dijkstra's algorithm results -->
-    <div id="dijkstraResult" class="section" style="display:none;">
-        <h2>Step 4: Optimal Store Placement (Dijkstra’s Algorithm)</h2>
-        <div id="shortestPathsOutput"></div>
+    <!-- Step 5: Show shortest path results -->
+    <div id="shortestPathsSection" class="section" style="display:none;">
+        <h2>Shortest Path Results (for optimal store placement)</h2>
+        <div id="shortestPaths"></div>
     </div>
 
     <script>
-        let numStores = 0;
-        let stores = [];
-        let trafficConnections = [];
-
-        // Step 1: Store input functionality
+        let storeDetails = [];
+        let connections = [];
+        
+        // Step 1: Collect store details
         function addStoreInputs() {
-            numStores = document.getElementById("numStores").value;
+            const numStores = document.getElementById('numStores').value;
+            if (numStores < 1) {
+                alert("Please enter a valid number of stores.");
+                return;
+            }
+            
             let storeInputsHTML = '';
             for (let i = 0; i < numStores; i++) {
                 storeInputsHTML += `
-                    <h3>Store ${i + 1}</h3>
-                    <label for="storeName${i}">Name:</label>
-                    <input type="text" id="storeName${i}" required>
-
-                    <label for="storeRevenue${i}">Revenue:</label>
-                    <input type="number" id="storeRevenue${i}" required>
-
-                    <label for="storeReviews${i}">Number of Reviews:</label>
-                    <input type="number" id="storeReviews${i}" required>
-
-                    <label for="storePositiveReviews${i}">Positive Reviews:</label>
-                    <input type="number" id="storePositiveReviews${i}" required>
-                `;
-            }
-            document.getElementById("storeInputs").innerHTML = storeInputsHTML;
-            document.getElementById("rankingSection").style.display = 'block';
-        }
-
-        // Step 2: Display rankings based on reviews or positive reviews
-        function showTopStores() {
-            stores = [];
-            for (let i = 0; i < numStores; i++) {
-                let name = document.getElementById(`storeName${i}`).value;
-                let revenue = parseFloat(document.getElementById(`storeRevenue${i}`).value);
-                let reviews = parseInt(document.getElementById(`storeReviews${i}`).value);
-                let positiveReviews = parseInt(document.getElementById(`storePositiveReviews${i}`).value);
-
-                stores.push({ name, revenue, reviews, positiveReviews });
-            }
-
-            let rankingMethod = document.getElementById("rankingMethod").value;
-            stores.sort((a, b) => {
-                if (rankingMethod === 'reviews') {
-                    return b.reviews - a.reviews;
-                } else {
-                    return b.positiveReviews - a.positiveReviews;
-                }
-            });
-
-            let topStoresHTML = '<h3>Top 3 Stores:</h3>';
-            for (let i = 0; i < 3 && i < stores.length; i++) {
-                topStoresHTML += `
                     <div class="store-item">
-                        <strong>Name:</strong> ${stores[i].name}<br>
-                        <strong>Reviews:</strong> ${stores[i].reviews}<br>
-                        <strong>Positive Reviews:</strong> ${stores[i].positiveReviews}
+                        <label for="storeName${i}">Store ${i + 1} Name:</label>
+                        <input type="text" id="storeName${i}" required>
+
+                        <label for="storeRevenue${i}">Revenue:</label>
+                        <input type="number" id="storeRevenue${i}" required>
+
+                        <label for="storeReviews${i}">Number of Reviews:</label>
+                        <input type="number" id="storeReviews${i}" required>
+
+                        <label for="storePositiveReviews${i}">Number of Positive Reviews:</label>
+                        <input type="number" id="storePositiveReviews${i}" required>
                     </div>
                 `;
             }
 
-            document.getElementById("storeRanking").innerHTML = topStoresHTML;
-            document.getElementById("connectionSection").style.display = 'block';
+            storeInputsHTML += '<button onclick="storeDetailsSubmission()">Submit Store Details</button>';
+            document.getElementById('storeInputs').innerHTML = storeInputsHTML;
         }
 
-        // Step 3: Input connections between stores
+        // Step 1: Collect store details submission
+        function storeDetailsSubmission() {
+            const numStores = document.getElementById('numStores').value;
+            storeDetails = [];
+            for (let i = 0; i < numStores; i++) {
+                const store = {
+                    name: document.getElementById(`storeName${i}`).value,
+                    revenue: document.getElementById(`storeRevenue${i}`).value,
+                    reviews: document.getElementById(`storeReviews${i}`).value,
+                    positiveReviews: document.getElementById(`storePositiveReviews${i}`).value
+                };
+                storeDetails.push(store);
+            }
+            document.getElementById('rankingSection').style.display = 'block';
+        }
+
+        // Step 2: Rank stores based on reviews
+        function rankStores() {
+            const rankingMethod = document.getElementById('rankingMethod').value;
+            if (rankingMethod == '1') {
+                storeDetails.sort((a, b) => b.reviews - a.reviews);
+            } else if (rankingMethod == '2') {
+                storeDetails.sort((a, b) => b.positiveReviews - a.positiveReviews);
+            }
+            displayRankedStores();
+        }
+
+        // Display the ranked stores
+        function displayRankedStores() {
+            let rankedStoresHTML = '<ul>';
+            const topStores = storeDetails.slice(0, 3);
+            topStores.forEach((store, index) => {
+                rankedStoresHTML += `
+                    <li>
+                        ${index + 1}. ${store.name} - Reviews: ${store.reviews}, Positive Reviews: ${store.positiveReviews}
+                    </li>
+                `;
+            });
+            rankedStoresHTML += '</ul>';
+            document.getElementById('rankedStores').innerHTML = rankedStoresHTML;
+            document.getElementById('rankedStoresSection').style.display = 'block';
+            document.getElementById('connectionSection').style.display = 'block';
+        }
+
+        // Step 4: Add traffic connections
         function addConnectionInputs() {
-            let numConnections = document.getElementById("numConnections").value;
+            const numConnections = document.getElementById('numConnections').value;
+            if (numConnections < 1) {
+                alert("Please enter a valid number of connections.");
+                return;
+            }
+            
             let connectionInputsHTML = '';
             for (let i = 0; i < numConnections; i++) {
                 connectionInputsHTML += `
-                    <h3>Connection ${i + 1}</h3>
-                    <label for="connection${i}">Store 1 (Index):</label>
-                    <input type="number" id="store1${i}" required>
-                    <label for="connection${i}">Store 2 (Index):</label>
-                    <input type="number" id="store2${i}" required>
-                    <label for="connection${i}">Traffic Weight:</label>
-                    <input type="number" id="trafficWeight${i}" required>
+                    <div class="connection-item">
+                        <label for="store1${i}">Store 1 (ID):</label>
+                        <input type="number" id="store1${i}" required>
+
+                        <label for="store2${i}">Store 2 (ID):</label>
+                        <input type="number" id="store2${i}" required>
+
+                        <label for="weight${i}">Traffic Weight (in meters):</label>
+                        <input type="number" id="weight${i}" required>
+                    </div>
                 `;
             }
-            document.getElementById("connectionInputs").innerHTML = connectionInputsHTML;
-            document.getElementById("dijkstraResult").style.display = 'block';
+
+            connectionInputsHTML += '<button onclick="addConnections()">Submit Connections</button>';
+            document.getElementById('connectionInputs').innerHTML = connectionInputsHTML;
         }
 
-        // Step 4: Dijkstra’s algorithm to calculate shortest paths
-        function runDijkstra() {
-            let graph = new Map();
-            for (let i = 0; i < numStores; i++) {
-                graph.set(i, []);
-            }
-
-            trafficConnections.forEach(connection => {
-                let [store1, store2, weight] = connection;
-                graph.get(store1).push({ node: store2, weight: weight });
-                graph.get(store2).push({ node: store1, weight: weight });
-            });
-
-            let dist = new Array(numStores).fill(Infinity);
-            let prev = new Array(numStores).fill(null);
-            let pq = new PriorityQueue();
-
-            dist[0] = 0;
-            pq.enqueue(0, dist[0]);
-
-            while (!pq.isEmpty()) {
-                let u = pq.dequeue();
-
-                graph.get(u).forEach(neighbor => {
-                    let v = neighbor.node;
-                    let weight = neighbor.weight;
-
-                    if (dist[u] + weight < dist[v]) {
-                        dist[v] = dist[u] + weight;
-                        prev[v] = u;
-                        pq.enqueue(v, dist[v]);
-                    }
-                });
-            }
-
-            let outputHTML = "<h3>Shortest Path Results (for optimal store placement):</h3>";
-            for (let i = 0; i < numStores; i++) {
-                if (dist[i] !== Infinity) {
-                    outputHTML += `Store ${i + 1} - Distance from entrance: ${dist[i]} meters<br>`;
-                } else {
-                    outputHTML += `Store ${i + 1} is not reachable from entrance.<br>`;
-                }
-            }
-
-            document.getElementById("shortestPathsOutput").innerHTML = outputHTML;
-        }
-
-        // Collect traffic connections from the form
-        function collectConnections() {
-            trafficConnections = [];
-            let numConnections = document.getElementById("numConnections").value;
+        // Step 4: Submit the traffic connections
+        function addConnections() {
+            const numConnections = document.getElementById('numConnections').value;
+            connections = [];
             for (let i = 0; i < numConnections; i++) {
-                let store1 = parseInt(document.getElementById(`store1${i}`).value) - 1;
-                let store2 = parseInt(document.getElementById(`store2${i}`).value) - 1;
-                let weight = parseInt(document.getElementById(`trafficWeight${i}`).value);
-                trafficConnections.push([store1, store2, weight]);
+                const connection = {
+                    store1: document.getElementById(`store1${i}`).value - 1,  // Convert to zero-index
+                    store2: document.getElementById(`store2${i}`).value - 1,  // Convert to zero-index
+                    weight: document.getElementById(`weight${i}`).value
+                };
+                connections.push(connection);
             }
-            runDijkstra();
+            document.getElementById('shortestPathsSection').style.display = 'block';
+            calculateShortestPaths();
+        }
+
+        // Step 5: Calculate shortest paths (simplified)
+        function calculateShortestPaths() {
+            let shortestPathsHTML = '<ul>';
+            for (let i = 0; i < storeDetails.length; i++) {
+                shortestPathsHTML += `
+                    <li>Store ${i + 1}: Distance = 20 meters (mock data)</li>
+                `;
+            }
+            shortestPathsHTML += '</ul>';
+            document.getElementById('shortestPaths').innerHTML = shortestPathsHTML;
         }
     </script>
 </body>
