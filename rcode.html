@@ -100,6 +100,7 @@
         let stores = [];
         let connections = [];
 
+        // Add store input fields dynamically
         function addStoreInputs() {
             numStores = document.getElementById("numStores").value;
             let storeInputsHTML = '';
@@ -123,6 +124,7 @@
             document.getElementById("rankingSection").style.display = 'block';
         }
 
+        // Show top stores based on ranking method
         function showTopStores() {
             stores = [];
             for (let i = 0; i < numStores; i++) {
@@ -158,6 +160,7 @@
             document.getElementById("graphSection").style.display = 'block';
         }
 
+        // Add connection input fields
         function addConnections() {
             let numConnections = document.getElementById("numConnections").value;
             let connectionInputsHTML = '';
@@ -175,9 +178,9 @@
             document.getElementById("connectionInputs").innerHTML = connectionInputsHTML;
         }
 
+        // Example: A simple approach for shortest paths (Dijkstra-like placeholder)
         function findShortestPaths() {
-            // This function should run a Dijkstra-like algorithm for shortest path calculation.
-            // For simplicity, assuming a simple representation of shortest paths.
+            // Assuming stores are connected randomly for simplicity
             let shortestPaths = [];
             for (let i = 1; i <= numStores; i++) {
                 shortestPaths.push(`Store ${i} - Distance: ${Math.floor(Math.random() * 100)}`);
