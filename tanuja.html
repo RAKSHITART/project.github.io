@@ -3,88 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patrol Route Optimization with Prim's Algorithm</title>
+    <title>City Design Project - Mall Management System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 1px solid #ccc;
-        }
-        section {
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
         }
         h1, h2 {
-            margin: 0 0 10px 0;
+            color: #2c3e50;
         }
-        p {
-            margin-bottom: 15px;
+        .highlight {
+            color: #e74c3c;
+            font-weight: bold;
         }
         ul {
-            list-style-type: disc;
-            margin-left: 20px;
-        }
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            border-top: 1px solid #ccc;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+            list-style-type: none;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Greetings, I am Tanuja Ratan</h1>
+        <p>I’m passionate about expanding my understanding, constantly embracing new challenges, and diving into the intricacies of how the world operates. Whether it's through uncovering <span class="highlight">algorithms</span>, recognizing <span class="highlight">patterns</span>, or generating fresh <span class="highlight">ideas</span>, I’m always eager to explore the underlying connections and systems that influence our reality.</p>
+    </header>
 
-<header>
-    <h1>Patrol Route Optimization</h1>
-    <p>Using Prim's Algorithm for Efficient Coverage</p>
-</header>
+    <section>
+        <h2>City Design Project: Mall Management System</h2>
+        <p>In this project, our group has taken up the <span class="highlight">mall management system</span> and assigned different business cases. I am working on the following:</p>
 
-<section>
-    <h2>Objective</h2>
-    <p>The goal of this algorithm is to optimize the patrol route for security guards in a mall. The guards need to cover all critical areas (checkpoints) while minimizing the total walking distance. By doing so, the overall efficiency and response time of the guards are improved.</p>
-</section>
+        <h3>1. Patrol Route Optimization</h3>
+        <p><strong>Scenario:</strong> The objective is to optimize the patrol route for security guards to cover all critical areas of the mall while minimizing the total walking distance. The challenge is to ensure efficient coverage of key security checkpoints without unnecessary travel, enhancing both guard efficiency and response time.</p>
+        <p><strong>Algorithm:</strong> <span class="highlight">Prim’s Algorithm</span> for <span class="highlight">Minimum Spanning Tree (MST)</span></p>
 
-<section>
-    <h2>Algorithm: Prim's Algorithm for Minimum Spanning Tree (MST)</h2>
-    <p>Prim's algorithm is used to find the Minimum Spanning Tree (MST) of a graph, where each checkpoint is a node and the walking distances are edges connecting them. The MST ensures that all nodes are connected with the minimum total distance and no cycles.</p>
-</section>
+        <h4>Approach:</h4>
+        <ul>
+            <li><strong>Graph Representation:</strong> Each checkpoint is a node, with edges representing walking distances.</li>
+            <li><strong>Minimum Spanning Tree (MST):</strong> Use Prim’s algorithm to find the MST, connecting all nodes with minimal distance and no cycles.</li>
+            <li><strong>Patrol Route Optimization:</strong> The MST provides an optimal route, minimizing travel while ensuring all checkpoints are covered.</li>
+        </ul>
 
-<section>
-    <h2>Approach</h2>
-    <ul>
-        <li><strong>Graph Representation:</strong> Each checkpoint is represented as a node. The edges between the nodes represent the walking distances between the checkpoints.</li>
-        <li><strong>Minimum Spanning Tree (MST):</strong> Apply Prim's algorithm to find the MST that connects all nodes with the minimal total distance.</li>
-        <li><strong>Patrol Route Optimization:</strong> The MST is used to determine the optimal patrol route for the security guards, ensuring efficient coverage and minimizing unnecessary travel.</li>
-    </ul>
-</section>
+        <h4>Benefits of MST:</h4>
+        <ul>
+            <li><span class="highlight">Minimized Travel Time:</span> Reduces walking distance, improving efficiency.</li>
+            <li><span class="highlight">Full Coverage:</span> Ensures all checkpoints are covered.</li>
+            <li><span class="highlight">Optimized Response:</span> Allows faster response times, enhancing security.</li>
+        </ul>
+        <p>This method balances efficient coverage and operational effectiveness.</p>
 
-<section>
-    <h2>Benefits of MST</h2>
-    <ul>
-        <li><strong>Minimized Travel Time:</strong> By minimizing the walking distance, guards can save time and energy.</li>
-        <li><strong>Full Coverage:</strong> All checkpoints are covered without redundancy.</li>
-        <li><strong>Optimized Response:</strong> Faster response times to any incidents or emergencies, improving overall security efficiency.</li>
-    </ul>
-</section>
+        <h3>2. Revenue Prediction for Shops</h3>
+        <p><strong>Scenario:</strong> The goal is to analyze the revenue trends of shops to predict their future performance based on historical data and inter-shop relationships.</p>
+        <p><strong>Algorithm:</strong> <span class="highlight">Merge Sort</span>: Sorts revenue data efficiently by time or amount. <span class="highlight">DFS (Depth First Search)</span>: Explores relationships between shops, such as complementary products or shared customer bases.</p>
 
-<section>
-    <h2>Conclusion</h2>
-    <p>By using Prim's algorithm, we can efficiently optimize the patrol routes of security guards, improving both operational effectiveness and response time, ultimately enhancing the safety and security of the mall.</p>
-</section>
+        <h4>Approach:</h4>
+        <ul>
+            <li><strong>Sort Historical Revenue Data:</strong> Use Merge Sort to organize the revenue data chronologically or by amount.</li>
+            <li><strong>Analyze Relationships Between Shops:</strong> Represent the shops as nodes in a graph, where edges represent relationships (e.g., joint promotions or similar customer demographics).</li>
+            <li><strong>Explore Trends:</strong> Use DFS to analyze patterns and dependencies between shops, helping predict how changes in one shop’s performance might affect others.</li>
+        </ul>
 
-<footer>
-    <p>Patrol Route Optimization with Prim's Algorithm - Developed for GitHub</p>
-</footer>
+        <h4>Graph Representation:</h4>
+        <ul>
+            <li><strong>Nodes:</strong> Shops.</li>
+            <li><strong>Edges:</strong> Relationships like shared promotions or complementary products.</li>
+        </ul>
 
+        <h4>Benefits:</h4>
+        <ul>
+            <li><span class="highlight">Efficient Data Sorting:</span> Merge Sort helps in efficiently handling large datasets.</li>
+            <li><span class="highlight">Deep Insights:</span> DFS uncovers hidden relationships and trends between shops, leading to better predictions.</li>
+            <li><span class="highlight">Optimized Predictions:</span> By considering both individual and inter-shop data, future revenue predictions become more accurate and reliable.</li>
+        </ul>
+    </section>
 </body>
 </html>
+
