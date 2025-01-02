@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efficient Waste Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1, h2 {
+            color: #0056b3;
+        }
+        section {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Efficient Waste Management System</h1>
+
+    <section>
+        <h2>1. Introduction</h2>
+        <p>
+            The goal of this project is to design an <strong>Efficient Waste Management System</strong> for a mall. The system ranks zones by waste generation levels, optimizes waste collection routes, and determines optimal waste chute locations to minimize travel distances for collection carts. The solution integrates <strong>Quick Sort</strong>, <strong>Depth First Search (DFS)</strong>, and <strong>Kruskal’s Algorithm</strong> to achieve these objectives.
+        </p>
+    </section>
+
+    <section>
+        <h2>2. System Overview</h2>
+        <ul>
+            <li><strong>Zone Ranking:</strong> Quick Sort is used to rank mall zones based on waste generation levels.</li>
+            <li><strong>Route Optimization:</strong> DFS identifies optimal routes for waste collection carts.</li>
+            <li><strong>Chute Placement:</strong> Kruskal’s Algorithm determines the most efficient locations for waste chutes to minimize travel distances.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>3. Key Concepts and Algorithms</h2>
+        <h3>3.1 Zone Ranking Using Quick Sort</h3>
+        <p>
+            Quick Sort is applied to rank zones in the mall based on their waste generation levels (e.g., high, medium, low).
+        </p>
+        <ul>
+            <li><strong>Input:</strong> Data on waste levels from different zones.</li>
+            <li><strong>Steps:</strong>
+                <ul>
+                    <li>Select a pivot zone.</li>
+                    <li>Partition zones into two groups: those generating more waste than the pivot and those generating less.</li>
+                    <li>Recursively sort each group until all zones are ranked.</li>
+                </ul>
+            </li>
+            <li><strong>Output:</strong> A sorted list of zones prioritized by waste generation levels.</li>
+        </ul>
+        <p><strong>Efficiency:</strong> The algorithm has an average time complexity of <code>O(n log n)</code>.</p>
+
+        <h3>3.2 Route Optimization Using DFS</h3>
+        <p>
+            DFS is used to plan efficient waste collection cart routes by ensuring that all zones are covered with minimal overlap.
+        </p>
+        <ul>
+            <li><strong>Input:</strong> A graph where nodes represent zones and edges represent paths between them.</li>
+            <li><strong>Steps:</strong>
+                <ul>
+                    <li>Start from a designated collection point.</li>
+                    <li>Traverse paths to visit all zones, backtracking when necessary.</li>
+                </ul>
+            </li>
+            <li><strong>Output:</strong> A sequence of routes that minimizes redundant travel.</li>
+        </ul>
+        <p><strong>Efficiency:</strong> DFS ensures that every zone is visited exactly once.</p>
+
+        <h3>3.3 Chute Placement Using Kruskal’s Algorithm</h3>
+        <p>
+            Kruskal’s Algorithm identifies the optimal placement of waste chutes by minimizing travel distances for waste collection carts.
+        </p>
+        <ul>
+            <li><strong>Input:</strong> A weighted graph with nodes as potential chute locations and edges as distances between them.</li>
+            <li><strong>Steps:</strong>
+                <ul>
+                    <li>Sort edges by weight.</li>
+                    <li>Incrementally add edges to the minimum spanning tree (MST), avoiding cycles.</li>
+                    <li>Stop when all nodes are connected.</li>
+                </ul>
+            </li>
+            <li><strong>Output:</strong> An MST highlighting optimal chute placements.</li>
+        </ul>
+        <p><strong>Efficiency:</strong> Time complexity is <code>O(E log E)</code>, where <code>E</code> is the number of edges.</p>
+    </section>
+
+    <section>
+        <h2>4. Implementation</h2>
+        <ul>
+            <li><strong>Ranking Zones:</strong>
+                <ul>
+                    <li>Data on waste levels is collected for each zone.</li>
+                    <li>Quick Sort is applied to rank zones by waste generation levels.</li>
+                </ul>
+            </li>
+            <li><strong>Route Optimization:</strong>
+                <ul>
+                    <li>A graph is constructed with zones as nodes and paths as edges.</li>
+                    <li>DFS is used to determine efficient collection routes.</li>
+                </ul>
+            </li>
+            <li><strong>Chute Placement:</strong>
+                <ul>
+                    <li>A weighted graph is created with potential chute locations.</li>
+                    <li>Kruskal’s Algorithm is applied to find the MST.</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>5. System Benefits</h2>
+        <ul>
+            <li><strong>Efficiency:</strong> Zones with high waste levels are prioritized, and cart routes are optimized to save time.</li>
+            <li><strong>Cost-Effective:</strong> Minimizing travel distances reduces operational costs.</li>
+            <li><strong>Scalability:</strong> The system can be adapted for malls of varying sizes and layouts.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>6. Limitations and Future Work</h2>
+        <ul>
+            <li><strong>Dynamic Waste Levels:</strong> Current rankings are static; incorporating real-time data could improve accuracy.</li>
+            <li><strong>Mall Layout Complexity:</strong> Extending the system for multi-level malls with elevators and escalators is a future goal.</li>
+            <li><strong>Real-Time Optimization:</strong> Integrating IoT devices could enable real-time updates to routes and rankings.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>7. Conclusion</h2>
+        <p>
+            The Efficient Waste Management System effectively integrates Quick Sort, DFS, and Kruskal’s Algorithm to rank zones, optimize collection routes, and determine chute locations. This approach ensures streamlined waste collection, reduces costs, and enhances operational efficiency, making it ideal for modern mall environments.
+        </p>
+    </section>
+</body>
+</html>
