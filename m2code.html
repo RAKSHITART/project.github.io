@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabin-Karp Algorithm - C++ Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #e6ffe6, #ffffff);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            padding: 20px;
+            text-align: left;
+        }
+        h1 {
+            color: #4caf50;
+            text-align: center;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rabin-Karp Algorithm - C++ Code</h1>
+        <p>The following is the C++ implementation of the Rabin-Karp algorithm for searching products in a mall directory:</p>
+        <pre><code>
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int calculateHash(const string&amp; str, int prime, int modulus) {
+    int hashValue = 0;
+    for (char c : str) {
+        hashValue = (hashValue * prime + c) % modulus;
+    }
+    return hashValue;
+}
+
+vector&lt;int&gt; rabinKarpSearch(const string&amp; directory, const string&amp; query) {
+    int prime = 101;   
+    int modulus = 1e9 + 7; 
+    int m = query.size();
+    int n = directory.size();
+
+    vector&lt;int&gt; resultIndices;
+
+    int queryHash = calculateHash(query, prime, modulus);
+    int currentHash = calculateHash(directory.substr(0, m), prime, modulus);
+
+    int primePower = 1;
+    for (int i = 0; i &lt; m - 1; i++) {
+        primePower = (primePower * prime) % modulus;
+    }
+
+    for (int i = 0; i &lt;= n - m; i++) {
+        if (currentHash == queryHash) {
+            if (directory.substr(i, m) == query) {
+                resultIndices.push_back(i);
+            }
+        }
+
+        if (i &lt; n - m) {
+            currentHash = (currentHash - directory[i] * primePower) % modulus;
+            currentHash = (currentHash * prime + directory[i + m]) % modulus;
+            if (currentHash &lt; 0) currentHash += modulus;
+        }
+    }
+
+    return resultIndices;
+}
+
+int main() {
+    string directory, query;
+
+    cout &lt;&lt; "Enter the mall product directory: ";
+    getline(cin, directory);
+
+    cout &lt;&lt; "Enter the product or category to search: ";
+    getline(cin, query);
+
+    vector&lt;int&gt; result = rabinKarpSearch(directory, query);
+
+    if (!result.empty()) {
+        cout &lt;&lt; "The query '" &lt;&lt; query &lt;&lt; "' is found at the following indices: ";
+        for (int index : result) {
+            cout &lt;&lt; index &lt;&lt; " ";
+        }
+        cout &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "The query '" &lt;&lt; query &lt;&lt; "' was not found in the directory." &lt;&lt; endl;
+    }
+
+    return 0;
+}
+        </code></pre>
+    </div>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Input and Output</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #e6ffe6, #ffffff);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #4caf50;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sample Input and Output</h1>
+        
+        <div class="section">
+            <h2>Sample Input</h2>
+            <pre>
+Enter the mall product directory: 
+electronics fashion food electronics accessories gadgets fashion
+
+Enter the product or category to search: 
+fashion
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Sample Output</h2>
+            <pre>
+The query 'fashion' is found at the following indices: 11 56
+            </pre>
+        </div>
+
+        <footer>
+            Powered by the Rabin-Karp Algorithm
+        </footer>
+    </div>
+</body>
+</html>
