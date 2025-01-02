@@ -26,100 +26,15 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        h1 {
+        h1, h2 {
             color: #28a745;
         }
         ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        ul li {
-            margin: 5px 0;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>City Design Project</h1>
-    </header>
-    <section>
-        <h2>About Me</h2>
-        <p>
-            Hello, This is Michelle. I’m someone who loves gaining knowledge, adapting to new things, 
-            and exploring how the world works. Whether it be through algorithms, patterns, or innovative ideas. 
-            I’m always curious about uncovering connections and understanding the deeper mechanisms that shape our reality.
-        </p>
-    </section>
-    <section>
-        <h2>Technical Skills</h2>
-        <ul>
-            <li>C</li>
-            <li>C++</li>
-            <li>Data Structures and its Implementation</li>
-            <li>Basic Python</li>
-            <li>HTML</li>
-        </ul>
-    </section>
-</body>
-</html>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>City Design Project</title>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #e8f5e9, #ffffff);
-            color: #333;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .intro {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        .intro h2 {
-            color: #4caf50;
-            font-size: 2.2em;
-            margin-bottom: 15px;
-        }
-        .section {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            margin: 15px auto;
-        }
-        .section h3 {
-            margin-bottom: 12px;
-            color: #388e3c;
-            font-size: 1.8em;
-        }
-        .section ul {
             margin: 10px 0;
             padding-left: 20px;
         }
-        .section li {
-            margin-bottom: 8px;
+        ul li {
+            margin-bottom: 10px;
         }
         .btn {
             display: inline-block;
@@ -141,171 +56,97 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="intro">
-            <h2>Introduction to project</h2>
-            <p>In the City Design Project, my group chose the Mall Management System and explored different business cases to apply the algorithms. I worked on the following:</p>
-        </div>
-
-        <div class="section">
-            <h3>1. Parking Lot Management System</h3>
-            <p><strong>Purpose:</strong> This system assigns parking slots to customers based on proximity to mall entrances, optimizing convenience.</p>
-            <p><strong>Implementation Details:</strong></p>
-            <ul>
-                <li>Parking slots are sorted using <strong>Selection Sort</strong>, ranking them by distance.</li>
-                <li><strong>Breadth-First Search (BFS)</strong> dynamically assigns the nearest available slot to visitors.</li>
-            </ul>
-            <a class="btn" href="mcode.html" target="_blank">View Code</a>
-        </div>
-
-        <div class="section">
-            <h3>2. Customer Navigation System</h3>
-            <p><strong>Purpose:</strong> Guides customers along the shortest path between two points in the mall.</p>
-            <p><strong>Implementation Details:</strong></p>
-            <ul>
-                <li>The mall is represented as a graph where nodes are locations (e.g., shops) and edges are paths.</li>
-                <li><strong>Dijkstra's Algorithm</strong> calculates the shortest path between two points.</li>
-                <li>A <strong>Binary Search Tree (BST)</strong> stores shop locations for efficient lookups.</li>
-            </ul>
-            <a class="btn" href="m1code.html" target="_blank">View Code</a>
-        </div>
-
-        <div class="section">
-            <h3>3. Searching for Products in a Mall Directory</h3>
-            <p><strong>Purpose:</strong> Enables customers to search for specific products or categories (e.g., "electronics," "fashion") in the mall directory.</p>
-            <p><strong>Implementation Details:</strong></p>
-            <ul>
-                <li><strong>Rabin-Karp Algorithm</strong> is used for efficient searching by comparing hash values.</li>
-                <li>Hash values are calculated for the search term and matched against substrings in the directory.</li>
-            </ul>
-            <a class="btn" href="m2code.html" target="_blank">View Code</a>
-        </div>
-    </div>
-</body>
-</html>
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SDG Mapping</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background: #28a745;
-            color: #fff;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        section {
-            padding: 20px;
-            background: #fff;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2 {
-            color: #28a745;
-        }
-        ul {
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-        ul li {
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
     <header>
-        <h1>Mapping SDGs to My Solutions</h1>
+        <h1>City Design Project</h1>
     </header>
+
     <section>
-        <h2>Parking Slot Management System</h2>
+        <h2>About Me</h2>
         <p>
-            My Parking Slot Management System optimizes space allocation and contributes to the following SDGs:
+            Hello, This is Michelle. I’m someone who loves gaining knowledge, adapting to new things, 
+            and exploring how the world works. Whether it be through algorithms, patterns, or innovative ideas. 
+            I’m always curious about uncovering connections and understanding the deeper mechanisms that shape our reality.
         </p>
+    </section>
+
+    <section>
+        <h2>Technical Skills</h2>
+        <ul>
+            <li>C</li>
+            <li>C++</li>
+            <li>Data Structures and its Implementation</li>
+            <li>Basic Python</li>
+            <li>HTML</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Introduction to Project</h2>
+        <p>In the City Design Project, my group chose the Mall Management System and explored different business cases to apply the algorithms. I worked on the following:</p>
+    </section>
+
+    <section>
+        <h2>1. Parking Lot Management System</h2>
+        <p><strong>Purpose:</strong> This system assigns parking slots to customers based on proximity to mall entrances, optimizing convenience.</p>
+        <p><strong>Implementation Details:</strong></p>
+        <ul>
+            <li>Parking slots are sorted using <strong>Selection Sort</strong>, ranking them by distance.</li>
+            <li><strong>Breadth-First Search (BFS)</strong> dynamically assigns the nearest available slot to visitors.</li>
+        </ul>
+        <a class="btn" href="mcode.html" target="_blank">View Code</a>
+    </section>
+
+    <section>
+        <h2>2. Customer Navigation System</h2>
+        <p><strong>Purpose:</strong> Guides customers along the shortest path between two points in the mall.</p>
+        <p><strong>Implementation Details:</strong></p>
+        <ul>
+            <li>The mall is represented as a graph where nodes are locations (e.g., shops) and edges are paths.</li>
+            <li><strong>Dijkstra's Algorithm</strong> calculates the shortest path between two points.</li>
+            <li>A <strong>Binary Search Tree (BST)</strong> stores shop locations for efficient lookups.</li>
+        </ul>
+        <a class="btn" href="m1code.html" target="_blank">View Code</a>
+    </section>
+
+    <section>
+        <h2>3. Searching for Products in a Mall Directory</h2>
+        <p><strong>Purpose:</strong> Enables customers to search for specific products or categories (e.g., "electronics," "fashion") in the mall directory.</p>
+        <p><strong>Implementation Details:</strong></p>
+        <ul>
+            <li><strong>Rabin-Karp Algorithm</strong> is used for efficient searching by comparing hash values.</li>
+            <li>Hash values are calculated for the search term and matched against substrings in the directory.</li>
+        </ul>
+        <a class="btn" href="m2code.html" target="_blank">View Code</a>
+    </section>
+
+    <section>
+        <h2>Mapping SDGs to My Solutions</h2>
+        <h3>Parking Slot Management System</h3>
+        <p>My Parking Slot Management System optimizes space allocation and contributes to the following SDGs:</p>
         <ul>
             <li><strong>SDG 11: Sustainable Cities and Communities</strong> - Reduces traffic congestion and enhances urban infrastructure.</li>
             <li><strong>SDG 9: Industry, Innovation, and Infrastructure</strong> - Demonstrates the power of technology to improve infrastructure management.</li>
         </ul>
-    </section>
-    <section>
-        <h2>Customer Navigation System in a Mall</h2>
-        <p>
-            This system helps customers navigate malls efficiently, supporting:
-        </p>
+
+        <h3>Customer Navigation System in a Mall</h3>
+        <p>This system helps customers navigate malls efficiently, supporting:</p>
         <ul>
             <li><strong>SDG 11: Sustainable Cities and Communities</strong> - Enhances accessibility and consumer satisfaction in urban areas.</li>
             <li><strong>SDG 9: Industry, Innovation, and Infrastructure</strong> - Utilizes advanced algorithms for route optimization.</li>
             <li><strong>SDG 12: Responsible Consumption and Production</strong> - Reduces time wastage and promotes responsible consumer behavior.</li>
         </ul>
-    </section>
-    <section>
-        <h2>Product/Category Search in a Mall Directory</h2>
-        <p>
-            My directory search system employs efficient algorithms to contribute to:
-        </p>
+
+        <h3>Product/Category Search in a Mall Directory</h3>
+        <p>My directory search system employs efficient algorithms to contribute to:</p>
         <ul>
             <li><strong>SDG 12: Responsible Consumption and Production</strong> - Helps customers find products responsibly and effectively.</li>
             <li><strong>SDG 8: Decent Work and Economic Growth</strong> - Enhances the shopping experience, boosting sales and economic growth.</li>
             <li><strong>SDG 9: Industry, Innovation, and Infrastructure</strong> - Highlights the use of cutting-edge search algorithms.</li>
         </ul>
     </section>
-</body>
-</html>
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Reflection</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background: #6c757d;
-            color: #fff;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        section {
-            padding: 20px;
-            background: #fff;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #6c757d;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <title>Project Reflection</title>
-    </header>
     <section>
+        <h2>Reflection</h2>
         <p>
             Through this project, I gained valuable insights into how concepts are applied in real-world scenarios and how to implement them effectively. While understanding the theoretical aspects of the topics was relatively easy, the real challenge lay in translating these concepts into practical applications using coding languages.
         </p>
@@ -318,4 +159,3 @@
     </section>
 </body>
 </html>
-
