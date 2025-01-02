@@ -73,3 +73,89 @@
 </body>
 </html>
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Design Project - Mall Management System</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #4a90e2, #50e3c2);
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+        .section {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            text-align: left;
+        }
+        .section h3 {
+            margin-bottom: 10px;
+            color: #4a90e2;
+        }
+        .section p {
+            margin-bottom: 10px;
+        }
+        .code {
+            background: #f4f4f4;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mall Management System</h1>
+        <h2>City Design Project</h2>
+
+        <div class="section">
+            <h3>1. Parking Lot Management System</h3>
+            <p><strong>Purpose:</strong> This system assigns parking slots to customers based on their proximity to mall entrances to optimize convenience.</p>
+            <p><strong>Implementation Details:</strong></p>
+            <ul>
+                <li>The parking slots are sorted using <strong>Selection Sort</strong>, which prepares a ranked list of parking lots by distance.</li>
+                <li><strong>Breadth-First Search (BFS)</strong> is used to dynamically assign the nearest available slot to a visitor.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>2. Customer Navigation System</h3>
+            <p><strong>Purpose:</strong> This system helps guide customers along the shortest path between two points in the mall.</p>
+            <p><strong>Implementation Details:</strong></p>
+            <ul>
+                <li>The mall is represented as a graph, where nodes represent locations (e.g., shops) and edges represent paths between them.</li>
+                <li><strong>Dijkstra's Algorithm</strong> calculates the shortest path between the starting and destination points.</li>
+                <li>A <strong>Binary Search Tree (BST)</strong> stores the shop locations, enabling fast and efficient lookups for customer destinations.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>3. Searching for Products in a Mall Directory</h3>
+            <p><strong>Purpose:</strong> This system allows customers to search for specific product names or categories (e.g., "electronics," "fashion") within the mall's product directory to quickly find relevant items or stores.</p>
+            <p><strong>Implementation Details:</strong></p>
+            <ul>
+                <li>The <strong>Rabin-Karp Algorithm</strong> is used to search for products or categories efficiently by comparing hash values.</li>
+                <li>The algorithm works by calculating a hash value for the search term and matching it against hash values of substrings in the product directory.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+
