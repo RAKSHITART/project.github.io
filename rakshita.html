@@ -34,7 +34,7 @@
     <section>
         <h2>1. Introduction</h2>
         <p>
-            This project combines two systems: the <strong>Mall Management System</strong> and the <strong>Efficient Waste Management System</strong>. The Mall Management System ranks stores based on customer reviews and revenue, optimizing store placement using <strong>Dijkstra's Algorithm</strong>. The Waste Management System ranks zones by waste generation levels, optimizes waste collection routes, and determines optimal waste chute locations using <strong>Quick Sort</strong>, <strong>DFS</strong>, and <strong>Kruskal's Algorithm</strong>.
+            This combined system integrates <strong>Mall Management</strong> and <strong>Waste Management</strong> to ensure optimized customer experience and efficient waste handling within mall premises. The mall system ranks stores and places them optimally, while the waste management system ranks zones by waste levels and optimizes waste collection routes.
         </p>
     </section>
 
@@ -42,80 +42,71 @@
         <h2>2. Mall Management System</h2>
         <h3>2.1 System Overview</h3>
         <ul>
-            <li><strong>Store Ranking:</strong> Ranks stores based on customer reviews or positive reviews.</li>
-            <li><strong>Optimal Store Placement:</strong> Dijkstra's Algorithm calculates shortest paths from high-traffic areas to optimize store locations.</li>
+            <li><strong>Store Ranking:</strong> Stores are ranked based on customer reviews or positive reviews.</li>
+            <li><strong>Optimal Store Placement:</strong> Dijkstra’s algorithm is used to determine the shortest paths, ensuring top-ranked stores are placed in high-traffic areas.</li>
         </ul>
 
-        <h3>2.2 Key Algorithms</h3>
-        <h4>2.2.1 Store Ranking</h4>
+        <h3>2.2 Key Concepts</h3>
+        <h4>Store Ranking</h4>
+        <p>
+            Stores are ranked using two methods:
+        </p>
         <ul>
-            <li>Ranks stores by total or positive reviews.</li>
-            <li>Uses simple scoring to prioritize high-ranking stores.</li>
+            <li><strong>Rank by Total Reviews:</strong> Total number of reviews for each store.</li>
+            <li><strong>Rank by Positive Reviews:</strong> Number of positive reviews each store receives.
+            </li>
         </ul>
 
-        <h4>2.2.2 Dijkstra's Algorithm</h4>
-        <ul>
-            <li>Calculates shortest paths from the mall entrance to other stores.</li>
-            <li>Places top-ranked stores in high-accessibility areas.</li>
-        </ul>
-
-        <h3>2.3 Implementation</h3>
-        <ul>
-            <li>Create a graph with stores as nodes and paths as edges with weights.</li>
-            <li>Rank stores and use Dijkstra's Algorithm to optimize placement.</li>
-        </ul>
-
-        <h3>2.4 Benefits</h3>
-        <ul>
-            <li>Improves customer satisfaction by optimizing store accessibility.</li>
-            <li>Utilizes space efficiently by prioritizing popular stores.</li>
-        </ul>
+        <h4>Dijkstra’s Algorithm for Optimal Placement</h4>
+        <p>
+            Dijkstra’s Algorithm calculates the shortest paths from the entrance to other stores, ensuring the most accessible locations for popular stores.
+        </p>
+        <p>For code implementation, <a href="mall_code.html" target="_blank">click here</a>.</p>
     </section>
 
     <section>
         <h2>3. Waste Management System</h2>
         <h3>3.1 System Overview</h3>
         <ul>
-            <li><strong>Zone Ranking:</strong> Quick Sort ranks zones by waste levels.</li>
-            <li><strong>Route Optimization:</strong> DFS identifies optimal waste collection routes.</li>
-            <li><strong>Chute Placement:</strong> Kruskal's Algorithm determines optimal chute locations.</li>
+            <li><strong>Zone Ranking:</strong> Quick Sort is used to rank zones by waste levels.</li>
+            <li><strong>Route Optimization:</strong> DFS ensures efficient waste collection routes.</li>
+            <li><strong>Chute Placement:</strong> Kruskal’s Algorithm identifies optimal chute locations to minimize travel distances.</li>
         </ul>
 
-        <h3>3.2 Key Algorithms</h3>
-        <h4>3.2.1 Quick Sort for Zone Ranking</h4>
-        <ul>
-            <li>Sorts zones by waste levels with an average time complexity of <code>O(n log n)</code>.</li>
-        </ul>
+        <h3>3.2 Key Concepts</h3>
+        <h4>Zone Ranking Using Quick Sort</h4>
+        <p>
+            Quick Sort ranks zones based on waste generation levels.
+        </p>
 
-        <h4>3.2.2 DFS for Route Optimization</h4>
-        <ul>
-            <li>Traverses all zones with minimal overlap.</li>
-        </ul>
+        <h4>Route Optimization Using DFS</h4>
+        <p>
+            DFS plans efficient collection routes, minimizing redundant travel.
+        </p>
 
-        <h4>3.2.3 Kruskal's Algorithm for Chute Placement</h4>
-        <ul>
-            <li>Minimizes travel distances by creating a minimum spanning tree.</li>
-        </ul>
+        <h4>Chute Placement Using Kruskal’s Algorithm</h4>
+        <p>
+            Kruskal’s Algorithm determines the minimum spanning tree for optimal chute locations.
+        </p>
+        <p>For code implementation, <a href="waste_code.html" target="_blank">click here</a>.</p>
+    </section>
 
-        <h3>3.3 Implementation</h3>
+    <section>
+        <h2>4. Benefits</h2>
         <ul>
-            <li>Rank zones using Quick Sort.</li>
-            <li>Optimize routes using DFS on a graph of zones and paths.</li>
-            <li>Determine chute locations using Kruskal's Algorithm.</li>
-        </ul>
-
-        <h3>3.4 Benefits</h3>
-        <ul>
-            <li>Reduces operational costs by optimizing waste collection.</li>
-            <li>Enhances efficiency and scalability for malls of various sizes.</li>
+            <li><strong>Customer Satisfaction:</strong> High-traffic stores are easily accessible.</li>
+            <li><strong>Efficient Waste Management:</strong> Optimized routes save time and reduce operational costs.</li>
+            <li><strong>Scalability:</strong> Both systems adapt to malls of varying sizes and complexities.</li>
         </ul>
     </section>
 
     <section>
-        <h2>4. Conclusion</h2>
-        <p>
-            The integrated Mall Management and Waste Management Systems use advanced algorithms to improve customer satisfaction, operational efficiency, and scalability. Dijkstra's Algorithm optimizes store placement, while Quick Sort, DFS, and Kruskal's Algorithm streamline waste management. Together, these systems ensure a better experience for both mall operators and visitors.
-        </p>
+        <h2>5. Future Enhancements</h2>
+        <ul>
+            <li>Incorporate real-time data for dynamic updates.</li>
+            <li>Extend waste management for multi-level malls.</li>
+            <li>Enhance mall layout models to handle multiple entrances and paths.</li>
+        </ul>
     </section>
 </body>
 </html>
