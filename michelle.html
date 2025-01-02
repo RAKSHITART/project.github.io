@@ -99,45 +99,6 @@
                 <li>The parking slots are sorted using <strong>selection sort</strong>, which prepares a ranked list of parking lots by distance.</li>
                 <li><strong>Breadth-First Search (BFS)</strong> is used to dynamically assign the nearest available slot to a visitor.</li>
             </ul>
-            <div class="code">
-                <pre><code>// Selection Sort for Parking Slots
-void selectionSort(int distances[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        int minIdx = i;
-        for (int j = i + 1; j < n; j++) {
-            if (distances[j] < distances[minIdx]) {
-                minIdx = j;
-            }
-        }
-        int temp = distances[minIdx];
-        distances[minIdx] = distances[i];
-        distances[i] = temp;
-    }
-}
-
-// BFS for Nearest Slot Assignment
-void assignParkingSlot(int graph[][MAX], int start, int n) {
-    bool visited[MAX] = {false};
-    queue<int> q;
-    q.push(start);
-    visited[start] = true;
-
-    while (!q.empty()) {
-        int current = q.front();
-        q.pop();
-
-        for (int i = 0; i < n; i++) {
-            if (graph[current][i] && !visited[i]) {
-                q.push(i);
-                visited[i] = true;
-                printf("Assigned Slot: %d\n", i);
-                return;
-            }
-        }
-    }
-}
-</code></pre>
-            </div>
 
             <h4>2. Customer Navigation System</h4>
             <p><strong>Purpose:</strong> This system helps guide customers along the shortest path between two points in the mall.</p>
@@ -147,65 +108,9 @@ void assignParkingSlot(int graph[][MAX], int start, int n) {
                 <li><strong>Dijkstra's algorithm</strong> calculates the shortest path between the starting and destination points.</li>
                 <li>A binary search tree stores the shop locations, enabling fast and efficient lookups for customer destinations.</li>
             </ul>
-            <div class="code">
-                <pre><code>// Dijkstra's Algorithm for Shortest Path
-void dijkstra(int graph[MAX][MAX], int src, int n) {
-    int dist[MAX];
-    bool visited[MAX] = {false};
-
-    for (int i = 0; i < n; i++) {
-        dist[i] = INT_MAX;
-    }
-    dist[src] = 0;
-
-    for (int count = 0; count < n - 1; count++) {
-        int u = minDistance(dist, visited, n);
-        visited[u] = true;
-
-        for (int v = 0; v < n; v++) {
-            if (!visited[v] && graph[u][v] && dist[u] != INT_MAX && dist[u] + graph[u][v] < dist[v]) {
-                dist[v] = dist[u] + graph[u][v];
-            }
-        }
-    }
-}
-
-// Binary Search Tree for Shop Locations
-struct Node {
-    string shopName;
-    Node* left;
-    Node* right;
-};
-
-Node* insert(Node* root, string shopName) {
-    if (!root) {
-        root = new Node();
-        root->shopName = shopName;
-        root->left = root->right = NULL;
-    } else if (shopName < root->shopName) {
-        root->left = insert(root->left, shopName);
-    } else {
-        root->right = insert(root->right, shopName);
-    }
-    return root;
-}
-
-Node* search(Node* root, string shopName) {
-    if (!root || root->shopName == shopName) {
-        return root;
-    }
-    if (shopName < root->shopName) {
-        return search(root->left, shopName);
-    }
-    return search(root->right, shopName);
-}
-</code></pre>
-            </div>
         </section>
 
-        <footer>
-            &copy; 2025 Michelle Hoolgeri | Designed for GitHub
-        </footer>
+  
     </div>
 </body>
 </html>
