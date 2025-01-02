@@ -49,20 +49,17 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         .team {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap; /* Allow wrapping to next row */
-            gap: 2rem; /* Space between the items */
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns */
+            gap: 2rem; /* Space between items */
         }
         .team .member {
             text-align: center;
-            margin: 1rem;
             padding: 1rem;
             background: #e8f5e9;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 200px; /* Width of each member block */
-            flex-basis: 45%; /* Two blocks per row */
+            width: 100%; /* Ensure members take full width of grid cell */
         }
         .team img {
             width: 100px; /* Set to desired size */
