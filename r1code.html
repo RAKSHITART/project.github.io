@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efficient Waste Management Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        pre {
+            background-color: #eef;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Efficient Waste Management in a Mall</h1>
+    <p>This page contains the C++ code for implementing efficient waste management using Quick Sort, DFS, and Kruskal's Algorithm. Users can input the required details like waste levels, zone connections, and chute locations to optimize waste management strategies.</p>
+    
+    <h2>C++ Code</h2>
+    <pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;climits&gt;
+#include &lt;stack&gt;
+
+using namespace std;
+
+// Structure for edges (used in Kruskal's algorithm)
+struct Edge {
+    int u, v, weight;
+    bool operator&lt;(const Edge&amp; other) const {
+        return weight &lt; other.weight;
+    }
+};
+
+// Function for Quick Sort
+void quickSort(vector&lt;int&gt;&amp; zones, vector&lt;int&gt;&amp; wasteLevels, int low, int high) {
+    if (low &lt; high) {
+        int pivot = wasteLevels[high];
+        int i = low - 1;
+        for (int j = low; j &lt; high; j++) {
+            if (wasteLevels[j] &gt; pivot) {  // Sorting in descending order
+                i++;
+                swap(wasteLevels[i], wasteLevels[j]);
+                swap(zones[i], zones[j]);
+            }
+        }
+        swap(wasteLevels[i + 1], wasteLevels[high]);
+        swap(zones[i + 1], zones[high]);
+        quickSort(zones, wasteLevels, low, i);
+        quickSort(zones, wasteLevels, i + 2, high);
+    }
+}
+
+// DFS Function for Route Optimization
+void dfs(int start, const vector&lt;vector&lt;int&gt;&gt;&amp; graph, vector&lt;bool&gt;&amp; visited, vector&lt;int&gt;&amp; route) {
+    stack&lt;int&gt; s;
+    s.push(start);
+    while (!s.empty()) {
+        int node = s.top();
+        s.pop();
+        if (!visited[node]) {
+            visited[node] = true;
+            route.push_back(node);
+            for (int neighbor : graph[node]) {
+                if (!visited[neighbor]) {
+                    s.push(neighbor);
+                }
+            }
+        }
+    }
+}
+
+// Kruskal's Algorithm for Minimum Spanning Tree
+int findParent(int u, vector&lt;int&gt;&amp; parent) {
+    if (u != parent[u]) parent[u] = findParent(parent[u], parent);
+    return parent[u];
+}
+
+void kruskal(int n, vector&lt;Edge&gt;&amp; edges) {
+    sort(edges.begin(), edges.end());
+    vector&lt;int&gt; parent(n);
+    vector&lt;int&gt; rank(n, 0);
+    for (int i = 0; i &lt; n; i++) parent[i] = i;
+
+    vector&lt;Edge&gt; mst;
+    int mstWeight = 0;
+    for (const auto&amp; edge : edges) {
+        int pu = findParent(edge.u, parent);
+        int pv = findParent(edge.v, parent);
+        if (pu != pv) {
+            mst.push_back(edge);
+            mstWeight += edge.weight;
+            if (rank[pu] &lt; rank[pv])
+                parent[pu] = pv;
+            else if (rank[pu] &gt; rank[pv])
+                parent[pv] = pu;
+            else {
+                parent[pv] = pu;
+                rank[pu]++;
+            }
+        }
+    }
+
+    cout &lt;&lt; "\nMinimum Spanning Tree Edges and Weights:\n";
+    for (const auto&amp; edge : mst) {
+        cout &lt;&lt; "Edge: " &lt;&lt; edge.u &lt;&lt; " - " &lt;&lt; edge.v &lt;&lt; " | Weight: " &lt;&lt; edge.weight &lt;&lt; "\n";
+    }
+    cout &lt;&lt; "Total Weight of MST: " &lt;&lt; mstWeight &lt;&lt; endl;
+}
+
+// Main Function
+int main() {
+    int numZones;
+    cout &lt;&lt; "Enter the number of zones in the mall: ";
+    cin &gt;&gt; numZones;
+
+    // Input waste levels
+    vector&lt;int&gt; zones(numZones), wasteLevels(numZones);
+    cout &lt;&lt; "Enter waste levels for each zone:\n";
+    for (int i = 0; i &lt; numZones; i++) {
+        zones[i] = i + 1;
+        cout &lt;&lt; "Zone " &lt;&lt; zones[i] &lt;&lt; ": ";
+        cin &gt;&gt; wasteLevels[i];
+    }
+
+    // Quick Sort for ranking zones
+    quickSort(zones, wasteLevels, 0, numZones - 1);
+    cout &lt;&lt; "\nZones ranked by waste levels (Descending):\n";
+    for (int i = 0; i &lt; numZones; i++) {
+        cout &lt;&lt; "Zone " &lt;&lt; zones[i] &lt;&lt; ": " &lt;&lt; wasteLevels[i] &lt;&lt; "\n";
+    }
+
+    // Input graph for DFS
+    int numPaths;
+    cout &lt;&lt; "\nEnter the number of paths between zones: ";
+    cin &gt;&gt; numPaths;
+    vector&lt;vector&lt;int&gt;&gt; graph(numZones + 1);  // Adjacency list
+    cout &lt;&lt; "Enter the paths (zone1 zone2):\n";
+    for (int i = 0; i &lt; numPaths; i++) {
+        int u, v;
+        cin &gt;&gt; u &gt;&gt; v;
+        graph[u].push_back(v);
+        graph[v].push_back(u);
+    }
+
+    // Perform DFS
+    vector&lt;bool&gt; visited(numZones + 1, false);
+    vector&lt;int&gt; route;
+    cout &lt;&lt; "\nDFS starting from Zone 1:\n";
+    dfs(1, graph, visited, route);
+    for (int zone : route) {
+        cout &lt;&lt; "Zone " &lt;&lt; zone &lt;&lt; " -&gt; ";
+    }
+    cout &lt;&lt; "End\n";
+
+    // Input edges for Kruskal's Algorithm
+    int numEdges;
+    cout &lt;&lt; "\nEnter the number of edges (possible waste chute connections): ";
+    cin &gt;&gt; numEdges;
+    vector&lt;Edge&gt; edges(numEdges);
+    cout &lt;&lt; "Enter the edges (zone1 zone2 weight):\n";
+    for (int i = 0; i &lt; numEdges; i++) {
+        cin &gt;&gt; edges[i].u &gt;&gt; edges[i].v &gt;&gt; edges[i].weight;
+    }
+
+    // Perform Kruskal's Algorithm
+    kruskal(numZones, edges);
+
+    return 0;
+    </code></pre>
+</body>
+</html>
