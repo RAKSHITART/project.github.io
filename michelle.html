@@ -5,115 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Michelle Hoolgeri - City Design Project</title>
     <style>
-        body {  
+        body {
             font-family: 'Arial', sans-serif;
             margin: 0;
-            padding: 0;  
-            background-color: #f4f4f9;
-            color: #333;
-            line-height: 1.6;
-        } 
-        .header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1rem 0;
+            padding: 0;
+            background: linear-gradient(135deg, #4a90e2, #9013fe);
+            color: #fff;
             text-align: center;
-            font-size: 2rem;
         }
         .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 0 20px;
         }
-        .section {
-            margin-bottom: 20px;
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            backdrop-filter: blur(10px);
         }
-        .section h2 {
-            color: #4CAF50;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 5px;
+        h1 {
             margin-bottom: 10px;
+            font-size: 2.5em;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
         }
-        ul li {
-            background: #f9f9f9;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-        footer {
-            text-align: center;
+        .skills {
             margin-top: 20px;
-            font-size: 0.9rem;
-            color: #666;
+            font-size: 1.1em;
         }
-        .code {
-            background: #f4f4f9;
-            padding: 10px;
+        .skills span {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
-            border: 1px solid #ddd;
-            overflow-x: auto;
+            padding: 5px 10px;
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        Michelle Hoolgeri - City Design Project
-    </header>
-
     <div class="container">
-        <section class="section">
-            <h2>About Me</h2>
-            <p>Hello! My name is Michelle Hoolgeri. I love gaining knowledge, adapting to new things, and exploring how the world works. 
-               Whether it be through algorithms, patterns, or innovative ideas, I am always curious about uncovering connections and 
-               understanding the deeper mechanisms that shape our reality.</p>
-        </section>
-
-        <section class="section">
-            <h2>Technical Skills</h2>
-            <ul>
-                <li>C Basics</li>
-                <li>C++ Basics</li>
-                <li>Python Basics</li>
-                <li>DSA (Data Structures and Algorithms)</li>
-                <li>HTML</li>
-            </ul>
-        </section>
-
-        <section class="section">
-            <h2>City Design Project</h2>
-            <h3>Mall Management System</h3>
-            <p>Our group decided to take up the mall management system and have taken different business cases. Here are my contributions:</p>
-
-            <h4>1. Parking Lot Management System</h4>
-            <p><strong>Purpose:</strong> This system assigns parking slots to customers based on their proximity to mall entrances to optimize convenience.</p>
-            <p><strong>Implementation Details:</strong></p>
-            <ul>
-                <li>The parking slots are sorted using <strong>selection sort</strong>, which prepares a ranked list of parking lots by distance.</li>
-                <li><strong>Breadth-First Search (BFS)</strong> is used to dynamically assign the nearest available slot to a visitor.</li>
-            </ul>
-            <p>TAKE A LOOK AT THE CODE</p>
-            <p><a href="mcode.html" target="_blank">CODE FOR PARKING LOT MANAGEMENT</a></p>
-
-            <h4>2. Customer Navigation System</h4>
-            <p><strong>Purpose:</strong> This system helps guide customers along the shortest path between two points in the mall.</p>
-            <p><strong>Implementation Details:</strong></p>
-            <ul>
-                <li>The mall is represented as a graph, where nodes represent locations (e.g., shops) and edges represent paths between them.</li>
-                <li><strong>Dijkstra's algorithm</strong> calculates the shortest path between the starting and destination points.</li>
-                <li>A <strong>binary search tree</strong> stores the shop locations, enabling fast and efficient lookups for customer destinations.</li>
-            </ul>
-            <p>TAKE A LOOK AT THE CODE</p>
-            <p><a href="m1code.html" target="_blank">CODE FOR CUSTOMER NAVIGATION SYSTEM</a></p>
-        </section>
-
+        <div class="card">
+            <h1>Michelle Hoolgeri</h1>
+            <p>
+                I love gaining knowledge, adapting to new things, and exploring how the world works.
+                Whether through algorithms, patterns, or innovative ideas, I'm always curious about
+                uncovering connections and understanding the deeper mechanisms that shape our reality.
+            </p>
+            <div class="skills">
+                <strong>Technical Skills:</strong>
+                <br>
+                <span>C</span>
+                <span>C++</span>
+                <span>Data Structures & Implementation</span>
+                <span>Python</span>
+                <span>HTML</span>
+            </div>
+        </div>
     </div>
 </body>
 </html>
+
