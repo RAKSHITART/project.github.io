@@ -18,21 +18,18 @@
 
 using namespace std;
 
-// Store structure to store information about a store
 struct Store {
     int storeId;
     string name;
     double revenue;
     int reviews;
-    int positiveReviews; // Additional field to store the number of positive reviews
+    int positiveReviews;
 
-    // For ranking, we will use reviews alone
     bool operator&lt;(const Store&amp; other) const {
-        return reviews &lt; other.reviews; // max-heap (higher reviews will have higher priority)
+        return reviews &lt; other.reviews;
     }
 };
 
-// Graph to represent the mall layout (stores as nodes and paths as edges)
 class Graph {
 public:
     Graph(int V) {
@@ -40,15 +37,13 @@ public:
         adjList.resize(V);
     }
 
-    // Add an edge between two stores with traffic weight
     void addEdge(int u, int v, int weight) {
         adjList[u].push_back({v, weight});
         adjList[v].push_back({u, weight});
     }
 
-    // Dijkstra's algorithm to find the shortest paths from a source store (entrance)
     vector&lt;int&gt; dijkstra(int src) {
-        vector&lt;int&gt; dist(V, INT_MAX); // Distance from src to all stores
+        vector&lt;int&gt; dist(V, INT_MAX);
         priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, greater&lt;pair&lt;int, int&gt;&gt;&gt; pq;
 
         dist[src] = 0;
@@ -81,14 +76,12 @@ int main() {
     int numStores, numConnections;
     int choice;
 
-    // Step 1: Get number of stores and their details
     cout &lt;&lt; "Enter the number of stores: ";
     cin &lt;&lt; numStores;
 
     vector&lt;Store&gt; stores(numStores);
-    priority_queue&lt;Store&gt; maxHeap; // Default max-heap based on reviews
+    priority_queue&lt;Store&gt; maxHeap;
 
-    // Input store details
     for (int i = 0; i &lt; numStores; ++i) {
         stores[i].storeId = i;
         cout &lt;&lt; "Enter name of Store " &lt;&lt; i + 1 &lt;&lt; ": ";
@@ -103,7 +96,6 @@ int main() {
         maxHeap.push(stores[i]);
     }
 
-    // Step 2: Ask the user how to prioritize stores
     cout &lt;&lt; "\nChoose the ranking method:\n";
     cout &lt;&lt; "1. Rank by Highest Reviews\n";
     cout &lt;&lt; "2. Rank by Positive Reviews\n";
@@ -111,13 +103,11 @@ int main() {
     cin &lt;&lt; choice;
 
     if (choice == 1) {
-        // Step 3: Rank stores based on highest reviews
         cout &lt;&lt; "\nTop 3 Ranked Stores (based on highest reviews):\n";
         sort(stores.begin(), stores.end(), [](const Store&amp; a, const Store&amp; b) {
             return a.reviews &gt; b.reviews;
         });
     } else if (choice == 2) {
-        // Step 3: Rank stores based on positive reviews
         cout &lt;&lt; "\nTop 3 Ranked Stores (based on positive reviews):\n";
         sort(stores.begin(), stores.end(), [](const Store&amp; a, const Store&amp; b) {
             return a.positiveReviews &gt; b.positiveReviews;
@@ -132,29 +122,25 @@ int main() {
              &lt;&lt; ", Positive Reviews: " &lt;&lt; stores[i].positiveReviews &lt;&lt; endl;
     }
 
-    // Step 4: Get number of connections (edges) and create graph
     cout &lt;&lt; "\nEnter number of connections between stores: ";
     cin &lt;&lt; numConnections;
 
     Graph mallGraph(numStores);
 
-    // Input connections between stores
     for (int i = 0; i &lt; numConnections; ++i) {
         int u, v, weight;
         cout &lt;&lt; "Enter connection " &lt;&lt; i + 1 &lt;&lt; " (store1 store2 traffic_weight): ";
         cin &lt;&lt; u &lt;&lt; v &lt;&lt; weight;
-        mallGraph.addEdge(u - 1, v - 1, weight);  // Convert to 0-based index
+        mallGraph.addEdge(u - 1, v - 1, weight);
     }
 
-    // Step 5: Use Dijkstra's algorithm to find shortest paths from the entrance (store 1)
-    vector&lt;int&gt; shortestPaths = mallGraph.dijkstra(0); // 0 is the entrance
+    vector&lt;int&gt; shortestPaths = mallGraph.dijkstra(0);
 
     cout &lt;&lt; "\nShortest Paths from Entrance (Store 1):\n";
     for (int i = 1; i &lt; numStores; ++i) {
         cout &lt;&lt; "Store " &lt;&lt; i + 1 &lt;&lt; " - Distance: " &lt;&lt; shortestPaths[i] &lt;&lt; endl;
     }
 
-    // Step 6: Optimize store placement (you can prioritize placement based on shortest paths)
     cout &lt;&lt; "\nOptimal Store Placement (based on shortest path distance):\n";
     for (int i = 1; i &lt; numStores; ++i) {
         cout &lt;&lt; "Store " &lt;&lt; i + 1 &lt;&lt; " placed at distance " &lt;&lt; shortestPaths[i] &lt;&lt; " from entrance\n";
