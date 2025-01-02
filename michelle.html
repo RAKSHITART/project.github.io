@@ -3,103 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Michelle Hoolgeri - City Design Project</title>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #e6f7e6, #ffffff);
-            color: #333;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .card {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 700px;
-            width: 100%;
-            text-align: center;
-        }
-        h1 {
-            font-size: 2.8em;
-            color: #4caf50;
-            margin-bottom: 15px;
-        }
-        p {
-            font-size: 1.2em;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            color: #555;
-        }
-        .skills {
-            margin-top: 20px;
-            text-align: left;
-        }
-        .skills strong {
-            font-size: 1.3em;
-            color: #333;
-            display: block;
-            margin-bottom: 10px;
-        }
-        .skills span {
-            display: block;
-            background: #4caf50;
-            color: #fff;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
-            font-size: 1em;
-            text-align: center;
-        }
-        footer {
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #777;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="card">
-            <h1>Michelle Hoolgeri</h1>
-            <p>
-                I love gaining knowledge, adapting to new things, and exploring how the world works.
-                Whether through algorithms, patterns, or innovative ideas, I'm always curious about
-                uncovering connections and understanding the deeper mechanisms that shape our reality.
-            </p>
-            <div class="skills">
-                <strong>Technical Skills:</strong>
-                <span>C</span>
-                <span>C++</span>
-                <span>Data Structures & Implementation</span>
-                <span>Python</span>
-                <span>HTML</span>
-            </div>
-        </div>
-        <footer>
-            Don't compromise yourself - you're all you've got
-                                          - Janis Joplin
-        </footer>
-    </div>
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -141,6 +44,7 @@
         .section h3 {
             margin-bottom: 10px;
             color: #4caf50;
+            font-size: 1.6em; /* Increased font size */
         }
         .section ul {
             margin: 0;
@@ -149,12 +53,21 @@
         .section li {
             margin-bottom: 10px;
         }
-        a {
-            color: #4caf50;
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background: #4caf50;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
             text-decoration: none;
+            margin-top: 10px;
         }
-        a:hover {
-            text-decoration: underline;
+        .btn:hover {
+            background: #43a047;
         }
     </style>
 </head>
@@ -173,8 +86,7 @@
                 <li>The parking slots are sorted using <strong>Selection Sort</strong>, which prepares a ranked list of parking lots by distance.</li>
                 <li><strong>Breadth-First Search (BFS)</strong> is used to dynamically assign the nearest available slot to a visitor.</li>
             </ul>
-            <p>TAKE A LOOK AT THE CODE</p>
-            <p><a href="mcode.html" target="_blank">CODE FOR PARKING LOT MANAGEMENT</a></p>
+            <a class="btn" href="mcode.html" target="_blank">View Code</a>
         </div>
 
         <div class="section">
@@ -186,8 +98,7 @@
                 <li><strong>Dijkstra's Algorithm</strong> calculates the shortest path between the starting and destination points.</li>
                 <li>A <strong>Binary Search Tree (BST)</strong> stores the shop locations, enabling fast and efficient lookups for customer destinations.</li>
             </ul>
-            <p>TAKE A LOOK AT THE CODE</p>
-            <p><a href="m1code.html" target="_blank">CODE FOR CUSTOMER NAVIGATION SYSTEM</a></p>
+            <a class="btn" href="m1code.html" target="_blank">View Code</a>
         </div>
 
         <div class="section">
@@ -198,10 +109,8 @@
                 <li>The <strong>Rabin-Karp Algorithm</strong> is used to search for products or categories efficiently by comparing hash values.</li>
                 <li>The algorithm works by calculating a hash value for the search term and matching it against hash values of substrings in the product directory.</li>
             </ul>
-            <p>TAKE A LOOK AT THE CODE</p>
-            <p><a href="m2code.html" target="_blank">CODE FOR PRODUCT SEARCH SYSTEM</a></p>
+            <a class="btn" href="m2code.html" target="_blank">View Code</a>
         </div>
     </div>
 </body>
 </html>
-
