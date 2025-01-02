@@ -6,49 +6,99 @@
     <title>Michelle Hoolgeri's City Design Project</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: #5a67d8;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         .name {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 10px;
         }
         .heading {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
+            color: #2b6cb0;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-decoration: underline;
         }
         .subheading {
             font-size: 18px;
+            color: #555;
+            margin-top: 10px;
+        }
+        ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        a {
+            color: #5a67d8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body> 
-    <p class="name">Hello, This is Michelle Hoolgeri.</p>
-    <p>I’m someone who loves gaining knowledge, adapting to new things, and exploring how the world works. Whether it be through algorithms, patterns, or innovative ideas. I’m always curious about uncovering connections and understanding the deeper mechanisms that shape our reality.</p>
+    <header>
+        <h1>Michelle Hoolgeri's City Design Project</h1>
+    </header>
+    <div class="container">
+        <p class="name">Hello, This is Michelle Hoolgeri.</p>
+        <p>I’m someone who loves gaining knowledge, adapting to new things, and exploring how the world works. Whether it be through algorithms, patterns, or innovative ideas, I’m always curious about uncovering connections and understanding the deeper mechanisms that shape our reality.</p>
 
-    <p>In the City design project, our group decided to take up the mall management system and have taken different business cases. I’m working on:</p>
+        <p>In the City Design Project, our group decided to take up the mall management system and have taken different business cases. I’m working on:</p>
 
-    <p class="heading">1. Parking Lot Management System</p>
-    <p class="subheading">Purpose: This system assigns parking slots to customers based on their proximity to mall entrances to optimize convenience.</p>
-    <p class="subheading">Implementation Details:</p>
-    <ul class="subheading">
-        <li>The parking slots are sorted using selection sort, which prepares a ranked list of parking lots by distance.</li>
-        <li>Breadth-First Search (BFS) is used to dynamically assign the nearest available slot to a visitor.</li>
-    </ul>
+        <p class="heading">1. Parking Lot Management System</p>
+        <p class="subheading">Purpose: This system assigns parking slots to customers based on their proximity to mall entrances to optimize convenience.</p>
+        <p class="subheading">Implementation Details:</p>
+        <ul class="subheading">
+            <li>The parking slots are sorted using selection sort, which prepares a ranked list of parking lots by distance.</li>
+            <li>Breadth-First Search (BFS) is used to dynamically assign the nearest available slot to a visitor.</li>
+        </ul>
 
-    <p>For the full implementation of the code, <a href="mcode.html" target="_blank">click here to see implementation</a>.</p>
+        <p>For the full implementation of the code, <a href="mcode.html" target="_blank">click here to see implementation</a>.</p>
 
-    <p class="heading">2. Customer Navigation System</p>
-    <p class="subheading">Purpose: This system helps guide customers along the shortest path between two points in the mall.</p>
-    <p class="subheading">Implementation Details:</p>
-    <ul class="subheading">
-        <li>The mall is represented as a graph, where nodes represent locations (e.g., shops) and edges represent paths between them.</li>
-        <li>Dijkstra's algorithm calculates the shortest path between the starting and destination points.</li>
-        <li>A binary search tree stores the shop locations, enabling fast and efficient lookups for customer destinations.</li>
-    </ul>
+        <p class="heading">2. Customer Navigation System</p>
+        <p class="subheading">Purpose: This system helps guide customers along the shortest path between two points in the mall.</p>
+        <p class="subheading">Implementation Details:</p>
+        <ul class="subheading">
+            <li>The mall is represented as a graph, where nodes represent locations (e.g., shops) and edges represent paths between them.</li>
+            <li>Dijkstra's algorithm calculates the shortest path between the starting and destination points.</li>
+            <li>A binary search tree stores the shop locations, enabling fast and efficient lookups for customer destinations.</li>
+        </ul>
 
-    <p>For the full implementation of the code, <a href="mcode.html" target="_blank">click here to see implementation</a>.</p>
-      
-
-    </section>
+        <p>For the full implementation of the code, <a href="mcode.html" target="_blank">click here to see implementation</a>.</p>
+    </div>
 </body>
 </html>
