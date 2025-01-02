@@ -3,242 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Navigation System</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
+    <title>Mall Navigation System</title>
+    <script>
+        const INF = 1e9;
+        const MAX_NODES = 100;
+
+        let graph = Array.from({ length: MAX_NODES }, () => []);
+        let shops = {};
+
+        function addEdge(u, v, w) {
+            graph[u].push({ destination: v, weight: w });
+            graph[v].push({ destination: u, weight: w });
         }
-        h1 {
-            text-align: center;
-            color: #4CAF50;
+
+        function dijkstra(source, n) {
+            const dist = Array(n).fill(INF);
+            const parent = Array(n).fill(-1);
+            const visited = Array(n).fill(false);
+            dist[source] = 0;
+
+            for (let count = 0; count < n - 1; count++) {
+                let u = -1;
+                let minDist = INF;
+
+                for (let i = 0; i < n; i++) {
+                    if (!visited[i] && dist[i] < minDist) {
+                        minDist = dist[i];
+                        u = i;
+                    }
+                }
+
+                if (u === -1) break;
+                visited[u] = true;
+
+                for (let edge of graph[u]) {
+                    const { destination: v, weight } = edge;
+                    if (!visited[v] && dist[u] + weight < dist[v]) {
+                        dist[v] = dist[u] + weight;
+                        parent[v] = u;
+                    }
+                }
+            }
+
+            return { dist, parent };
         }
-        pre {
-            background-color: #333;
-            color: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            font-family: monospace;
-            white-space: pre-wrap;
-            word-wrap: break-word;
+
+        function getPath(parent, destination) {
+            if (parent[destination] === -1) {
+                return [destination];
+            }
+            const path = getPath(parent, parent[destination]);
+            path.push(destination);
+            return path;
         }
-        .content {
-            margin-top: 30px;
+
+        function findShortestPath() {
+            const n = parseInt(document.getElementById("numLocations").value);
+            const startShop = document.getElementById("startShop").value.trim();
+            const endShop = document.getElementById("endShop").value.trim();
+
+            if (!(startShop in shops) || !(endShop in shops)) {
+                alert("Invalid shop name(s) entered.");
+                return;
+            }
+
+            const start = shops[startShop];
+            const end = shops[endShop];
+
+            const { dist, parent } = dijkstra(start, n);
+
+            if (dist[end] === INF) {
+                alert("No path exists between the shops.");
+            } else {
+                const path = getPath(parent, end).join(" -> ");
+                const message = `Shortest path distance: ${dist[end]}\nPath: ${path}\nFor the customer: To go from ${startShop} to ${endShop}, take this path: ${path}`;
+                alert(message);
+            }
         }
-        .footer {
-            margin-top: 50px;
-            text-align: center;
-            font-size: 12px;
-            color: #888;
+
+        function addShop() {
+            const shopName = document.getElementById("shopName").value.trim();
+            const locationID = parseInt(document.getElementById("locationID").value);
+
+            if (shopName && !isNaN(locationID)) {
+                shops[shopName] = locationID;
+                alert(`Shop "${shopName}" added at location ${locationID}.`);
+                document.getElementById("shopName").value = "";
+                document.getElementById("locationID").value = "";
+            } else {
+                alert("Invalid shop name or location ID.");
+            }
         }
-    </style>
+
+        function addPath() {
+            const u = parseInt(document.getElementById("startNode").value);
+            const v = parseInt(document.getElementById("endNode").value);
+            const w = parseInt(document.getElementById("weight").value);
+
+            if (!isNaN(u) && !isNaN(v) && !isNaN(w)) {
+                addEdge(u, v, w);
+                alert(`Path added between ${u} and ${v} with weight ${w}.`);
+                document.getElementById("startNode").value = "";
+                document.getElementById("endNode").value = "";
+                document.getElementById("weight").value = "";
+            } else {
+                alert("Invalid path details.");
+            }
+        }
+    </script>
 </head>
 <body>
+    <h1>Mall Navigation System</h1>
+    <div>
+        <h3>Setup</h3>
+        <label>Number of locations (nodes):</label>
+        <input type="number" id="numLocations"><br><br>
 
-    <h1>Customer Navigation System</h1>
+        <h3>Add Shops</h3>
+        <label>Shop Name:</label>
+        <input type="text" id="shopName">
+        <label>Location ID:</label>
+        <input type="number" id="locationID">
+        <button onclick="addShop()">Add Shop</button><br><br>
 
-    <div class="content">
-        <h2>C++ Code Implementation</h2>
-        <p>This is the C++ code for the Customer Navigation System in a mall. The code simulates navigating through the mall based on a shop's name and its location.</p>
-
-        <pre>
-#include <iostream>
-#include <queue>
-#include <cstring>
-using namespace std;
-
-const int INF = 1e9;
-const int MAX_NODES = 100;
-
-struct Edge
-{
-    int destination;
-    int weight;
-    Edge* next;
-};
-
-struct Node
-{
-    int id;
-    Edge* edges;
-};
-
-struct BSTNode
-{
-    string shopName;
-    int locationID;
-    BSTNode* left;
-    BSTNode* right;
-
-    BSTNode(string name, int id) : shopName(name), locationID(id), left(nullptr), right(nullptr) {}
-};
-
-// Customer Navigation System
-
-void addEdge(Node graph[], int u, int v, int w)
-{
-    Edge* newEdge = new Edge{v, w, graph[u].edges};
-    graph[u].edges = newEdge;
-}
-
-BSTNode* insertShop(BSTNode* root, string shopName, int locationID)
-{
-    if (!root)
-    {
-        return new BSTNode(shopName, locationID);
-    }
-    if (shopName < root->shopName)
-    {
-        root->left = insertShop(root->left, shopName, locationID);
-    }
-    else if (shopName > root->shopName)
-    {
-        root->right = insertShop(root->right, shopName, locationID);
-    }
-    return root;
-}
-
-int searchShop(BSTNode* root, string shopName)
-{
-    if (!root) return -1;
-    if (root->shopName == shopName)
-        return root->locationID;
-    if (shopName < root->shopName)
-        return searchShop(root->left, shopName);
-    return searchShop(root->right, shopName);
-}
-
-void dijkstra(Node graph[], int source, int dist[], int parent[], int n)
-{
-    bool visited[MAX_NODES] = {false};
-    for (int i = 0; i < n; i++)
-    {
-        dist[i] = INF;
-        parent[i] = -1;
-    }
-    dist[source] = 0;
-
-    for (int count = 0; count < n - 1; count++)
-    {
-        int u = -1;
-        int minDist = INF;
-
-        for (int i = 0; i < n; i++)
-        {
-            if (!visited[i] && dist[i] < minDist)
-            {
-                minDist = dist[i];
-                u = i;
-            }
-        }
-
-        if (u == -1) break;
-        visited[u] = true;
-
-        for (Edge* edge = graph[u].edges; edge != nullptr; edge = edge->next)
-        {
-            int v = edge->destination;
-            int weight = edge->weight;
-
-            if (!visited[v] && dist[u] + weight < dist[v])
-            {
-                dist[v] = dist[u] + weight;
-                parent[v] = u;
-            }
-        }
-    }
-}
-
-void printPath(int parent[], int destination)
-{
-    if (parent[destination] == -1)
-    {
-        cout << destination;
-        return;
-    }
-    printPath(parent, parent[destination]);
-    cout << " -> " << destination;
-}
-
-int main()
-{
-    int n, e;
-    cout << "Enter the number of locations (nodes) in the mall: ";
-    cin >> n;
-
-    Node graph[MAX_NODES];
-    for (int i = 0; i < n; i++)
-    {
-        graph[i].id = i;
-        graph[i].edges = nullptr;
-    }
-
-    cout << "Enter the number of paths (edges) in the mall: ";
-    cin >> e;
-
-    cout << "Enter the paths (start end weight):\n";
-    for (int i = 0; i < e; i++)
-    {
-        int u, v, w;
-        cin >> u >> v >> w;
-        addEdge(graph, u, v, w);
-        addEdge(graph, v, u, w);
-    }
-
-    int shopCount;
-    cout << "Enter the number of shops: ";
-    cin >> shopCount;
-
-    BSTNode* shopRoot = nullptr;
-    cout << "Enter the shop names and their location IDs:\n";
-    for (int i = 0; i < shopCount; i++)
-    {
-        string shopName;
-        int locationID;
-        cin >> shopName >> locationID;
-        shopRoot = insertShop(shopRoot, shopName, locationID);
-    }
-
-    string startShop, endShop;
-    cout << "Enter the starting shop name: ";
-    cin >> startShop;
-    cout << "Enter the destination shop name: ";
-    cin >> endShop;
-
-    int start = searchShop(shopRoot, startShop);
-    int end = searchShop(shopRoot, endShop);
-
-    if (start == -1 || end == -1)
-    {
-        cout << "Invalid shop name(s) entered.\n";
-        return 1;
-    }
-
-    int dist[MAX_NODES], parent[MAX_NODES];
-    dijkstra(graph, start, dist, parent, n);
-
-    if (dist[end] == INF)
-    {
-        cout << "No path exists between the shops.\n";
-    }
-    else
-    {
-        cout << "Shortest path distance: " << dist[end] << "\n";
-        cout << "Path: ";
-        printPath(parent, end);
-        cout << "\n";
-    }
-
-    return 0;
-}
-        </pre>
-
+        <h3>Add Paths</h3>
+        <label>Start Node:</label>
+        <input type="number" id="startNode">
+        <label>End Node:</label>
+        <input type="number" id="endNode">
+        <label>Weight:</label>
+        <input type="number" id="weight">
+        <button onclick="addPath()">Add Path</button><br><br>
     </div>
 
-    <div class="footer">
-        <p>Customer Navigation System - C++ Implementation</p>
+    <div>
+        <h3>Find Shortest Path</h3>
+        <label>Starting Shop Name:</label>
+        <input type="text" id="startShop">
+        <label>Destination Shop Name:</label>
+        <input type="text" id="endShop">
+        <button onclick="findShortestPath()">Find Path</button>
     </div>
-
 </body>
 </html>
