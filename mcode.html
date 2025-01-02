@@ -32,6 +32,13 @@
             font-size: 12px;
             color: #888;
         }
+        .guide {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
@@ -43,8 +50,8 @@
         <p>This is the C++ code for the Parking Lot Management System. The code simulates managing parking slots, including sorting and assigning parking slots based on proximity to the entrance.</p>
 
         <pre>
-#include <iostream>
-#include <queue>
+#include &lt;iostream&gt;
+#include &lt;queue&gt;
 using namespace std;
 
 // Parking Lot Management System
@@ -58,12 +65,12 @@ struct ParkingSlot {
 // Function to sort parking slots based on distance using selection sort
 void sortParkingSlots(ParkingSlot slots[], int n) 
 {
-    for (int i = 0; i < n - 1; i++) 
+    for (int i = 0; i &lt; n - 1; i++) 
     {
         int minIndex = i;
-        for (int j = i + 1; j < n; j++) 
+        for (int j = i + 1; j &lt; n; j++) 
         {
-            if (slots[j].distance < slots[minIndex].distance) 
+            if (slots[j].distance &lt; slots[minIndex].distance) 
             {
                 minIndex = j;
             }
@@ -77,10 +84,10 @@ void sortParkingSlots(ParkingSlot slots[], int n)
 // Function to assign the nearest available parking slot
 int assignParkingSlot(ParkingSlot slots[], int n) 
 {
-    queue<int> q; 
+    queue&lt;int&gt; q; 
 
     // Enqueue all unoccupied slots
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i &lt; n; i++)
     {
         if (!slots[i].isOccupied) 
         {
@@ -106,55 +113,65 @@ int assignParkingSlot(ParkingSlot slots[], int n)
 int main() 
 {
     int n;
-    cout << "Enter the number of parking slots: ";
-    cin >> n;
+    cout &lt;&lt; "Enter the number of parking slots: ";
+    cin &gt;&gt; n;
 
     ParkingSlot slots[n];
 
-    for (int i = 0; i < n; i++) 
+    for (int i = 0; i &lt; n; i++) 
     {
-        cout << "Enter details for slot " << i + 1 << " (ID and Distance): ";
-        cin >> slots[i].id >> slots[i].distance;
+        cout &lt;&lt; "Enter details for slot " &lt;&lt; i + 1 &lt;&lt; " (ID and Distance): ";
+        cin &gt;&gt; slots[i].id &gt;&gt; slots[i].distance;
         slots[i].isOccupied = false; 
     }
 
     sortParkingSlots(slots, n);
 
-    cout << "\nParking slots sorted by distance:\n";
-    for (int i = 0; i < n; i++) {
-        cout << "Slot ID: " << slots[i].id << ", Distance: " << slots[i].distance << "\n";
+    cout &lt;&lt; "\nParking slots sorted by distance:\n";
+    for (int i = 0; i &lt; n; i++) {
+        cout &lt;&lt; "Slot ID: " &lt;&lt; slots[i].id &lt;&lt; ", Distance: " &lt;&lt; slots[i].distance &lt;&lt; "\n";
     }
 
     char choice;
     do {
-        cout << "\nAssign a parking slot to a visitor? (y/n): ";
-        cin >> choice;
+        cout &lt;&lt; "\nAssign a parking slot to a visitor? (y/n): ";
+        cin &gt;&gt; choice;
 
         if (choice == 'y' || choice == 'Y')
         {
             int assignedSlot = assignParkingSlot(slots, n);
             if (assignedSlot != -1) 
             {
-                cout << "Assigned Slot ID: " << assignedSlot << "\n";
+                cout &lt;&lt; "Assigned Slot ID: " &lt;&lt; assignedSlot &lt;&lt; "\n";
             }
            else
             {
-                cout << "No available parking slots.\n";
+                cout &lt;&lt; "No available parking slots.\n";
             }
         }
     } while (choice == 'y' || choice == 'Y');
 
-    cout << "\nFinal status of parking slots:\n";
-    for (int i = 0; i < n; i++) 
+    cout &lt;&lt; "\nFinal status of parking slots:\n";
+    for (int i = 0; i &lt; n; i++) 
     {
-        cout << "Slot ID: " << slots[i].id << ", Distance: " << slots[i].distance
-             << ", Occupied: " << (slots[i].isOccupied ? "Yes" : "No") << "\n";
+        cout &lt;&lt; "Slot ID: " &lt;&lt; slots[i].id &lt;&lt; ", Distance: " &lt;&lt; slots[i].distance
+             &lt;&lt; ", Occupied: " &lt;&lt; (slots[i].isOccupied ? "Yes" : "No") &lt;&lt; "\n";
     }
 
     return 0;
 }
         </pre>
+    </div>
 
+    <div class="guide">
+        <h2>Fixing a 404 Error</h2>
+        <ol>
+            <li>Ensure the file is saved with a <code>.html</code> extension (e.g., <code>parking_lot.html</code>).</li>
+            <li>Place the file in the correct directory where your server expects it.</li>
+            <li>Open the file locally by double-clicking it or using the browser's "Open File" feature.</li>
+            <li>Verify the file path and URL if accessing via a local server (e.g., <code>http://localhost/parking_lot.html</code>).</li>
+            <li>Check file permissions if hosted on a web server.</li>
+        </ol>
     </div>
 
     <div class="footer">
@@ -163,3 +180,4 @@ int main()
 
 </body>
 </html>
+
