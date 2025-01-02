@@ -51,7 +51,8 @@
         .team {
             display: flex;
             justify-content: space-around;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Allow wrapping to next row */
+            gap: 2rem; /* Space between the items */
         }
         .team .member {
             text-align: center;
@@ -60,11 +61,12 @@
             background: #e8f5e9;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 200px;
+            width: 200px; /* Width of each member block */
+            flex-basis: 45%; /* Two blocks per row */
         }
         .team img {
             width: 100px; /* Set to desired size */
-            height: 100px; /* Set to the same value as width for square shape */
+            height: 100px; /* Same as width for square shape */
             margin-bottom: 0.5rem;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
             border-radius: 0; /* Removes circular effect */
