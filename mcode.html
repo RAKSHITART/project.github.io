@@ -3,153 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parking Lot Management System</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #4CAF50;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .btn:hover {
-            background: #45a049;
-        }
-        .output {
-            margin-top: 20px;
-            padding: 10px;
-            background: #eafbea;
-            border: 1px solid #b4e2b4;
-            border-radius: 4px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Parking Lot Management</h1>
-        <form id="parkingForm">
-            <div class="form-group">
-                <label for="slotCount">Number of Parking Slots:</label>
-                <input type="number" id="slotCount" min="1" required>
-            </div>
-            <button type="button" class="btn" onclick="initializeSlots()">Set Slots</button>
-        </form>
-
-        <div id="slotsSection" style="display:none;">
-            <h2>Parking Slots</h2>
-            <div id="slotsInput"></div>
-            <button class="btn" onclick="sortSlots()">Sort Slots by Distance</button>
-        </div>
-
-        <div id="assignSection" style="display:none;">
-            <h2>Assign Parking Slot</h2>
-            <button class="btn" onclick="assignSlot()">Assign Slot to Visitor</button>
-        </div>
-
-        <div id="outputSection" class="output" style="display:none;"></div>
-    </div>
-
+    <title>Parking Slot Manager</title>
     <script>
-        let slots = [];
+        let parkingSlots = [];
 
-        function initializeSlots() {
-            const slotCount = document.getElementById("slotCount").value;
-            if (slotCount <= 0) return;
+        function addParkingSlot() {
+            const id = parseInt(document.getElementById("slotID").value);
+            const distance = parseInt(document.getElementById("slotDistance").value);
 
-            slots = [];
-            const slotsInput = document.getElementById("slotsInput");
-            slotsInput.innerHTML = "";
-
-            for (let i = 0; i < slotCount; i++) {
-                slots.push({ id: i + 1, distance: 0, isOccupied: false });
-
-                const inputGroup = document.createElement("div");
-                inputGroup.className = "form-group";
-                inputGroup.innerHTML = `
-                    <label>Slot ${i + 1} Distance:</label>
-                    <input type="number" min="0" id="distance${i}">
-                `;
-                slotsInput.appendChild(inputGroup);
-            }
-
-            document.getElementById("slotsSection").style.display = "block";
-        }
-
-        function sortSlots() {
-            for (let i = 0; i < slots.length; i++) {
-                const distance = document.getElementById(`distance${i}`).value;
-                slots[i].distance = parseInt(distance) || 0;
-            }
-
-            slots.sort((a, b) => a.distance - b.distance);
-
-            document.getElementById("assignSection").style.display = "block";
-            displaySlots("Slots sorted by distance:");
-        }
-
-        function assignSlot() {
-            const availableSlot = slots.find(slot => !slot.isOccupied);
-            const outputSection = document.getElementById("outputSection");
-
-            if (availableSlot) {
-                availableSlot.isOccupied = true;
-                outputSection.style.display = "block";
-                outputSection.innerHTML = `
-                    Assigned Slot ID: ${availableSlot.id}<br>
-                    You can go to parking lot ${availableSlot.id}.
-                `;
+            if (!isNaN(id) && !isNaN(distance)) {
+                parkingSlots.push({ id: id, distance: distance, isOccupied: false });
+                alert(`Parking Slot added: ID ${id}, Distance ${distance}`);
+                document.getElementById("slotID").value = "";
+                document.getElementById("slotDistance").value = "";
+                displaySlots();
             } else {
-                outputSection.style.display = "block";
-                outputSection.innerHTML = "No available parking slots.";
+                alert("Please enter valid ID and Distance.");
             }
         }
 
-        function displaySlots(message) {
-            const outputSection = document.getElementById("outputSection");
-            outputSection.style.display = "block";
-            outputSection.innerHTML = `
-                <strong>${message}</strong><br>
-                ${slots.map(slot => `
-                    Slot ID: ${slot.id}, Distance: ${slot.distance}, Occupied: ${slot.isOccupied ? "Yes" : "No"}
-                `).join("<br>")}
-            `;
+        function sortParkingSlots() {
+            parkingSlots.sort((a, b) => a.distance - b.distance);
+            displaySlots();
+        }
+
+        function assignParkingSlot() {
+            for (let i = 0; i < parkingSlots.length; i++) {
+                if (!parkingSlots[i].isOccupied) {
+                    parkingSlots[i].isOccupied = true;
+                    alert(`Assigned Slot ID: ${parkingSlots[i].id}\nYou can go to parking lot ${parkingSlots[i].id}.`);
+                    displaySlots();
+                    return;
+                }
+            }
+            alert("No available parking slots.");
+        }
+
+        function displaySlots() {
+            const slotContainer = document.getElementById("slotContainer");
+            slotContainer.innerHTML = "";
+
+            parkingSlots.forEach(slot => {
+                const slotDiv = document.createElement("div");
+                slotDiv.textContent = `Slot ID: ${slot.id}, Distance: ${slot.distance}, Occupied: ${slot.isOccupied ? "Yes" : "No"}`;
+                slotContainer.appendChild(slotDiv);
+            });
         }
     </script>
+</head>
+<body>
+    <h1>Parking Slot Manager</h1>
+
+    <h3>Add Parking Slot</h3>
+    <label for="slotID">Slot ID:</label>
+    <input type="number" id="slotID">
+    <label for="slotDistance">Distance:</label>
+    <input type="number" id="slotDistance">
+    <button onclick="addParkingSlot()">Add Slot</button>
+
+    <h3>Manage Slots</h3>
+    <button onclick="sortParkingSlots()">Sort Slots by Distance</button>
+    <button onclick="assignParkingSlot()">Assign Parking Slot</button>
+
+    <h3>Parking Slots</h3>
+    <div id="slotContainer"></div>
 </body>
 </html>
