@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Mall Management System</title>
-    <style> 
-        body {   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mall Management and Waste Management System</title>
+    <style>
+        body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;  
-            margin: 20px; 
+            line-height: 1.6;
+            margin: 20px;
             background-color: #f4f4f9;
             color: #333;
-        }  
-        h1, h2 {  
+        }
+        h1, h2 {
             color: #0056b3;
         }
         section {
@@ -29,94 +29,92 @@
     </style>
 </head>
 <body>
-    <h1>Mall Management System</h1>
+    <h1>Mall Management and Waste Management System</h1>
 
     <section>
         <h2>1. Introduction</h2>
         <p>
-            The purpose of this project is to design a <strong>Mall Management System</strong> that efficiently ranks stores based on customer reviews and revenue, and then determines the optimal placement of stores in high-traffic areas using <strong>Dijkstra’s Algorithm</strong>. This system aims to maximize customer satisfaction by placing the most popular stores in areas with the highest foot traffic, thus improving overall mall performance.
+            This project combines two systems: the <strong>Mall Management System</strong> and the <strong>Efficient Waste Management System</strong>. The Mall Management System ranks stores based on customer reviews and revenue, optimizing store placement using <strong>Dijkstra's Algorithm</strong>. The Waste Management System ranks zones by waste generation levels, optimizes waste collection routes, and determines optimal waste chute locations using <strong>Quick Sort</strong>, <strong>DFS</strong>, and <strong>Kruskal's Algorithm</strong>.
         </p>
     </section>
 
     <section>
-        <h2>2. System Overview</h2>
+        <h2>2. Mall Management System</h2>
+        <h3>2.1 System Overview</h3>
         <ul>
-            <li><strong>Store Ranking:</strong> Stores are ranked based on customer reviews or positive reviews.</li>
-            <li><strong>Optimal Store Placement:</strong> The Dijkstra’s algorithm is applied to calculate the shortest paths from high-traffic areas (e.g., the mall entrance) to other stores, ensuring the most popular stores are placed in the most accessible locations.</li>
+            <li><strong>Store Ranking:</strong> Ranks stores based on customer reviews or positive reviews.</li>
+            <li><strong>Optimal Store Placement:</strong> Dijkstra's Algorithm calculates shortest paths from high-traffic areas to optimize store locations.</li>
+        </ul>
+
+        <h3>2.2 Key Algorithms</h3>
+        <h4>2.2.1 Store Ranking</h4>
+        <ul>
+            <li>Ranks stores by total or positive reviews.</li>
+            <li>Uses simple scoring to prioritize high-ranking stores.</li>
+        </ul>
+
+        <h4>2.2.2 Dijkstra's Algorithm</h4>
+        <ul>
+            <li>Calculates shortest paths from the mall entrance to other stores.</li>
+            <li>Places top-ranked stores in high-accessibility areas.</li>
+        </ul>
+
+        <h3>2.3 Implementation</h3>
+        <ul>
+            <li>Create a graph with stores as nodes and paths as edges with weights.</li>
+            <li>Rank stores and use Dijkstra's Algorithm to optimize placement.</li>
+        </ul>
+
+        <h3>2.4 Benefits</h3>
+        <ul>
+            <li>Improves customer satisfaction by optimizing store accessibility.</li>
+            <li>Utilizes space efficiently by prioritizing popular stores.</li>
         </ul>
     </section>
 
     <section>
-        <h2>3. Key Concepts and Algorithms</h2>
-        <h3>3.1 Store Ranking</h3>
-        <p>The ranking of stores can be based on two criteria:</p>
+        <h2>3. Waste Management System</h2>
+        <h3>3.1 System Overview</h3>
         <ul>
-            <li><strong>Rank by Total Reviews:</strong> The rank score is calculated based on the total number of customer reviews for each store. Stores with the highest number of reviews will be ranked higher.</li>
-            <li><strong>Rank by Positive Reviews:</strong> The rank score is calculated based on the number of positive reviews each store receives. The more positive reviews a store has, the higher its rank will be.</li>
+            <li><strong>Zone Ranking:</strong> Quick Sort ranks zones by waste levels.</li>
+            <li><strong>Route Optimization:</strong> DFS identifies optimal waste collection routes.</li>
+            <li><strong>Chute Placement:</strong> Kruskal's Algorithm determines optimal chute locations.</li>
         </ul>
 
-        <p>Both ranking methods are simple, and each store is scored by the number of reviews or positive reviews, with the highest number being prioritized.</p>
+        <h3>3.2 Key Algorithms</h3>
+        <h4>3.2.1 Quick Sort for Zone Ranking</h4>
+        <ul>
+            <li>Sorts zones by waste levels with an average time complexity of <code>O(n log n)</code>.</li>
+        </ul>
 
-        <h3>3.2 Dijkstra’s Algorithm for Optimal Placement</h3>
+        <h4>3.2.2 DFS for Route Optimization</h4>
+        <ul>
+            <li>Traverses all zones with minimal overlap.</li>
+        </ul>
+
+        <h4>3.2.3 Kruskal's Algorithm for Chute Placement</h4>
+        <ul>
+            <li>Minimizes travel distances by creating a minimum spanning tree.</li>
+        </ul>
+
+        <h3>3.3 Implementation</h3>
+        <ul>
+            <li>Rank zones using Quick Sort.</li>
+            <li>Optimize routes using DFS on a graph of zones and paths.</li>
+            <li>Determine chute locations using Kruskal's Algorithm.</li>
+        </ul>
+
+        <h3>3.4 Benefits</h3>
+        <ul>
+            <li>Reduces operational costs by optimizing waste collection.</li>
+            <li>Enhances efficiency and scalability for malls of various sizes.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>4. Conclusion</h2>
         <p>
-            Dijkstra’s Algorithm is used to determine the shortest path from a high-traffic area (store 1, the entrance) to all other stores in the mall. The algorithm calculates the minimum traffic path, which helps in selecting the most efficient locations for the top-ranked stores. The graph representing the mall layout includes stores connected by edges with traffic weights (representing foot traffic or distance).
-        </p>
-    </section>
-
-    <section>
-        <h2>4. Implementation</h2>
-        <ul>
-            <li><strong>Ranking Stores using the Chosen Method:</strong>
-                <ul>
-                    <li>A list of stores is created, each with a unique <code>storeId</code>, name, revenue, and reviews.</li>
-                    <li>The stores can be ranked based on the total number of reviews or positive reviews.</li>
-                    <li>The top 3 stores with the highest rank scores are selected.</li>
-                </ul>
-            </li>
-            <li><strong>Optimizing Store Placement using Dijkstra's Algorithm:</strong>
-                <ul> 
-                    <li>A graph representing the mall layout is created, where stores are nodes and edges represent paths between them with weights corresponding to traffic flow.</li>
-                    <li>Dijkstra’s algorithm is used to compute the shortest paths from the entrance (store 1) to all other stores.</li>
-                    <li>The top-ranked stores are placed in areas with the shortest traffic distances, optimizing customer access.</li>
-                </ul>
-            </li>
-        </ul>
-        <p>For the full implementation of the code, <a href="rcode.html" target="_blank">click here to see implementation</a>.</p>
-    </section>
-
-    <section>
-        <h2>5. System Performance and Efficiency</h2>
-        <ul>
-            <li><strong>Store Ranking Efficiency:</strong> Ranking stores based on reviews or positive reviews ensures an efficient process with a time complexity of <code>O(n)</code> for ranking.</li>
-            <li><strong>Optimal Placement Efficiency:</strong> Dijkstra’s algorithm runs with a time complexity of <code>O(E log V)</code>, where <code>E</code> is the number of edges (connections between stores) and <code>V</code> is the number of stores (vertices). This makes the algorithm efficient for computing shortest paths in a typical mall layout.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>6. System Benefits</h2>
-        <ul>
-            <li><strong>Customer Satisfaction:</strong> By placing top-ranked stores in high-traffic areas, the system increases customer accessibility, leading to higher sales and customer satisfaction.</li>
-            <li><strong>Efficient Use of Space:</strong> The system optimally uses available mall space by ensuring that popular stores are in the most visited locations.</li>
-            <li><strong>Dynamic Ranking:</strong> The ranking of stores can be updated dynamically based on changing customer reviews and sales data, ensuring that the most popular stores are always prioritized.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>7. Limitations and Future Work</h2>
-        <ul>
-            <li><strong>Simplified Ranking:</strong> The current rank score calculation only considers reviews and positive reviews. Future versions could incorporate other factors such as foot traffic, store size, and seasonal trends.</li>
-            <li><strong>Mall Layout:</strong> The current graph representation assumes a simple mall layout. Future work could extend the system to more complex mall layouts with multiple entrances, escalators, and additional paths.</li>
-            <li><strong>Real-Time Updates:</strong> Integrating real-time data (such as foot traffic or sales) could further optimize store placement.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>8. Conclusion</h2>
-        <p>
-            The Mall Management System successfully ranks stores based on popularity (reviews and positive reviews) and optimizes store placement using <strong>Dijkstra’s algorithm</strong> to ensure that the most popular stores are placed in high-traffic areas. This approach maximizes customer accessibility and enhances the overall mall experience.
-        </p>
-        <p>
-            By utilizing heap-based ranking and shortest path algorithms, the system can be adapted to various mall sizes and configurations, providing a scalable solution for effective mall management.
+            The integrated Mall Management and Waste Management Systems use advanced algorithms to improve customer satisfaction, operational efficiency, and scalability. Dijkstra's Algorithm optimizes store placement, while Quick Sort, DFS, and Kruskal's Algorithm streamline waste management. Together, these systems ensure a better experience for both mall operators and visitors.
         </p>
     </section>
 </body>
