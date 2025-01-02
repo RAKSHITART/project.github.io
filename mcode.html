@@ -3,69 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parking Slot Manager</title>
-    <script>
-        let parkingSlots = [];
-
-        function addParkingSlot() {
-            const id = parseInt(document.getElementById("slotID").value);
-            const distance = parseInt(document.getElementById("slotDistance").value);
-
-            if (!isNaN(id) && !isNaN(distance)) {
-                parkingSlots.push({ id: id, distance: distance, isOccupied: false });
-                alert(`Parking Slot added: ID ${id}, Distance ${distance}`);
-                document.getElementById("slotID").value = "";
-                document.getElementById("slotDistance").value = "";
-                displaySlots();
-            } else {
-                alert("Please enter valid ID and Distance.");
-            }
+    <title>Parking Lot Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
         }
-
-        function sortParkingSlots() {
-            parkingSlots.sort((a, b) => a.distance - b.distance);
-            displaySlots();
+        h1 {
+            text-align: center;
+            color: #4CAF50;
         }
-
-        function assignParkingSlot() {
-            for (let i = 0; i < parkingSlots.length; i++) {
-                if (!parkingSlots[i].isOccupied) {
-                    parkingSlots[i].isOccupied = true;
-                    alert(`Assigned Slot ID: ${parkingSlots[i].id}\nYou can go to parking lot ${parkingSlots[i].id}.`);
-                    displaySlots();
-                    return;
-                }
-            }
-            alert("No available parking slots.");
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
-
-        function displaySlots() {
-            const slotContainer = document.getElementById("slotContainer");
-            slotContainer.innerHTML = "";
-
-            parkingSlots.forEach(slot => {
-                const slotDiv = document.createElement("div");
-                slotDiv.textContent = `Slot ID: ${slot.id}, Distance: ${slot.distance}, Occupied: ${slot.isOccupied ? "Yes" : "No"}`;
-                slotContainer.appendChild(slotDiv);
-            });
+        .content {
+            margin-top: 30px;
         }
-    </script>
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
 </head>
 <body>
-    <h1>Parking Slot Manager</h1>
 
-    <h3>Add Parking Slot</h3>
-    <label for="slotID">Slot ID:</label>
-    <input type="number" id="slotID">
-    <label for="slotDistance">Distance:</label>
-    <input type="number" id="slotDistance">
-    <button onclick="addParkingSlot()">Add Slot</button>
+    <h1>Parking Lot Management System</h1>
 
-    <h3>Manage Slots</h3>
-    <button onclick="sortParkingSlots()">Sort Slots by Distance</button>
-    <button onclick="assignParkingSlot()">Assign Parking Slot</button>
+    <div class="content">
+        <h2>C++ Code Implementation</h2>
+        <p>This is the C++ code for the Parking Lot Management System. The code simulates managing parking slots, including sorting and assigning parking slots based on proximity to the entrance.</p>
 
-    <h3>Parking Slots</h3>
-    <div id="slotContainer"></div>
+        <pre>
+#include <iostream>
+#include <queue>
+using namespace std;
+
+// Parking Lot Management System
+
+struct ParkingSlot {
+    int id;          
+    int distance;     
+    bool isOccupied;  
+};
+
+// Function to sort parking slots based on distance using selection sort
+void sortParkingSlots(ParkingSlot slots[], int n) 
+{
+    for (int i = 0; i < n - 1; i++) 
+    {
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++) 
+        {
+            if (slots[j].distance < slots[minIndex].distance) 
+            {
+                minIndex = j;
+            }
+        }
+        ParkingSlot temp = slots[i];
+        slots[i] = slots[minIndex];
+        slots[minIndex] = temp;
+    }
+}
+
+// Function to assign the nearest available parking slot
+int assignParkingSlot(ParkingSlot slots[], int n) 
+{
+    queue<int> q; 
+
+    // Enqueue all unoccupied slots
+    for (int i = 0; i < n; i++)
+    {
+        if (!slots[i].isOccupied) 
+        {
+            q.push(i);
+        }
+    }
+
+    // Assign the nearest available slot
+    while (!q.empty())
+    {
+        int index = q.front();
+        q.pop();
+
+        if (!slots[index].isOccupied) 
+        {
+            slots[index].isOccupied = true;
+            return slots[index].id; 
+        }
+    }
+    return -1;
+}
+
+int main() 
+{
+    int n;
+    cout << "Enter the number of parking slots: ";
+    cin >> n;
+
+    ParkingSlot slots[n];
+
+    for (int i = 0; i < n; i++) 
+    {
+        cout << "Enter details for slot " << i + 1 << " (ID and Distance): ";
+        cin >> slots[i].id >> slots[i].distance;
+        slots[i].isOccupied = false; 
+    }
+
+    sortParkingSlots(slots, n);
+
+    cout << "\nParking slots sorted by distance:\n";
+    for (int i = 0; i < n; i++) {
+        cout << "Slot ID: " << slots[i].id << ", Distance: " << slots[i].distance << "\n";
+    }
+
+    char choice;
+    do {
+        cout << "\nAssign a parking slot to a visitor? (y/n): ";
+        cin >> choice;
+
+        if (choice == 'y' || choice == 'Y')
+        {
+            int assignedSlot = assignParkingSlot(slots, n);
+            if (assignedSlot != -1) 
+            {
+                cout << "Assigned Slot ID: " << assignedSlot << "\n";
+            }
+           else
+            {
+                cout << "No available parking slots.\n";
+            }
+        }
+    } while (choice == 'y' || choice == 'Y');
+
+    cout << "\nFinal status of parking slots:\n";
+    for (int i = 0; i < n; i++) 
+    {
+        cout << "Slot ID: " << slots[i].id << ", Distance: " << slots[i].distance
+             << ", Occupied: " << (slots[i].isOccupied ? "Yes" : "No") << "\n";
+    }
+
+    return 0;
+}
+        </pre>
+
+    </div>
+
+    <div class="footer">
+        <p>Parking Lot Management System - C++ Implementation</p>
+    </div>
+
 </body>
 </html>
