@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floyd-Warshall Algorithm - Emergency Exit Distance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label, input, button {
+            margin: 5px;
+        }
+        #output {
+            margin-top: 20px;
+        }
+        .location {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Floyd-Warshall Algorithm - Emergency Exit Distance</h1>
+
+    <label for="locations">Enter the number of locations:</label>
+    <input type="number" id="locations" required><br>
+
+    <label for="paths">Enter the number of paths:</label>
+    <input type="number" id="paths" required><br>
+
+    <h2>Enter Paths (u, v, weight):</h2>
+    <div id="paths-input"></div>
+
+    <h2>Enter the number of emergency exits:</h2>
+    <input type="number" id="exit-count" required><br>
+
+    <h2>Enter the locations of emergency exits:</h2>
+    <div id="exit-input"></div>
+
+    <button onclick="runFloydWarshall()">Calculate Shortest Distances</button>
+
+    <div id="output"></div>
+
+    <script>
+        let paths = [];
+        let exits = [];
+
+        // Dynamically generate path inputs
+        document.getElementById('paths').addEventListener('input', function () {
+            const pathCount = parseInt(document.getElementById('paths').value);
+            const pathsInputDiv = document.getElementById('paths-input');
+            pathsInputDiv.innerHTML = ''; // Clear previous inputs
+
+            for (let i = 0; i < pathCount; i++) {
+                pathsInputDiv.innerHTML += `
+                    <label for="path-${i}">Path ${i + 1} (u, v, weight):</label><br>
+                    <input type="number" id="path-${i}-u" placeholder="u"><br>
+                    <input type="number" id="path-${i}-v" placeholder="v"><br>
+                    <input type="number" id="path-${i}-weight" placeholder="Weight"><br><br>
+                `;
+            }
+        });
+
+        // Dynamically generate exit locations inputs
+        document.getElementById('exit-count').addEventListener('input', function () {
+            const exitCount = parseInt(document.getElementById('exit-count').value);
+            const exitInputDiv = document.getElementById('exit-input');
+            exitInputDiv.innerHTML = ''; // Clear previous inputs
+
+            for (let i = 0; i < exitCount; i++) {
+                exitInputDiv.innerHTML += `
+                    <label for="exit-${i}">Exit ${i + 1}:</label>
+                    <input type="number" id="exit-${i}" placeholder="Location of Exit"><br><br>
+                `;
+            }
+        });
+
+        // Function to initialize the graph matrix
+        function initializeGraph(n) {
+            const graph = Array.from({ length: n }, () => Array(n).fill(Infinity));
+            for (let i = 0; i < n; i++) {
+                graph[i][i] = 0; // Distance to self is 0
+            }
+            return graph;
+        }
+
+        // Floyd-Warshall algorithm implementation
+        function floydWarshall(graph, n) {
+            for (let k = 0; k < n; k++) {
+                for (let i = 0; i < n; i++) {
+                    for (let j = 0; j < n; j++) {
+                        if (graph[i][k] !== Infinity && graph[k][j] !== Infinity) {
+                            graph[i][j] = Math.min(graph[i][j], graph[i][k] + graph[k][j]);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Function to run the Floyd-Warshall algorithm and display results
+        function runFloydWarshall() {
+            const n = parseInt(document.getElementById('locations').value);
+            const m = parseInt(document.getElementById('paths').value);
+            const graph = initializeGraph(n);
+
+            // Get paths data
+            for (let i = 0; i < m; i++) {
+                const u = parseInt(document.getElementById(`path-${i}-u`).value);
+                const v = parseInt(document.getElementById(`path-${i}-v`).value);
+                const weight = parseInt(document.getElementById(`path-${i}-weight`).value);
+                graph[u][v] = weight;
+                graph[v][u] = weight; // Since paths are bidirectional
+            }
+
+            // Get exit locations data
+            exits = [];
+            const exitCount = parseInt(document.getElementById('exit-count').value);
+            for (let i = 0; i < exitCount; i++) {
+                exits.push(parseInt(document.getElementById(`exit-${i}`).value));
+            }
+
+            // Apply Floyd-Warshall algorithm
+            floydWarshall(graph, n);
+
+            // Compute shortest distance to nearest exit for each location
+            let output = '<h3>Shortest distances to nearest emergency exit:</h3>';
+            for (let i = 0; i < n; i++) {
+                let minDistance = Infinity;
+                for (let exit of exits) {
+                    minDistance = Math.min(minDistance, graph[i][exit]);
+                }
+                if (minDistance === Infinity) {
+                    output += `<div class="location">Location ${i}: No path to an emergency exit</div>`;
+                } else {
+                    output += `<div class="location">Location ${i}: ${minDistance} steps to nearest exit</div>`;
+                }
+            }
+
+            document.getElementById('output').innerHTML = output;
+        }
+    </script>
+
+</body>
+</html>
