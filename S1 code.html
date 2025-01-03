@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dijkstra's Algorithm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label, input, button {
+            margin: 5px;
+        }
+        #output {
+            margin-top: 20px;
+        }
+        .location {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dijkstra's Algorithm - Shop Allocation Based on Anchor Stores</h1>
+
+    <label for="locations">Enter the number of locations:</label>
+    <input type="number" id="locations" required><br>
+
+    <label for="roads">Enter the number of roads:</label>
+    <input type="number" id="roads" required><br>
+
+    <h2>Enter Roads (u, v, weight):</h2>
+    <div id="roads-input"></div>
+
+    <h2>Enter the number of anchor stores:</h2>
+    <input type="number" id="anchor-count" required><br>
+
+    <h2>Enter the locations of anchor stores:</h2>
+    <div id="anchor-input"></div>
+
+    <button onclick="runDijkstra()">Run Dijkstra's Algorithm</button>
+
+    <div id="output"></div>
+
+    <script>
+        // Initialize empty arrays to store roads and anchor store locations
+        let roads = [];
+        let anchorStores = [];
+
+        // Dynamically generate road inputs
+        document.getElementById('roads').addEventListener('input', function () {
+            const roadCount = parseInt(document.getElementById('roads').value);
+            const roadsInputDiv = document.getElementById('roads-input');
+            roadsInputDiv.innerHTML = ''; // Clear previous inputs
+
+            for (let i = 0; i < roadCount; i++) {
+                roadsInputDiv.innerHTML += `
+                    <label for="road-${i}">Road ${i + 1} (u, v, weight):</label><br>
+                    <input type="number" id="road-${i}-u" placeholder="u"><br>
+                    <input type="number" id="road-${i}-v" placeholder="v"><br>
+                    <input type="number" id="road-${i}-weight" placeholder="Weight"><br><br>
+                `;
+            }
+        });
+
+        // Dynamically generate anchor store location inputs
+        document.getElementById('anchor-count').addEventListener('input', function () {
+            const anchorCount = parseInt(document.getElementById('anchor-count').value);
+            const anchorInputDiv = document.getElementById('anchor-input');
+            anchorInputDiv.innerHTML = ''; // Clear previous inputs
+
+            for (let i = 0; i < anchorCount; i++) {
+                anchorInputDiv.innerHTML += `
+                    <label for="anchor-${i}">Anchor Store ${i + 1}:</label>
+                    <input type="number" id="anchor-${i}" placeholder="Location of Anchor Store"><br><br>
+                `;
+            }
+        });
+
+        // Function to run Dijkstra's Algorithm
+        function runDijkstra() {
+            const n = parseInt(document.getElementById('locations').value);
+            const m = parseInt(document.getElementById('roads').value);
+            const totalDistances = new Array(n).fill(Infinity);
+
+            // Get roads data
+            roads = [];
+            for (let i = 0; i < m; i++) {
+                const u = parseInt(document.getElementById(`road-${i}-u`).value);
+                const v = parseInt(document.getElementById(`road-${i}-v`).value);
+                const weight = parseInt(document.getElementById(`road-${i}-weight`).value);
+                roads.push([u, v, weight]);
+            }
+
+            // Get anchor stores data
+            anchorStores = [];
+            const anchorCount = parseInt(document.getElementById('anchor-count').value);
+            for (let i = 0; i < anchorCount; i++) {
+                anchorStores.push(parseInt(document.getElementById(`anchor-${i}`).value));
+            }
+
+            // Run Dijkstra for each anchor store
+            anchorStores.forEach(anchor => {
+                const distances = new Array(n).fill(Infinity);
+                distances[anchor] = 0;
+                const pq = [];
+                pq.push([0, anchor]); // [distance, node]
+
+                while (pq.length > 0) {
+                    pq.sort((a, b) => a[0] - b[0]); // Min-heap
+
+                    const [currentDistance, currentNode] = pq.shift();
+                    if (currentDistance > distances[currentNode]) continue;
+
+                    for (let [u, v, weight] of roads) {
+                        if (u === currentNode) {
+                            const newDist = currentDistance + weight;
+                            if (newDist < distances[v]) {
+                                distances[v] = newDist;
+                                pq.push([newDist, v]);
+                            }
+                        } else if (v === currentNode) {
+                            const newDist = currentDistance + weight;
+                            if (newDist < distances[u]) {
+                                distances[u] = newDist;
+                                pq.push([newDist, u]);
+                            }
+                        }
+                    }
+                }
+
+                // Update the total distances with the shortest distances found
+                for (let i = 0; i < n; i++) {
+                    totalDistances[i] = Math.min(totalDistances[i], distances[i]);
+                }
+            });
+
+            // Display the results
+            let output = '<h3>Optimal shop allocation based on proximity to anchor stores:</h3>';
+            for (let i = 0; i < n; i++) {
+                if (totalDistances[i] === Infinity) {
+                    output += `<div class="location">Location ${i}: Not reachable from any anchor store</div>`;
+                } else {
+                    output += `<div class="location">Location ${i}: Minimum distance to anchor store is ${totalDistances[i]}</div>`;
+                }
+            }
+
+            document.getElementById('output').innerHTML = output;
+        }
+    </script>
+
+</body>
+</html>
