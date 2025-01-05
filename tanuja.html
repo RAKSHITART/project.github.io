@@ -3,77 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>City Design Project - Mall Management System</title>
+    <title>Mall Management System - Business Cases</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
+            margin: 20px;
+            color: #333;
+            background-color: #f4f4f9;
         }
-        h1, h2 {
-            color: #2c3e50;
+        header {
+            text-align: center;
+            margin-bottom: 20px;
         }
-        .highlight {
-            color: #e74c3c;
-            font-weight: bold;
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #444;
+        }
+        header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+        section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        section h2 {
+            color: #555;
         }
         ul {
-            list-style-type: none;
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 8px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Greetings, I am Tanuja Ratan</h1>
-        <p>I’m passionate about expanding my understanding, constantly embracing new challenges, and diving into the intricacies of how the world operates. Whether it's through uncovering <span class="highlight">algorithms</span>, recognizing <span class="highlight">patterns</span>, or generating fresh <span class="highlight">ideas</span>, I’m always eager to explore the underlying connections and systems that influence our reality.</p>
+        <h1>Mall Management System</h1>
+        <p>Business Cases by Tanuja Ratan</p>
     </header>
 
     <section>
-        <h2>City Design Project: Mall Management System</h2>
-        <p>In this project, our group has taken up the <span class="highlight">mall management system</span> and assigned different business cases. I am working on the following:</p>
-
-        <h3>1. Patrol Route Optimization</h3>
+        <h2>1. Patrol Route Optimization</h2>
         <p><strong>Scenario:</strong> The objective is to optimize the patrol route for security guards to cover all critical areas of the mall while minimizing the total walking distance. The challenge is to ensure efficient coverage of key security checkpoints without unnecessary travel, enhancing both guard efficiency and response time.</p>
-        <p><strong>Algorithm:</strong> <span class="highlight">Prim’s Algorithm</span> for <span class="highlight">Minimum Spanning Tree (MST)</span></p>
-
-        <h4>Approach:</h4>
+        <p><strong>Algorithm:</strong> Prim’s Algorithm for Minimum Spanning Tree (MST)</p>
+        <p><strong>Approach:</strong></p>
         <ul>
             <li><strong>Graph Representation:</strong> Each checkpoint is a node, with edges representing walking distances.</li>
             <li><strong>Minimum Spanning Tree (MST):</strong> Use Prim’s algorithm to find the MST, connecting all nodes with minimal distance and no cycles.</li>
             <li><strong>Patrol Route Optimization:</strong> The MST provides an optimal route, minimizing travel while ensuring all checkpoints are covered.</li>
         </ul>
-
-        <h4>Benefits of MST:</h4>
+        <p><strong>Benefits of MST:</strong></p>
         <ul>
-            <li><span class="highlight">Minimized Travel Time:</span> Reduces walking distance, improving efficiency.</li>
-            <li><span class="highlight">Full Coverage:</span> Ensures all checkpoints are covered.</li>
-            <li><span class="highlight">Optimized Response:</span> Allows faster response times, enhancing security.</li>
+            <li><strong>Minimized Travel Time:</strong> Reduces walking distance, improving efficiency.</li>
+            <li><strong>Full Coverage:</strong> Ensures all checkpoints are covered.</li>
+            <li><strong>Optimized Response:</strong> Allows faster response times, enhancing security.</li>
         </ul>
         <p>This method balances efficient coverage and operational effectiveness.</p>
+    </section>
 
-        <h3>2. Revenue Prediction for Shops</h3>
+    <section>
+        <h2>2. Revenue Prediction for Shops</h2>
         <p><strong>Scenario:</strong> The goal is to analyze the revenue trends of shops to predict their future performance based on historical data and inter-shop relationships.</p>
-        <p><strong>Algorithm:</strong> <span class="highlight">Merge Sort</span>: Sorts revenue data efficiently by time or amount. <span class="highlight">DFS (Depth First Search)</span>: Explores relationships between shops, such as complementary products or shared customer bases.</p>
-
-        <h4>Approach:</h4>
+        <p><strong>Algorithm:</strong> Merge Sort and DFS (Depth First Search)</p>
+        <p><strong>Approach:</strong></p>
         <ul>
             <li><strong>Sort Historical Revenue Data:</strong> Use Merge Sort to organize the revenue data chronologically or by amount.</li>
             <li><strong>Analyze Relationships Between Shops:</strong> Represent the shops as nodes in a graph, where edges represent relationships (e.g., joint promotions or similar customer demographics).</li>
             <li><strong>Explore Trends:</strong> Use DFS to analyze patterns and dependencies between shops, helping predict how changes in one shop’s performance might affect others.</li>
         </ul>
-
-        <h4>Graph Representation:</h4>
+        <p><strong>Graph Representation:</strong></p>
         <ul>
             <li><strong>Nodes:</strong> Shops.</li>
             <li><strong>Edges:</strong> Relationships like shared promotions or complementary products.</li>
         </ul>
-
-        <h4>Benefits:</h4>
+        <p><strong>Benefits:</strong></p>
         <ul>
-            <li><span class="highlight">Efficient Data Sorting:</span> Merge Sort helps in efficiently handling large datasets.</li>
-            <li><span class="highlight">Deep Insights:</span> DFS uncovers hidden relationships and trends between shops, leading to better predictions.</li>
-            <li><span class="highlight">Optimized Predictions:</span> By considering both individual and inter-shop data, future revenue predictions become more accurate and reliable.</li>
+            <li><strong>Efficient Data Sorting:</strong> Merge Sort helps in efficiently handling large datasets.</li>
+            <li><strong>Deep Insights:</strong> DFS uncovers hidden relationships and trends between shops, leading to better predictions.</li>
+            <li><strong>Optimized Predictions:</strong> By considering both individual and inter-shop data, future revenue predictions become more accurate and reliable.</li>
         </ul>
     </section>
 </body>
 </html>
-
