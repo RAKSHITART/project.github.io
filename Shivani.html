@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAA Project - Mall Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .sdg {
+            margin-bottom: 20px;
+        }
+        .sdg li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+
+        <h1>DAA Project - Mall Management System</h1>
+
+        <div class="section">
+            <h2>About Me:</h2>
+            <p>Hello, my name is <strong>Shivani</strong>, and I am excited to present my project on Mall Management using Data Structures and Algorithms. As someone passionate about technology and problem-solving, I have always been fascinated by how data structures and algorithms can optimize real-world systems. In this project, I aim to design and implement an efficient mall management system that focuses on solving critical challenges like Optimal Shop allocation, emergency exit planning. By leveraging various data structures and algorithms, I strive to create a scalable and optimized solution that enhances the overall efficiency and experience within the mall environment.</p>
+        </div>
+
+        <div class="section">
+            <h2>Introduction to Project:</h2>
+            <p>Mall management in the context of data structures and algorithms involves efficiently organizing and processing various types of information related to the functioning of a mall. It includes managing stores, inventory, customers, and activities. Data structures and algorithms help optimize tasks such as searching, sorting, data retrieval, and scheduling. Here, I worked on the following topics mentioned below:</p>
+        </div>
+
+        <div class="section">
+            <h3>1. Optimal Shop Allocation Scenario:</h3>
+            <p>Assign new shop owners to locations based on proximity to anchor stores (like supermarkets or cinema halls) to maximize footfall.</p>
+            <h4>Algorithm:</h4>
+            <ul>
+                <li><strong>Dijkstra:</strong> Finds the shortest distance from anchor stores to various available shop spaces.</li>
+                <li><strong>Bubble Sort:</strong> Sorts shop spaces based on their distance to anchor stores.</li>
+            </ul>
+            <h4>Explanation:</h4>
+            <p>Represent the mall as a graph with nodes for shops and anchor stores, and edges representing the distance between them. Use Dijkstra to calculate the shortest paths, and Bubble Sort to rank locations based on these distances.</p>
+        </div>
+
+        <div class="section">
+            <h3>2. Emergency Exit Planning Scenario:</h3>
+            <p>Provide a map for visitors to use the shortest path to exits during emergencies.</p>
+            <h4>Algorithm:</h4>
+            <ul>
+                <li><strong>Floyd-Warshall:</strong> Pre-computes the shortest paths between all points in the mall.</li>
+                <li><strong>BFS:</strong> Quickly identifies the best exit path during an emergency.</li>
+            </ul>
+            <h4>Explanation:</h4>
+            <p>Model the mall as a graph where locations are nodes and paths are edges. Use Floyd-Warshall to calculate all-pairs shortest paths before any emergency. BFS is used dynamically during an event to direct people to the nearest exits.</p>
+        </div>
+
+        <div class="section sdg">
+            <h2>Mapping the SDG’s to the Case Studies:</h2>
+
+            <h3>1. Optimal Shop Allocation:</h3>
+            <ul>
+                <li><strong>SDG 1: No Poverty</strong> - Support businesses that provide affordable products and services.</li>
+                <li><strong>SDG 2: Zero Hunger</strong> - Facilitate access to affordable, nutritious food outlets.</li>
+                <li><strong>SDG 3: Good Health and Well-being</strong> - Integrate health-related shops to promote well-being.</li>
+                <li><strong>SDG 4: Quality Education</strong> - Create space for educational stores and institutions.</li>
+                <li><strong>SDG 5: Gender Equality</strong> - Ensure equal opportunity for both male and female entrepreneurs.</li>
+                <li><strong>SDG 7: Affordable and Clean Energy</strong> - Promote energy-efficient and sustainable shops.</li>
+                <li><strong>SDG 8: Decent Work and Economic Growth</strong> - Foster local job creation and economic opportunities.</li>
+                <li><strong>SDG 9: Industry, Innovation, and Infrastructure</strong> - Support innovative and tech-driven businesses.</li>
+                <li><strong>SDG 10: Reduced Inequality</strong> - Ensure access to retail spaces for marginalized groups.</li>
+                <li><strong>SDG 11: Sustainable Cities and Communities</strong> - Create community-centric retail spaces.</li>
+                <li><strong>SDG 12: Responsible Consumption and Production</strong> - Encourage businesses that promote sustainable consumption.</li>
+                <li><strong>SDG 13: Climate Action</strong> - Promote sustainability through retail operations.</li>
+                <li><strong>SDG 16: Peace, Justice, and Strong Institutions</strong> - Promote transparency in shop allocation.</li>
+                <li><strong>SDG 17: Partnerships for the Goals</strong> - Collaborate with local businesses and organizations.</li>
+            </ul>
+
+            <h3>2. Emergency Exit Planning:</h3>
+            <ul>
+                <li><strong>SDG 3: Good Health and Well-being</strong> - Ensure safety in the event of an emergency to protect the well-being of visitors.</li>
+                <li><strong>SDG 10: Reduced Inequality</strong> - Ensure equal accessibility to emergency exits for all individuals.</li>
+                <li><strong>SDG 11: Sustainable Cities and Communities</strong> - Promote safer and more resilient communities.</li>
+                <li><strong>SDG 13: Climate Action</strong> - Plan for emergency exits to accommodate climate-related risks.</li>
+                <li><strong>SDG 16: Peace, Justice, and Strong Institutions</strong> - Strengthen the capacity of malls to manage emergencies in a lawful and orderly manner.</li>
+                <li><strong>SDG 17: Partnerships for the Goals</strong> - Collaborate with emergency response teams and local authorities.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Learning Outcomes:</h2>
+            <p>By working on a Mall Management System project using Data Structures and Algorithms (DSA), we can achieve several valuable learning outcomes. The project will enhance both our technical and problem-solving skills and deepen our understanding of how DSA can be applied to real-world problems.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
