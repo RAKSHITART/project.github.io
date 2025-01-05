@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Management Output</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #f3f4f7, #d6d6f5);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            background: #3c78d8;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .container {
+            margin: 20px auto;
+            max-width: 800px;
+            background: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .content {
+            padding: 20px;
+        }
+        h2 {
+            color: #3c78d8;
+            margin-bottom: 10px;
+        }
+        pre {
+            background: #f4f4f9;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .highlight {
+            color: #d9534f;
+            font-weight: bold;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 5px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #3c78d8;
+            color: white;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>Waste Management Output</header>
+    <div class="container">
+        <div class="content">
+            <h2>Input Data</h2>
+            <pre>
+Enter the number of zones in the mall: 5
+Enter waste levels for each zone:
+Zone 1: 50
+Zone 2: 70
+Zone 3: 30
+Zone 4: 90
+Zone 5: 60
+            </pre>
+
+            <h2>Zones Ranked by Waste Levels</h2>
+            <ul>
+                <li><span class="highlight">Zone 4:</span> 90</li>
+                <li><span class="highlight">Zone 2:</span> 70</li>
+                <li><span class="highlight">Zone 5:</span> 60</li>
+                <li><span class="highlight">Zone 1:</span> 50</li>
+                <li><span class="highlight">Zone 3:</span> 30</li>
+            </ul>
+
+            <h2>Paths Between Zones</h2>
+            <pre>
+Enter the number of paths between zones: 5
+Enter the paths (zone1 zone2):
+1 2
+1 3
+2 4
+3 5
+4 5
+            </pre>
+
+            <h2>DFS Traversal</h2>
+            <p><span class="highlight">DFS starting from Zone 1:</span> Zone 1 -> Zone 3 -> Zone 5 -> Zone 4 -> Zone 2 -> End</p>
+
+            <h2>Edges (Possible Waste Chute Connections)</h2>
+            <pre>
+Enter the number of edges (possible waste chute connections): 6
+Enter the edges (zone1 zone2 weight):
+1 2 10
+1 3 15
+2 4 5
+3 5 10
+4 5 5
+2 3 20
+            </pre>
+
+            <h2>Minimum Spanning Tree (MST)</h2>
+            <ul>
+                <li>Edge: 2 - 4 | Weight: 5</li>
+                <li>Edge: 4 - 5 | Weight: 5</li>
+                <li>Edge: 1 - 2 | Weight: 10</li>
+                <li>Edge: 3 - 5 | Weight: 10</li>
+            </ul>
+            <p><strong>Total Weight of MST:</strong> 30</p>
+        </div>
+    </div>
+    <footer>&copy; 2025 Waste Management Solutions</footer>
+</body>
+</html>
