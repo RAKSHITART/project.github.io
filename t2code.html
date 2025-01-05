@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mall Management System - Revenue Prediction</title>
+    <title>Revenue Prediction for Shops</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 20px;
             color: #333;
-            background-color: #f4f4f9;
+            background-color: #f9f9f9;
         }
         header {
             text-align: center;
@@ -21,10 +21,6 @@
             font-size: 2.5em;
             color: #444;
         }
-        header p {
-            font-size: 1.2em;
-            color: #666;
-        }
         section {
             background: #fff;
             padding: 20px;
@@ -34,13 +30,6 @@
         }
         section h2 {
             color: #555;
-        }
-        ul {
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-        ul li {
-            margin-bottom: 8px;
         }
         pre {
             background: #f4f4f4;
@@ -56,25 +45,17 @@
 </head>
 <body>
     <header>
-        <h1>Mall Management System</h1>
-        <p>Business Cases by Tanuja Ratan</p>
+        <h1>Revenue Prediction for Shops</h1>
     </header>
 
     <section>
-        <h2>2. Revenue Prediction for Shops</h2>
-        <p><strong>Scenario:</strong> The goal is to analyze the revenue trends of shops to predict their future performance based on historical data and inter-shop relationships.</p>
-        <p><strong>Algorithm:</strong> Merge Sort and Depth First Search (DFS)</p>
-        <p><strong>Approach:</strong></p>
-        <ul>
-            <li><strong>Input Format:</strong> Revenue data as pairs {revenue, shopID} and shop relationships as pairs of connected shop IDs.</li>
-            <li><strong>Merge Sort:</strong> Sorts revenue data by revenue amounts or chronologically (depending on input).</li>
-            <li><strong>DFS:</strong> Explores the relationships between shops based on the graph input.</li>
-        </ul>
-        <p><strong>Output:</strong></p>
-        <ul>
-            <li>Displays sorted revenue data.</li>
-            <li>Analyzes and outputs shop relationships starting from each unvisited shop.</li>
-        </ul>
+        <h2>Objective</h2>
+        <p>Predict future performance by analyzing historical revenue data and exploring relationships between shops.</p>
+
+        <h2>Algorithm</h2>
+        <p>Merge Sort is used to sort revenue data by revenue amounts or chronologically. DFS (Depth First Search) is employed to explore shop relationships based on a graph input.</p>
+
+        <h2>C++ Implementation</h2>
         <pre>
 #include &lt;iostream&gt;
 #include &lt;vector&gt;
@@ -85,7 +66,7 @@
 using namespace std;
 
 // Merge function for Merge Sort
-void merge(vector&lt;pair&lt;int, int&gt;&gt; &amp;revenues, int left, int mid, int right) {
+void merge(vector&lt;pair&lt;int, int&gt;&gt; &revenues, int left, int mid, int right) {
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
@@ -110,7 +91,7 @@ void merge(vector&lt;pair&lt;int, int&gt;&gt; &amp;revenues, int left, int mid, 
 }
 
 // Merge Sort
-void mergeSort(vector&lt;pair&lt;int, int&gt;&gt; &amp;revenues, int left, int right) {
+void mergeSort(vector&lt;pair&lt;int, int&gt;&gt; &revenues, int left, int right) {
     if (left &lt; right) {
         int mid = left + (right - left) / 2;
         mergeSort(revenues, left, mid);
@@ -120,7 +101,7 @@ void mergeSort(vector&lt;pair&lt;int, int&gt;&gt; &amp;revenues, int left, int r
 }
 
 // DFS for analyzing shop relationships
-void dfs(int node, map&lt;int, vector&lt;int&gt;&gt; &amp;graph, vector&lt;bool&gt; &amp;visited) {
+void dfs(int node, map&lt;int, vector&lt;int&gt;&gt; &graph, vector&lt;bool&gt; &visited) {
     stack&lt;int&gt; stack;
     stack.push(node);
 
@@ -175,15 +156,14 @@ int main() {
 
     // Output sorted revenue data
     cout &lt;&lt; "\n--- Revenue Prediction for Shops ---\n";
-    cout &lt;&lt; "Objective: Predict future performance by analyzing historical data and shop relationships.\n";
     cout &lt;&lt; "Sorted Revenue Data (Chronologically or by Amount):\n";
-    for (auto &amp;entry : revenues) {
+    for (auto &entry : revenues) {
         cout &lt;&lt; "Revenue: " &lt;&lt; entry.first &lt;&lt; ", Shop ID: " &lt;&lt; entry.second &lt;&lt; "\n";
     }
 
     // Analyzing shop relationships using DFS
     vector&lt;bool&gt; visited(graph.size(), false);
-    for (const auto &amp;pair : graph) {
+    for (const auto &pair : graph) {
         if (!visited[pair.first]) {
             dfs(pair.first, graph, visited);
         }
