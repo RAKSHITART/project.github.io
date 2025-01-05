@@ -1,42 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Portfolio - Our Project</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0; 
+            font-family: 'Arial', sans-serif;
+            margin: 0;
             padding: 0;
-            background-color: #f3f4f6;
+            background-color: #f1f1f1;
             color: #333;
         }
         header {
-            background-color: #4a148c;
+            background: linear-gradient(135deg, #8e44ad, #4a148c);
             color: #fff;
-            padding: 3rem 1rem;
+            padding: 4rem 1rem;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
         header h1 {
-            font-size: 3rem;
+            font-size: 4rem;
             margin: 0;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
         }
         header p {
             font-size: 1.5rem;
-            margin-top: 0.5rem;
+            margin-top: 1rem;
+            line-height: 1.6;
         }
         nav {
             background-color: #6a1b9a;
-            padding: 1rem;
+            padding: 1.5rem;
             text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         nav a {
             color: #fff;
             text-decoration: none;
-            margin: 0 1.5rem;
+            margin: 0 2rem;
             font-weight: bold;
+            font-size: 1.2rem;
             text-transform: uppercase;
         }
         nav a:hover {
@@ -47,48 +51,75 @@
             padding: 3rem 1rem;
         }
         .section {
-            margin-bottom: 2.5rem;
-            padding: 2rem;
+            margin-bottom: 3rem;
+            padding: 2.5rem;
             background: #fff;
             border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 2.5rem;
+            color: #4a148c;
+            margin-bottom: 1rem;
+            text-align: center;
         }
         .team {
             display: flex;
-            flex-direction: column;
-            gap: 3rem;
-            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
         }
-        .team .member {
+        .member {
             text-align: center;
-            padding: 2rem;
-            background: #e3f2fd;
+            padding: 2.5rem;
+            background: #f9f9f9;
             border-radius: 16px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            max-width: 320px;
             width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .team img {
-            width: 100%;
+        .member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .member img {
+            width: 80%;
             height: auto;
-            margin-bottom: 1rem;
-            border-radius: 16px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .member h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .member p {
+            font-size: 1rem;
+            color: #777;
         }
         footer {
             text-align: center;
             padding: 2rem;
             background-color: #4a148c;
             color: #fff;
-            margin-top: 2rem;
+            margin-top: 3rem;
+            border-top: 4px solid #ffab00;
+        }
+        footer p {
+            font-size: 1.2rem;
+        }
+        footer a {
+            color: #ffab00;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Welcome to Our GitHub Project Portfolio</h1>
-        <p>Design and Analysis of Algorithms
-An advanced course focused on the principles of algorithm design and analysis, combining theoretical foundations with practical applications to solve complex computational problems. </p>
+        <p>Design and Analysis of Algorithms: A comprehensive course combining theoretical concepts with practical applications to tackle complex problems.</p>
     </header>
     <nav>
         <a href="#home">Home</a>
@@ -99,36 +130,17 @@ An advanced course focused on the principles of algorithm design and analysis, c
     <main>
         <section id="home" class="section">
             <h2>About the Project</h2>
-            <p> Course Project: City Plan and Algorithmic Applications
-
-For our course project, we were tasked with designing a city plan. Our team chose Pune as the city, envisioning it as a modern and efficiently planned urban space. The city was divided into distinct sectors, including:
-
-Commercial Sector
-
-Small-Scale and Large-Scale Industries
-
-Organic Farming Areas
-
-Residential Zones
-
-
-We also estimated the costs required to develop the city and outlined the phases in which the construction would proceed.
-
-As part of the project, we needed to identify specific areas where course algorithms could be applied. Given Pune's status as a growing hi-tech city, we chose mall management as our primary focus. Malls are crucial in such cities, and efficient management and navigation systems are essential to enhance visitor experiences.
-
-Our team collaborated to identify several business cases related to mall management, allowing us to implement the algorithms we studied into real-world scenarios. Each team member worked on specific cases, and details about these cases can be found in their respective profiles.. This portfolio demonstrates the work of our team in building innovative solutions and collaborative projects. Explore our journey, meet our team, and check out our projects below.</p>
+            <p>For our course project, we designed a city plan for Pune, incorporating innovative algorithmic applications in mall management. Our project includes various sectors such as Commercial, Industrial, Organic Farming, and Residential Zones, along with cost estimations and development phases.</p>
         </section>
         <section id="team" class="section">
-          <h2>Meet the Team</h2>
-<div class="team">
-    <div class="member">
-        <img src="rakshita.jpg" alt="Rakshita">
-        <h3><a href="rakshita.html">Rakshita R TALEGAON</a></h3>
-        <p><strong>USN:</strong> 01FE23BCI041</p>
-        <p><strong>ROLL NO:</strong> 215</p>
-    </div>
-</div>
-
+            <h2>Meet the Team</h2>
+            <div class="team">
+                <div class="member">
+                    <img src="rakshita.jpg" alt="Rakshita">
+                    <h3><a href="rakshita.html">Rakshita R TALEGAON</a></h3>
+                    <p><strong>USN:</strong> 01FE23BCI041</p>
+                    <p><strong>ROLL NO:</strong> 215</p>
+                </div>
                 <div class="member">
                     <img src="michelle.jpg" alt="Michelle">
                     <h3><a href="michelle.html">Michelle</a></h3>
@@ -141,7 +153,7 @@ Our team collaborated to identify several business cases related to mall managem
                 </div>
                 <div class="member">
                     <img src="shivani.jpg" alt="Shivani">
-                    <h3><a href="Shivani.html">Shivani</a></h3>
+                    <h3><a href="shivani.html">Shivani</a></h3>
                     <p>Role: Quality Assurance</p>
                 </div>
             </div>
@@ -152,14 +164,14 @@ Our team collaborated to identify several business cases related to mall managem
         </section>
         <section id="contact" class="section">
             <h2>Contact Us</h2>
-            <p>Email: <a href="rakshitatalegaon@gmail.com">Rakshita.com</a></p>
-            <p>Email: <a href="michellehoolgeri.com">Michelle.com</a></p>
-            <p>Email: <a href="mailto:team@example.com">Tanuja.com</a></p>
-            <p>Email: <a href="mailto:team@example.com">Shivani.com</a></p>
+            <p>Email: <a href="mailto:rakshitatalegaon@gmail.com">rakshitatalegaon@gmail.com</a></p>
+            <p>Email: <a href="mailto:michellehoolgeri@gmail.com">michellehoolgeri@gmail.com</a></p>
+            <p>Email: <a href="mailto:tanuja@example.com">tanuja@example.com</a></p>
+            <p>Email: <a href="mailto:shivani@example.com">shivani@example.com</a></p>
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 GitHub Portfolio Team. All rights reserved.</p>
+        <p>&copy; 2024 GitHub Portfolio Team. All rights reserved. <a href="https://github.com" target="_blank">Visit our GitHub</a></p>
     </footer>
 </body>
 </html>
