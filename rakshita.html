@@ -5,92 +5,165 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STORE RANKING AND WASTE MANAGEMENT SYSTEM</title>
     <style>
-        body { 
-            font-family: 'Roboto', Arial, sans-serif;
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to right, #eef2f3, #8e9eab);
+            background: linear-gradient(to right, #f7a2ff, #3b82f6);
             color: #333;
-        } 
-        h1, h2, h3, h4 {
-            margin: 0;
-            font-weight: 700;
-            color: #0056b3;
         }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            color: #0056b3;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
         h1 {
             text-align: center;
+            font-size: 3em;
             margin-top: 20px;
-            font-size: 2.5em;
+            color: #ff5733;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
+
         section {
             margin: 20px auto;
-            padding: 20px;
+            padding: 30px;
             background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            transition: all 0.3s ease;
         }
-        ul {
-            margin: 15px 0;
-            padding-left: 40px;
-            list-style: disc;
+
+        section:hover {
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
         }
-        a {
-            color: #0056b3;
-            text-decoration: none;
-            font-weight: bold;
+
+        h2 {
+            font-size: 2.2rem;
+            border-bottom: 3px solid #00bcd4;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
         }
-        a:hover {
-            text-decoration: underline;
+
+        h3 {
+            font-size: 1.7rem;
+            color: #444;
+            margin-top: 15px;
         }
-        p, ul {
-            font-size: 1rem;
+
+        h4 {
+            font-size: 1.3rem;
             color: #555;
         }
-        h2 {
-            font-size: 1.8rem;
-            border-bottom: 2px solid #0056b3;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-        }
-        h3 {
-            font-size: 1.5rem;
-            margin-top: 20px;
-            color: #444;
-        }
-        h4 {
-            font-size: 1.2rem;
-            margin-top: 15px;
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            font-size: 1.1rem;
             color: #666;
         }
+
         li {
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            position: relative;
         }
+
+        li:before {
+            content: '✔';
+            position: absolute;
+            left: -30px;
+            color: #00bcd4;
+            font-size: 1.5rem;
+            top: 0;
+        }
+
         p {
-            margin: 10px 0;
+            font-size: 1.1rem;
+            color: #555;
+            margin: 12px 0;
         }
+
+        a {
+            color: #ff5733;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #00bcd4;
+            text-decoration: underline;
+        }
+
+        .button {
+            background: #00bcd4;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #ff5733;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: white;
+            font-size: 1rem;
+            margin-top: 30px;
+        }
+
+        footer a {
+            color: #ff5733;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             h1 {
-                font-size: 2rem;
+                font-size: 2.2em;
             }
+
             section {
-                padding: 15px;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.8rem;
             }
         }
+
+        @font-face {
+            font-family: 'Poppins';
+            src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- About Me Section (First Section) -->
+    <!-- About Me Section -->
     <section>
         <h2>About Me</h2>
-        <p>
-    Hi, I'm Rakshita! Currently, I'm in my 3rd semester at KLE Technological University, majoring in CS-AI. I have a strong interest in Data Science and Machine Learning, with a  foundation in programming languages like C, Basic Python, learning C++ and DSA. I'm especially passionate about DBMS, SQL, optimization, and normalization. I'm part of a dynamic team of four, working on a GitHub portfolio project. I enjoy tackling challenges with leadership, creativity, and problem-solving skills, and I'm always eager to learn and grow in the field of Artificial Intelligence."
-        </p>
+        <p>Hi, I'm Rakshita! Currently, I'm in my 3rd semester at KLE Technological University, majoring in CS-AI. I have a strong interest in Data Science and Machine Learning, with a foundation in programming languages like C, Basic Python, learning C++ and DSA. I'm especially passionate about DBMS, SQL, optimization, and normalization. I'm part of a dynamic team of four, working on a GitHub portfolio project. I enjoy tackling challenges with leadership, creativity, and problem-solving skills, and I'm always eager to learn and grow in the field of Artificial Intelligence.</p>
     </section>
-
-
 
     <!-- Introduction to Project Section -->
     <section>
@@ -98,48 +171,43 @@
         <p>For the City Design Project, my team selected the Mall Management System, and we delved into various business cases to apply relevant algorithms. I contributed to the following:</p>
     </section>
 
-    <!-- Main Content Starts Here -->
+    <!-- Main Content -->
     <h1>STORE RANKING AND WASTE MANAGEMENT SYSTEM</h1>
 
     <section>
         <h2>1. Introduction</h2>
-        <p>
-            This combined system integrates <strong>Store ranking</strong> and <strong>Waste Management</strong> to ensure optimized customer experience and efficient waste handling within mall premises. The mall system ranks stores and places them optimally, while the waste management system ranks zones by waste levels and optimizes waste collection routes.
-        </p>
+        <p>This combined system integrates <strong>Store ranking</strong> and <strong>Waste Management</strong> to ensure optimized customer experience and efficient waste handling within mall premises. The mall system ranks stores and places them optimally, while the waste management system ranks zones by waste levels and optimizes waste collection routes.</p>
     </section>
 
     <section>
         <h2>2. Store Ranking and its Allocation</h2>
         <h3>2.1 System Overview</h3>
         <ul>
-            <li><strong>Importance :</strong>Placing stores with the highest customer reviews and revenue in high-traffic areas is beneficial because it attracts more customers to those stores, increasing foot traffic and boosting sales. Popular stores are more likely to draw in shoppers, which leads to higher sales for both the stores and the mall. This strategy also enhances the shopping experience by making it easier for customers to access their favorite stores, encouraging longer visits and repeat business. Ultimately, it improves the mall’s overall performance and customer satisfaction.</li>
+            <li><strong>Importance:</strong> Placing stores with the highest customer reviews and revenue in high-traffic areas is beneficial because it attracts more customers to those stores, increasing foot traffic and boosting sales. Popular stores are more likely to draw in shoppers, which leads to higher sales for both the stores and the mall. This strategy also enhances the shopping experience by making it easier for customers to access their favorite stores, encouraging longer visits and repeat business. Ultimately, it improves the mall’s overall performance and customer satisfaction.</li>
             <li><strong>Store Ranking:</strong> Stores are ranked based on customer reviews or positive reviews.</li>
             <li><strong>Optimal Store Placement:</strong> Dijkstra’s algorithm is used to determine the shortest paths, ensuring top-ranked stores are placed in high-traffic areas.</li>
         </ul>
 
         <h3>2.2 Key Concepts</h3>
         <h4>Store Ranking</h4>
-        <p>
-            Stores are ranked using two methods:
-        </p>
+        <p>Stores are ranked using two methods:</p>
         <ul>
             <li><strong>Rank by Total Reviews:</strong> Total number of reviews for each store.</li>
             <li><strong>Rank by Positive Reviews:</strong> Number of positive reviews each store receives.</li>
         </ul>
 
         <h4>Dijkstra’s Algorithm for Optimal Placement</h4>
-        <p>
-            Dijkstra’s Algorithm calculates the shortest paths from the entrance to other stores, ensuring the most accessible locations for popular stores.
-        </p>
+        <p>Dijkstra’s Algorithm calculates the shortest paths from the entrance to other stores, ensuring the most accessible locations for popular stores.</p>
         <p>To view code <a href="rcode.html" target="_blank">click here</a>.</p>
-    <p>To view sample output <a href="rimp1.html" target="_blank">click here</a>.</p>
-    <p>To view SDG's used <a href="rsdg1.html" target="_blank">click here</a>.</p>
-</section>
+        <p>To view sample output <a href="rimp1.html" target="_blank">click here</a>.</p>
+        <p>To view SDGs used <a href="rsdg1.html" target="_blank">click here</a>.</p>
+    </section>
+
     <section>
         <h2>3. Waste Management System</h2>
         <h3>3.1 System Overview</h3>
         <ul>
-            <li><strong>Importance : </strong>Waste management in malls plays a key role in ensuring a clean and organized environment, which directly impacts customer satisfaction and health. By optimizing waste collection and disposal, malls can reduce operational costs while promoting eco-friendly initiatives like recycling and waste reduction. This not only helps in adhering to local regulations but also strengthens the mall’s reputation as a responsible and sustainable business. Proper waste management enhances the shopping experience by creating a pleasant atmosphere, ultimately driving foot traffic and improving the mall's brand image.</li>
+            <li><strong>Importance:</strong> Waste management in malls plays a key role in ensuring a clean and organized environment, which directly impacts customer satisfaction and health. By optimizing waste collection and disposal, malls can reduce operational costs while promoting eco-friendly initiatives like recycling and waste reduction. This not only helps in adhering to local regulations but also strengthens the mall’s reputation as a responsible and sustainable business. Proper waste management enhances the shopping experience by creating a pleasant atmosphere, ultimately driving foot traffic and improving the mall's brand image.</li>
             <li><strong>Zone Ranking:</strong> Quick Sort is used to rank zones by waste levels.</li>
             <li><strong>Route Optimization:</strong> DFS ensures efficient waste collection routes.</li>
             <li><strong>Chute Placement:</strong> Kruskal’s Algorithm identifies optimal chute locations to minimize travel distances.</li>
@@ -147,25 +215,17 @@
 
         <h3>3.2 Key Concepts</h3>
         <h4>Zone Ranking Using Quick Sort</h4>
-        <p>
-            Quick Sort ranks zones based on waste generation levels.
-        </p>
+        <p>Quick Sort ranks zones based on waste generation levels.</p>
 
         <h4>Route Optimization Using DFS</h4>
-        <p>
-            DFS plans efficient collection routes, minimizing redundant travel.
-        </p>
+        <p>DFS plans efficient collection routes, minimizing redundant travel.</p>
 
         <h4>Chute Placement Using Kruskal’s Algorithm</h4>
-        <p>
-            Kruskal’s Algorithm determines the minimum spanning tree for optimal chute locations.
-        </p>
+        <p>Kruskal’s Algorithm determines the minimum spanning tree for optimal chute locations.</p>
         <p>For code implementation, <a href="r1code.html" target="_blank">click here</a>.</p>
-  
-
-    <p>To view sample output <a href="rimp2.html" target="_blank">click here</a>.</p>
-    <p>To view SDG's used <a href="rsdg2.html" target="_blank">click here</a>.</p>
-          </section>
+        <p>To view sample output <a href="rimp2.html" target="_blank">click here</a>.</p>
+        <p>To view SDGs used <a href="rsdg2.html" target="_blank">click here</a>.</p>
+    </section>
 
     <section>
         <h2>4. Benefits</h2>
@@ -184,5 +244,11 @@
             <li>Enhance mall layout models to handle multiple entrances and paths.</li>
         </ul>
     </section>
+
+    <footer>
+        <p>&copy; 2025 Rakshita | All Rights Reserved | <a href="https://github.com/rakshita" target="_blank">GitHub</a></p>
+    </footer>
+
 </body>
 </html>
+
