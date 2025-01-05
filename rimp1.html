@@ -4,49 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Store Data</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(135deg, #ff6f61, #ff9f80);
+            color: #fff;
+            padding: 3rem 1rem;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 3.5rem;
+            margin: 0;
+        }
+        main {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+            background-color: #fff;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h2, h3 {
+            color: #ff6f61;
+        }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+        .ranking, .connections, .paths {
+            background-color: #fafafa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .ranking p, .connections p, .paths p {
+            padding: 0.5rem;
+            font-size: 1.1rem;
+            background-color: #fff;
+            margin: 0.5rem 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .ranking p:first-child, .connections p:first-child, .paths p:first-child {
+            margin-top: 0;
+        }
+        .ranking h3, .connections h3, .paths h3 {
+            margin-bottom: 1rem;
+            color: #ff6f61;
+        }
+        footer {
+            background-color: #ff6f61;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -6px 15px rgba(0, 0, 0, 0.1);
+        }
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+    </style>
 </head>
 <body>
-    <p>Enter the number of stores: 4</p>
-    <p>Enter name of Store 1: A</p>
-    <p>Enter revenue of Store 1: 29000</p>
-    <p>Enter number of reviews for Store 1: 20</p>
-    <p>Enter number of positive reviews for Store 1: 17</p>
-    <p>Enter name of Store 2: B</p>
-    <p>Enter revenue of Store 2: 34000</p>
-    <p>Enter number of reviews for Store 2: 40</p>
-    <p>Enter number of positive reviews for Store 2: 25</p>
-    <p>Enter name of Store 3: C</p>
-    <p>Enter revenue of Store 3: 22000</p>
-    <p>Enter number of reviews for Store 3: 28</p>
-    <p>Enter number of positive reviews for Store 3: 25</p>
-    <p>Enter name of Store 4: C</p>
-    <p>Enter revenue of Store 4: 56000</p>
-    <p>Enter number of reviews for Store 4: 34</p>
-    <p>Enter number of positive reviews for Store 4: 15</p>
-    <p>Choose the ranking method:</p>
-    <p>1. Rank by Highest Reviews</p>
-    <p>2. Rank by Positive Reviews</p>
-    <p>Enter your choice (1 or 2): 1</p>
-
-    <h3>Top 3 Ranked Stores (based on highest reviews):</h3>
-    <p>Store Name: B, Reviews: 40, Positive Reviews: 25</p>
-    <p>Store Name: C, Reviews: 34, Positive Reviews: 15</p>
-    <p>Store Name: C, Reviews: 28, Positive Reviews: 25</p>
-
-    <p>Enter number of connections between stores: 4</p>
-    <p>Enter connection 1 (store1 store2 traffic_weight): 1 2 40</p>
-    <p>Enter connection 2 (store1 store2 traffic_weight): 2 3 60</p>
-    <p>Enter connection 3 (store1 store2 traffic_weight): 1 4 50</p>
-    <p>Enter connection 4 (store1 store2 traffic_weight): 3 4 25</p>
-
-    <h3>Shortest Paths from Entrance (Store 1):</h3>
-    <p>Store 2 - Distance: 40</p>
-    <p>Store 3 - Distance: 75</p>
-    <p>Store 4 - Distance: 50</p>
-
-    <h3>Optimal Store Placement (based on shortest path distance):</h3>
-    <p>Store 2 placed at distance 40 from entrance</p>
-    <p>Store 3 placed at distance 75 from entrance</p>
-    <p>Store 4 placed at distance 50 from entrance</p>
+    <header>
+        <h1>Store Data Management</h1>
+    </header>
+    <main>
+        <section class="ranking">
+            <h3>Top 3 Ranked Stores (based on highest reviews):</h3>
+            <p>Store Name: B, Reviews: 40, Positive Reviews: 25</p>
+            <p>Store Name: C, Reviews: 34, Positive Reviews: 15</p>
+            <p>Store Name: C, Reviews: 28, Positive Reviews: 25</p>
+        </section>
+        <section class="connections">
+            <h3>Connections Between Stores:</h3>
+            <p>Connection 1: Store 1 &rarr; Store 2 (Traffic Weight: 40)</p>
+            <p>Connection 2: Store 2 &rarr; Store 3 (Traffic Weight: 60)</p>
+            <p>Connection 3: Store 1 &rarr; Store 4 (Traffic Weight: 50)</p>
+            <p>Connection 4: Store 3 &rarr; Store 4 (Traffic Weight: 25)</p>
+        </section>
+        <section class="paths">
+            <h3>Shortest Paths from Entrance (Store 1):</h3>
+            <p>Store 2 - Distance: 40</p>
+            <p>Store 3 - Distance: 75</p>
+            <p>Store 4 - Distance: 50</p>
+        </section>
+        <section class="placement">
+            <h3>Optimal Store Placement (based on shortest path distance):</h3>
+            <p>Store 2 placed at distance 40 from entrance</p>
+            <p>Store 3 placed at distance 75 from entrance</p>
+            <p>Store 4 placed at distance 50 from entrance</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Store Data Management | All rights reserved</p>
+    </footer>
 </body>
 </html>
