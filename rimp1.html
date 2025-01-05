@@ -7,117 +7,135 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f6f8;
+            background-color: #f4f4f9;
+            color: #333;
             margin: 0;
             padding: 0;
-            color: #333;
-        }
-        header {
-            background: linear-gradient(135deg, #ff6f61, #ff9f80);
-            color: #fff;
-            padding: 3rem 1rem;
-            text-align: center;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
-        header h1 {
-            font-size: 3.5rem;
-            margin: 0;
-        }
-        main {
-            padding: 2rem 1rem;
-            max-width: 1200px;
-            margin: 2rem auto;
-            background-color: #fff;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-        h2, h3 {
-            color: #ff6f61;
-        }
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        p {
-            font-size: 1.1rem;
-            margin: 0.5rem 0;
             line-height: 1.6;
         }
-        .ranking, .connections, .paths {
-            background-color: #fafafa;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
+        h1, h3 {
+            text-align: center;
+            color: #4a148c;
         }
-        .ranking p, .connections p, .paths p {
-            padding: 0.5rem;
-            font-size: 1.1rem;
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 2rem;
             background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+        .section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .section h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .section p {
+            font-size: 1.1rem;
             margin: 0.5rem 0;
-            border-radius: 6px;
+            color: #555;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #4a148c;
+        }
+        .choice, .connection {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #e8e8f0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .result {
+            background-color: #f1f1f1;
+            padding: 1rem;
+            border-radius: 8px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
-        .ranking p:first-child, .connections p:first-child, .paths p:first-child {
-            margin-top: 0;
-        }
-        .ranking h3, .connections h3, .paths h3 {
-            margin-bottom: 1rem;
-            color: #ff6f61;
-        }
-        footer {
-            background-color: #ff6f61;
-            color: white;
+        .footer {
             text-align: center;
-            padding: 1.5rem;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            box-shadow: 0 -6px 15px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            background-color: #4a148c;
+            color: #fff;
+            margin-top: 2rem;
+            font-size: 1.2rem;
         }
-        footer p {
-            margin: 0;
-            font-size: 1rem;
+        .footer a {
+            color: #ffab00;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Store Data Management</h1>
-    </header>
-    <main>
-        <section class="ranking">
+
+    <div class="container">
+        <h1>Store Data Overview</h1>
+
+        <div class="section">
+            <h3>Enter the number of stores:</h3>
+            <p class="highlight">4</p>
+        </div>
+
+        <div class="section">
+            <h3>Enter Store Data:</h3>
+            <p><strong>Store 1:</strong> Name: A, Revenue: 29000, Reviews: 20, Positive Reviews: 17</p>
+            <p><strong>Store 2:</strong> Name: B, Revenue: 34000, Reviews: 40, Positive Reviews: 25</p>
+            <p><strong>Store 3:</strong> Name: C, Revenue: 22000, Reviews: 28, Positive Reviews: 25</p>
+            <p><strong>Store 4:</strong> Name: D, Revenue: 56000, Reviews: 34, Positive Reviews: 15</p>
+        </div>
+
+        <div class="choice">
+            <h3>Choose the ranking method:</h3>
+            <p>1. Rank by Highest Reviews</p>
+            <p>2. Rank by Positive Reviews</p>
+            <p>Enter your choice (1 or 2): <strong>1</strong></p>
+        </div>
+
+        <div class="result">
             <h3>Top 3 Ranked Stores (based on highest reviews):</h3>
-            <p>Store Name: B, Reviews: 40, Positive Reviews: 25</p>
-            <p>Store Name: C, Reviews: 34, Positive Reviews: 15</p>
-            <p>Store Name: C, Reviews: 28, Positive Reviews: 25</p>
-        </section>
-        <section class="connections">
-            <h3>Connections Between Stores:</h3>
-            <p>Connection 1: Store 1 &rarr; Store 2 (Traffic Weight: 40)</p>
-            <p>Connection 2: Store 2 &rarr; Store 3 (Traffic Weight: 60)</p>
-            <p>Connection 3: Store 1 &rarr; Store 4 (Traffic Weight: 50)</p>
-            <p>Connection 4: Store 3 &rarr; Store 4 (Traffic Weight: 25)</p>
-        </section>
-        <section class="paths">
+            <p><strong>Store Name:</strong> B, Reviews: 40, Positive Reviews: 25</p>
+            <p><strong>Store Name:</strong> D, Reviews: 34, Positive Reviews: 15</p>
+            <p><strong>Store Name:</strong> C, Reviews: 28, Positive Reviews: 25</p>
+        </div>
+
+        <div class="section">
+            <h3>Enter number of connections between stores:</h3>
+            <p class="highlight">4</p>
+        </div>
+
+        <div class="connection">
+            <h3>Enter connection details:</h3>
+            <p>Connection 1: Store 1 -> Store 2, Traffic Weight: 40</p>
+            <p>Connection 2: Store 2 -> Store 3, Traffic Weight: 60</p>
+            <p>Connection 3: Store 1 -> Store 4, Traffic Weight: 50</p>
+            <p>Connection 4: Store 3 -> Store 4, Traffic Weight: 25</p>
+        </div>
+
+        <div class="result">
             <h3>Shortest Paths from Entrance (Store 1):</h3>
-            <p>Store 2 - Distance: 40</p>
-            <p>Store 3 - Distance: 75</p>
-            <p>Store 4 - Distance: 50</p>
-        </section>
-        <section class="placement">
+            <p><strong>Store 2:</strong> Distance: 40</p>
+            <p><strong>Store 3:</strong> Distance: 75</p>
+            <p><strong>Store 4:</strong> Distance: 50</p>
+        </div>
+
+        <div class="result">
             <h3>Optimal Store Placement (based on shortest path distance):</h3>
-            <p>Store 2 placed at distance 40 from entrance</p>
-            <p>Store 3 placed at distance 75 from entrance</p>
-            <p>Store 4 placed at distance 50 from entrance</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Store Data Management | All rights reserved</p>
-    </footer>
+            <p><strong>Store 2:</strong> Placed at distance 40 from entrance</p>
+            <p><strong>Store 3:</strong> Placed at distance 75 from entrance</p>
+            <p><strong>Store 4:</strong> Placed at distance 50 from entrance</p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 Store Data Management | <a href="#">Back to top</a></p>
+        </div>
+    </div>
+
 </body>
 </html>
