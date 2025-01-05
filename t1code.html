@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mall Management System - Business Cases</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+            background-color: #f4f4f9;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #444;
+        }
+        header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+        section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        section h2 {
+            color: #555;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            line-height: 1.4;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mall Management System</h1>
+        <p>Business Cases by Tanuja Ratan</p>
+    </header>
+
+    <section>
+        <h2>1. Patrol Route Optimization</h2>
+        <p><strong>Scenario:</strong> The objective is to optimize the patrol route for security guards to cover all critical areas of the mall while minimizing the total walking distance. The challenge is to ensure efficient coverage of key security checkpoints without unnecessary travel, enhancing both guard efficiency and response time.</p>
+        <p><strong>Algorithm:</strong> Prim’s Algorithm for Minimum Spanning Tree (MST)</p>
+        <p><strong>Approach:</strong></p>
+        <ul>
+            <li><strong>Graph Representation:</strong> Each checkpoint is a node, with edges representing walking distances.</li>
+            <li><strong>Minimum Spanning Tree (MST):</strong> Use Prim’s algorithm to find the MST, connecting all nodes with minimal distance and no cycles.</li>
+            <li><strong>Patrol Route Optimization:</strong> The MST provides an optimal route, minimizing travel while ensuring all checkpoints are covered.</li>
+        </ul>
+        <p><strong>Benefits of MST:</strong></p>
+        <ul>
+            <li><strong>Minimized Travel Time:</strong> Reduces walking distance, improving efficiency.</li>
+            <li><strong>Full Coverage:</strong> Ensures all checkpoints are covered.</li>
+            <li><strong>Optimized Response:</strong> Allows faster response times, enhancing security.</li>
+        </ul>
+        <p>This method balances efficient coverage and operational effectiveness.</p>
+        <pre>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;climits&gt;
+#include &lt;queue&gt;
+#include &lt;utility&gt;
+
+using namespace std;
+
+// Function to find the MST using Prim's Algorithm
+void primMST(int n, vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt;&amp; graph) {
+    vector&lt;int&gt; parent(n, -1); // Stores the MST
+    vector&lt;int&gt; key(n, INT_MAX); // Minimum weights
+    vector&lt;bool&gt; inMST(n, false); // Tracks if the node is in MST
+
+    // Priority queue to select the edge with the minimum weight
+    priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;, greater&lt;pair&lt;int, int&gt;&gt; pq;
+
+    // Start with the first node
+    key[0] = 0;
+    pq.push({0, 0}); // {weight, node}
+
+    while (!pq.empty()) {
+        int u = pq.top().second;
+        pq.pop();
+
+        if (inMST[u]) continue; // Skip if already included
+
+        inMST[u] = true;
+
+        // Traverse all adjacent nodes
+        for (auto&amp; neighbor : graph[u]) {
+            int v = neighbor.first;
+            int weight = neighbor.second;
+
+            if (!inMST[v] && weight < key[v]) {
+                key[v] = weight;
+                pq.push({key[v], v});
+                parent[v] = u;
+            }
+        }
+    }
+
+    // Output the MST and problem statement
+    cout &lt;&lt; "\n--- Patrol Route Optimization ---\n";
+    cout &lt;&lt; "Objective: Optimize patrol routes to minimize walking distance and ensure full checkpoint coverage.\n";
+    cout &lt;&lt; "Optimized Patrol Route (Minimum Spanning Tree):\n";
+    int totalDistance = 0;
+    for (int i = 1; i < n; ++i) {
+        cout &lt;&lt; "Checkpoint " &lt;&lt; parent[i] &lt;&lt; " -&gt; Checkpoint " &lt;&lt; i &lt;&lt; " (Distance: " &lt;&lt; key[i] &lt;&lt; ")\n";
+        totalDistance += key[i];
+    }
+    cout &lt;&lt; "Total Minimized Travel Distance: " &lt;&lt; totalDistance &lt;&lt; "\n";
+}
+
+int main() {
+    int n, m;
+    cout &lt;&lt; "Enter the number of checkpoints: ";
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; "Enter the number of paths (edges): ";
+    cin &gt;&gt; m;
+
+    vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; graph(n);
+
+    cout &lt;&lt; "Enter the paths as: start end distance\n";
+    for (int i = 0; i < m; ++i) {
+        int u, v, w;
+        cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;
+        graph[u].push_back({v, w});
+        graph[v].push_back({u, w});
+    }
+
+    primMST(n, graph);
+
+    return 0; 
+}
+        </pre>
+    </section>
+</body>
+</html>
