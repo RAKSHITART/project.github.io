@@ -1,28 +1,35 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Portfolio - Our Project</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f1f1f1;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #e3f2fd, #ffab00);
             color: #333;
+            overflow-x: hidden;
         }
         header {
             background: linear-gradient(135deg, #8e44ad, #4a148c);
             color: #fff;
-            padding: 4rem 1rem;
+            padding: 6rem 2rem;
             text-align: center;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+            animation: slideIn 1.2s ease-in-out;
         }
         header h1 {
             font-size: 4rem;
             margin: 0;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 2s ease-in;
         }
         header p {
             font-size: 1.5rem;
@@ -33,7 +40,8 @@
             background-color: #6a1b9a;
             padding: 1.5rem;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
         nav a {
             color: #fff;
@@ -42,46 +50,72 @@
             font-weight: bold;
             font-size: 1.2rem;
             text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease, padding 0.3s ease;
         }
         nav a:hover {
             color: #ffab00;
-            text-decoration: underline;
+            padding-bottom: 5px;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #ffab00;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+        nav a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
         }
         main {
-            padding: 3rem 1rem;
+            padding: 4rem 2rem;
+            background: #f9f9f9;
         }
         .section {
-            margin-bottom: 3rem;
-            padding: 2.5rem;
+            margin-bottom: 4rem;
+            padding: 3rem;
             background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .section:hover {
+            transform: scale(1.02);
         }
         h2 {
             font-size: 2.5rem;
             color: #4a148c;
             margin-bottom: 1rem;
             text-align: center;
+            letter-spacing: 1.5px;
+            animation: fadeIn 2s ease-in;
         }
         .team {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
+            gap: 3rem;
+            animation: fadeInUp 1s ease-in;
         }
         .member {
             text-align: center;
             padding: 2.5rem;
             background: #f9f9f9;
             border-radius: 16px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
             max-width: 320px;
             width: 100%;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .member:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-15px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
         .member img {
             width: 80%;
@@ -89,6 +123,10 @@
             border-radius: 50%;
             margin-bottom: 1.5rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .member img:hover {
+            transform: scale(1.1);
         }
         .member h3 {
             font-size: 1.5rem;
@@ -104,8 +142,9 @@
             padding: 2rem;
             background-color: #4a148c;
             color: #fff;
-            margin-top: 3rem;
+            margin-top: 4rem;
             border-top: 4px solid #ffab00;
+            animation: fadeIn 1.5s ease-in;
         }
         footer p {
             font-size: 1.2rem;
@@ -113,6 +152,34 @@
         footer a {
             color: #ffab00;
             text-decoration: none;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -131,7 +198,6 @@
         <section id="home" class="section">
             <h2>About the Project</h2>
             <p>For our course project, we designed a city plan for Pune, incorporating innovative algorithmic applications in mall management. Our project includes various sectors such as Commercial, Industrial, Organic Farming, and Residential Zones, along with cost estimations and development phases.</p>
-            
             <h2>Course Project Details</h2>
             <ul>
                 <li><strong>Course Project Topic:</strong> To create a city design and solve real-world problems</li>
@@ -170,33 +236,30 @@
                 </div>
             </div>
         </section>
-       <section id="projects" class="section">
-    <h2>Our Projects</h2>
-    <div class="project-container">
-        <p><strong>Rakshita:</strong> I'm working on two main business case studies:</p>
-        
-        <div class="project">
-            <div class="project-icon" style="background-color: #8e44ad;">
-                <i class="fas fa-store-alt"></i>
+        <section id="projects" class="section">
+            <h2>Our Projects</h2>
+            <div class="project-container">
+                <p><strong>Rakshita:</strong> I'm working on two main business case studies:</p>
+                <div class="project">
+                    <div class="project-icon" style="background-color: #8e44ad;">
+                        <i class="fas fa-store-alt"></i>
+                    </div>
+                    <div class="project-description">
+                        <h3>Store Ranking and Allocation</h3>
+                        <p>Placing top-ranked stores based on customer reviews and revenue in high-traffic areas boosts sales and customer satisfaction. It attracts more foot traffic, encouraging repeat business. This strategic placement optimizes space and enhances the overall shopping experience.</p>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="project-icon" style="background-color: #f39c12;">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <div class="project-description">
+                        <h3>Waste Management</h3>
+                        <p>Efficient waste management ensures a clean, hygienic environment that improves customer satisfaction and health. It reduces costs through optimized collection and supports sustainability initiatives. Proper waste handling also strengthens the mall’s eco-friendly reputation and creates a more enjoyable shopping atmosphere.</p>
+                    </div>
+                </div>
             </div>
-            <div class="project-description">
-                <h3>Store Ranking and Allocation</h3>
-                <p>Placing top-ranked stores based on customer reviews and revenue in high-traffic areas boosts sales and customer satisfaction. It attracts more foot traffic, encouraging repeat business. This strategic placement optimizes space and enhances the overall shopping experience.</p>
-            </div>
-        </div>
-        
-        <div class="project">
-            <div class="project-icon" style="background-color: #f39c12;">
-                <i class="fas fa-recycle"></i>
-            </div>
-            <div class="project-description">
-                <h3>Waste Management</h3>
-                <p>Efficient waste management ensures a clean, hygienic environment that improves customer satisfaction and health. It reduces costs through optimized collection and supports sustainability initiatives. Proper waste handling also strengthens the mall’s eco-friendly reputation and creates a more enjoyable shopping atmosphere.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
+        </section>
         <section id="contact" class="section">
             <h2>Contact Us</h2>
             <p>Email: <a href="mailto:rakshitatalegaon@gmail.com">rakshitatalegaon@gmail.com</a></p>
