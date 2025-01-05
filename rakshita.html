@@ -4,27 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mall Management and Waste Management System</title>
-    <style> 
+    <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             line-height: 1.6;
-            margin: 20px;
-            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #eef2f3, #8e9eab);
             color: #333;
         }
-        h1, h2 {
+        h1, h2, h3, h4 {
+            margin: 0;
+            font-weight: 700;
             color: #0056b3;
         }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2.5em;
+        }
         section {
-            margin-bottom: 20px;
-            padding: 10px;
-            background: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
         }
         ul {
+            margin: 15px 0;
+            padding-left: 40px;
+            list-style: disc;
+        }
+        a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        p, ul {
+            font-size: 1rem;
+            color: #555;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: #444;
+        }
+        h4 {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            color: #666;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        p {
             margin: 10px 0;
-            padding-left: 20px;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            section {
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -53,8 +105,7 @@
         </p>
         <ul>
             <li><strong>Rank by Total Reviews:</strong> Total number of reviews for each store.</li>
-            <li><strong>Rank by Positive Reviews:</strong> Number of positive reviews each store receives.
-            </li>
+            <li><strong>Rank by Positive Reviews:</strong> Number of positive reviews each store receives.</li>
         </ul>
 
         <h4>Dijkstra’s Algorithm for Optimal Placement</h4>
