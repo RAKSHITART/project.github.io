@@ -3,186 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store Ranking and Mall Layout</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        header {
-            background: #4CAF50;
-            color: white;
-            padding: 1rem 0;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        main {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #4CAF50;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 0.5rem;
-        }
-
-        section {
-            margin-bottom: 1.5rem;
-        }
-
-        h2 {
-            font-size: 1.4rem;
-            color: #333;
-            margin-bottom: 0.8rem;
-            border-left: 5px solid #4CAF50;
-            padding-left: 10px;
-        }
-
-        pre {
-            background: #f0f0f0;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        code {
-            color: #d63384;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            padding: 8px 10px;
-            background: #e8f5e9;
-            margin: 5px 0;
-            border-left: 4px solid #4CAF50;
-            font-size: 0.95rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .highlight {
-            color: #d63384;
-            font-weight: bold;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        footer a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-    </style>
+    <title>Store Data</title>
 </head>
 <body>
-    <header>
-        Store Ranking and Mall Layout System
-    </header>
-    <main>
-        <h1>Code Implementation</h1>
-        <section>
-            <h2>Code</h2>
-            <pre>
-<code>&lt;code&gt;
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
-#include &lt;climits&gt;
-#include &lt;algorithm&gt;
-#include &lt;map&gt;
+    <p>Enter the number of stores: 4</p>
+    <p>Enter name of Store 1: A</p>
+    <p>Enter revenue of Store 1: 29000</p>
+    <p>Enter number of reviews for Store 1: 20</p>
+    <p>Enter number of positive reviews for Store 1: 17</p>
+    <p>Enter name of Store 2: B</p>
+    <p>Enter revenue of Store 2: 34000</p>
+    <p>Enter number of reviews for Store 2: 40</p>
+    <p>Enter number of positive reviews for Store 2: 25</p>
+    <p>Enter name of Store 3: C</p>
+    <p>Enter revenue of Store 3: 22000</p>
+    <p>Enter number of reviews for Store 3: 28</p>
+    <p>Enter number of positive reviews for Store 3: 25</p>
+    <p>Enter name of Store 4: C</p>
+    <p>Enter revenue of Store 4: 56000</p>
+    <p>Enter number of reviews for Store 4: 34</p>
+    <p>Enter number of positive reviews for Store 4: 15</p>
+    <p>Choose the ranking method:</p>
+    <p>1. Rank by Highest Reviews</p>
+    <p>2. Rank by Positive Reviews</p>
+    <p>Enter your choice (1 or 2): 1</p>
 
-using namespace std;
+    <h3>Top 3 Ranked Stores (based on highest reviews):</h3>
+    <p>Store Name: B, Reviews: 40, Positive Reviews: 25</p>
+    <p>Store Name: C, Reviews: 34, Positive Reviews: 15</p>
+    <p>Store Name: C, Reviews: 28, Positive Reviews: 25</p>
 
-struct Store {
-    int storeId;
-    string name;
-    double revenue;
-    int reviews;
-    int positiveReviews;
+    <p>Enter number of connections between stores: 4</p>
+    <p>Enter connection 1 (store1 store2 traffic_weight): 1 2 40</p>
+    <p>Enter connection 2 (store1 store2 traffic_weight): 2 3 60</p>
+    <p>Enter connection 3 (store1 store2 traffic_weight): 1 4 50</p>
+    <p>Enter connection 4 (store1 store2 traffic_weight): 3 4 25</p>
 
-    bool operator&lt;(const Store&amp; other) const {
-        return reviews &lt; other.reviews;
-    }
-};
+    <h3>Shortest Paths from Entrance (Store 1):</h3>
+    <p>Store 2 - Distance: 40</p>
+    <p>Store 3 - Distance: 75</p>
+    <p>Store 4 - Distance: 50</p>
 
-// Full code implementation continues...
-&lt;/code&gt;
-</code>
-            </pre>
-        </section>
-
-        <h1>Sample Output</h1>
-        <section>
-            <h2>Input</h2>
-            <ul>
-                <li><span class="highlight">Number of Stores:</span> 4</li>
-                <li><span class="highlight">Store Details:</span>
-                    <ul>
-                        <li>Store 1: Name = ElectronicsHub, Revenue = 50000, Reviews = 120, Positive Reviews = 100</li>
-                        <li>Store 2: Name = BookWorld, Revenue = 30000, Reviews = 80, Positive Reviews = 60</li>
-                        <li>Store 3: Name = FashionHouse, Revenue = 45000, Reviews = 100, Positive Reviews = 85</li>
-                        <li>Store 4: Name = GroceryLand, Revenue = 60000, Reviews = 150, Positive Reviews = 140</li>
-                    </ul>
-                </li>
-                <li><span class="highlight">Ranking Method:</span> Rank by Highest Reviews</li>
-                <li><span class="highlight">Connections:</span>
-                    <ul>
-                        <li>Connection 1: Store 1 ↔ Store 2, Weight: 5</li>
-                        <li>Connection 2: Store 1 ↔ Store 3, Weight: 10</li>
-                        <li>Connection 3: Store 2 ↔ Store 4, Weight: 3</li>
-                        <li>Connection 4: Store 3 ↔ Store 4, Weight: 7</li>
-                    </ul>
-                </li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Output</h2>
-            <ul>
-                <li><span class="highlight">Top Ranked Stores:</span>
-                    <ul>
-                        <li>1. GroceryLand: 150 Reviews, 140 Positive Reviews</li>
-                        <li>2. ElectronicsHub: 120 Reviews, 100 Positive Reviews</li>
-                        <li>3. FashionHouse: 100 Reviews, 85 Positive Reviews</li>
-                    </ul>
-                </li>
-                <li><span class="highlight">Shortest Paths from Entrance:</span>
-                    <ul>
-                        <li>Store 2: Distance = 5</li>
-                        <li>Store 3: Distance = 10</li>
-                        <li>Store 4: Distance = 8</li>
-                    </ul>
-                </li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        Created with ❤️ for better mall layouts. Learn more at <a href="https://www.example.com">our website</a>.
-    </footer>
+    <h3>Optimal Store Placement (based on shortest path distance):</h3>
+    <p>Store 2 placed at distance 40 from entrance</p>
+    <p>Store 3 placed at distance 75 from entrance</p>
+    <p>Store 4 placed at distance 50 from entrance</p>
 </body>
 </html>
