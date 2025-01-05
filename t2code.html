@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mall Management System - Revenue Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+            background-color: #f4f4f9;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #444;
+        }
+        header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+        section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        section h2 {
+            color: #555;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            line-height: 1.4;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mall Management System</h1>
+        <p>Business Cases by Tanuja Ratan</p>
+    </header>
+
+    <section>
+        <h2>2. Revenue Prediction for Shops</h2>
+        <p><strong>Scenario:</strong> The goal is to analyze the revenue trends of shops to predict their future performance based on historical data and inter-shop relationships.</p>
+        <p><strong>Algorithm:</strong> Merge Sort and Depth First Search (DFS)</p>
+        <p><strong>Approach:</strong></p>
+        <ul>
+            <li><strong>Input Format:</strong> Revenue data as pairs {revenue, shopID} and shop relationships as pairs of connected shop IDs.</li>
+            <li><strong>Merge Sort:</strong> Sorts revenue data by revenue amounts or chronologically (depending on input).</li>
+            <li><strong>DFS:</strong> Explores the relationships between shops based on the graph input.</li>
+        </ul>
+        <p><strong>Output:</strong></p>
+        <ul>
+            <li>Displays sorted revenue data.</li>
+            <li>Analyzes and outputs shop relationships starting from each unvisited shop.</li>
+        </ul>
+        <pre>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;map&gt;
+#include &lt;stack&gt;
+
+using namespace std;
+
+// Merge function for Merge Sort
+void merge(vector&lt;pair&lt;int, int&gt;&gt; &amp;revenues, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    vector&lt;pair&lt;int, int&gt;&gt; L(n1), R(n2);
+
+    for (int i = 0; i &lt; n1; ++i)
+        L[i] = revenues[left + i];
+    for (int j = 0; j &lt; n2; ++j)
+        R[j] = revenues[mid + 1 + j];
+
+    int i = 0, j = 0, k = left;
+    while (i &lt; n1 &amp;&amp; j &lt; n2) {
+        if (L[i].first &lt;= R[j].first) {
+            revenues[k++] = L[i++];
+        } else {
+            revenues[k++] = R[j++];
+        }
+    }
+
+    while (i &lt; n1) revenues[k++] = L[i++];
+    while (j &lt; n2) revenues[k++] = R[j++];
+}
+
+// Merge Sort
+void mergeSort(vector&lt;pair&lt;int, int&gt;&gt; &amp;revenues, int left, int right) {
+    if (left &lt; right) {
+        int mid = left + (right - left) / 2;
+        mergeSort(revenues, left, mid);
+        mergeSort(revenues, mid + 1, right);
+        merge(revenues, left, mid, right);
+    }
+}
+
+// DFS for analyzing shop relationships
+void dfs(int node, map&lt;int, vector&lt;int&gt;&gt; &amp;graph, vector&lt;bool&gt; &amp;visited) {
+    stack&lt;int&gt; stack;
+    stack.push(node);
+
+    cout &lt;&lt; "Analyzing relationships starting from Shop " &lt;&lt; node &lt;&lt; "...\n";
+
+    while (!stack.empty()) {
+        int current = stack.top();
+        stack.pop();
+
+        if (!visited[current]) {
+            visited[current] = true;
+            cout &lt;&lt; "Shop " &lt;&lt; current &lt;&lt; " is connected to: ";
+            for (int neighbor : graph[current]) {
+                cout &lt;&lt; neighbor &lt;&lt; " ";
+                if (!visited[neighbor]) {
+                    stack.push(neighbor);
+                }
+            }
+            cout &lt;&lt; "\n";
+        }
+    }
+}
+
+int main() {
+    int n, m;
+
+    // Input for revenue data
+    cout &lt;&lt; "Enter the number of revenue entries: ";
+    cin &gt;&gt; n;
+
+    vector&lt;pair&lt;int, int&gt;&gt; revenues(n); // {revenue, shop ID}
+    cout &lt;&lt; "Enter revenue data as: revenue shopID\n";
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; revenues[i].first &gt;&gt; revenues[i].second;
+    }
+
+    // Input for shop relationships
+    cout &lt;&lt; "Enter the number of relationships between shops: ";
+    cin &gt;&gt; m;
+
+    map&lt;int, vector&lt;int&gt;&gt; graph;
+    cout &lt;&lt; "Enter relationships as: shop1 shop2\n";
+    for (int i = 0; i &lt; m; ++i) {
+        int u, v;
+        cin &gt;&gt; u &gt;&gt; v;
+        graph[u].push_back(v);
+        graph[v].push_back(u);
+    }
+
+    // Sorting revenue data
+    mergeSort(revenues, 0, n - 1);
+
+    // Output sorted revenue data
+    cout &lt;&lt; "\n--- Revenue Prediction for Shops ---\n";
+    cout &lt;&lt; "Objective: Predict future performance by analyzing historical data and shop relationships.\n";
+    cout &lt;&lt; "Sorted Revenue Data (Chronologically or by Amount):\n";
+    for (auto &amp;entry : revenues) {
+        cout &lt;&lt; "Revenue: " &lt;&lt; entry.first &lt;&lt; ", Shop ID: " &lt;&lt; entry.second &lt;&lt; "\n";
+    }
+
+    // Analyzing shop relationships using DFS
+    vector&lt;bool&gt; visited(graph.size(), false);
+    for (const auto &amp;pair : graph) {
+        if (!visited[pair.first]) {
+            dfs(pair.first, graph, visited);
+        }
+    }
+
+    return 0;
+}
+        </pre>
+    </section>
+</body>
+</html>
